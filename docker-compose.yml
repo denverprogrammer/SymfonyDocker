@@ -1,0 +1,55 @@
+# docker-compose.yml
+version: '3.7'
+services:
+    database:
+        image: mysql:8.0
+        restart: always
+        command: ["--default-authentication-plugin=mysql_native_password"]
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER_NAME}
+            MYSQL_PASSWORD: ${MYSQL_USER_PASSWORD}
+
+    application:
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER_NAME: ${MYSQL_USER_NAME}
+            MYSQL_USER_PASSWORD: ${MYSQL_USER_PASSWORD}
+        build:
+            context: .
+            dockerfile: docker/php/Dockerfile
+        restart: always
+        user: '${LOCAL_USER}'
+        links:
+            - composer
+            - database
+        depends_on:
+            - composer
+            - database
+        volumes:
+            - ./app:/usr/src/app
+
+    webserver:
+        image: nginx:1.15.3-alpine
+        restart: always
+        links:
+            - application
+        depends_on:
+            - application
+
+    composer:
+        restart: 'no'
+        build:
+            context: .
+            dockerfile: docker/composer/Dockerfile
+        volumes:
+            - ./app:/usr/src/app
+
+    adminer:
+        image: adminer
+        restart: always
+        links:
+            - database
+        depends_on:
+            - database

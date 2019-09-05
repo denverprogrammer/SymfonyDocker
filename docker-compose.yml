@@ -21,9 +21,6 @@ services:
             dockerfile: docker/php/Dockerfile
         restart: always
         user: '${LOCAL_USER}'
-        links:
-            - composer
-            - database
         depends_on:
             - composer
             - database
@@ -33,23 +30,15 @@ services:
     webserver:
         image: nginx:1.15.3-alpine
         restart: always
-        links:
-            - application
         depends_on:
             - application
 
     composer:
         restart: 'no'
-        build:
-            context: .
-            dockerfile: docker/composer/Dockerfile
-        volumes:
-            - ./app:/usr/src/app
+        image: composer/composer
 
     adminer:
         image: adminer
         restart: always
-        links:
-            - database
         depends_on:
             - database

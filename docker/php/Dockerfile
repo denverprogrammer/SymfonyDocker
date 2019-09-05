@@ -14,6 +14,17 @@ RUN apt-get update && \
 
 WORKDIR /usr/src/app
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+# RUN mkdir ~/.composer
+# RUN chown -R 1000 ~/.composer/
+
+# COPY --from=composer /.composer /.composer
+# RUN chown -R 1000 /home/1000/.composer/cache/repo/https—packagist.org
+# RUN chown -R 1000 /home/1000/.composer/cache/files/
+# RUN chown -R 1000 /home/1000/.composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_CACHE_DIR=/dev/null
+
 COPY docker/php/ApplicationInstall.sh /usr/local/bin/ApplicationInstall.sh
 RUN chmod +x /usr/local/bin/ApplicationInstall.sh
 

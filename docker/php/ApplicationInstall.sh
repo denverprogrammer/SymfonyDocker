@@ -44,6 +44,6 @@ echo "##########################################################################
 
 bin/console doctrine:schema:create --no-interaction
 
-bin/console doctrine:migrations:migrate --force --no-interaction --query-time
+bin/console doctrine:migrations:migrate --force --no-interaction --query-time --all-or-nothing
 
 exec docker-php-entrypoint "$@"

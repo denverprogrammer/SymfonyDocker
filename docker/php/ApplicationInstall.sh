@@ -40,6 +40,10 @@ echo "##########################################################################
 echo "##  Database service is now fully functional.  Update database schema"
 echo "###############################################################################"
 
-bin/console doctrine:schema:update --force --no-interaction
+# bin/console doctrine:schema:update --force --no-interaction
+
+bin/console doctrine:schema:create --no-interaction
+
+bin/console doctrine:migrations:migrate --force --no-interaction --query-time
 
 exec docker-php-entrypoint "$@"

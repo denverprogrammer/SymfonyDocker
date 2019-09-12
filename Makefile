@@ -1,8 +1,6 @@
-IMAGES = docker images -aq
+
+start:
+	docker-compose up --build -d
 
 destroy:
-	docker-compose down
-	docker volume prune
-	docker container prune
-	docker network prune
-	@docker rmi -f $(IMAGES)
+	docker-compose down --rmi=all --remove-orphans --volumes

@@ -37,13 +37,14 @@ done
 
 echo "\n"
 echo "###############################################################################"
-echo "##  Database service is now fully functional.  Update database schema"
+echo "##  Run database migration"
 echo "###############################################################################"
 
-# bin/console doctrine:schema:update --force --no-interaction
+bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing
 
-bin/console doctrine:schema:create --no-interaction
-
-bin/console doctrine:migrations:migrate --force --no-interaction --query-time --all-or-nothing
+echo "\n"
+echo "###############################################################################"
+echo "##  Application install completed"
+echo "###############################################################################"
 
 exec docker-php-entrypoint "$@"

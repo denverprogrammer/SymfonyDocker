@@ -5,4 +5,4 @@ destroy:
 	docker volume prune
 	docker container prune
 	docker network prune
-	docker rmi -f $(IMAGES)
+	@docker rmi -f $(IMAGES)

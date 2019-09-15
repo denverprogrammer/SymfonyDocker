@@ -5,24 +5,23 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
-
+use App\Entity\Interfaces\UserInterface;
 
 /**
+ * User class/table
+ * 
  * @ApiResource
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"})
  */
 class User implements UserInterface
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use Traits\IdentifierTrait;
+    use Traits\CreatedTrait;
+    use Traits\UpdatedTrait;
 
     /**
      * @ORM\Column(type="string", length=180)
@@ -55,52 +54,72 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
-     */
-    private $created;
 
     /**
-     * @ORM\Column(name="updated", type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * First name of user
+     *
+     * @return string
      */
-    private $updated;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    public function setFirstName(string $value): self
+    /**
+     * Set first name of user
+     * 
+     * @param string $name Value of user's firstname
+     *
+     * @return self
+     */
+    public function setFirstName(string $name): self
     {
-        $this->firstName = $value;
+        $this->firstName = $name;
 
         return $this;
     }
 
+    /**
+     * Last name of user
+     *
+     * @return string
+     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $value): self
+    /**
+     * Set last name of user
+     * 
+     * @param string $name Value of user's lastname
+     *
+     * @return self
+     */
+    public function setLastName(string $name): self
     {
-        $this->lastName = $value;
+        $this->lastName = $name;
 
         return $this;
     }
 
+    /**
+     * Email of user
+     *
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * Set email of user
+     * 
+     * @param string $email Value of user's email
+     *
+     * @return self
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -130,6 +149,13 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * Set user roles
+     * 
+     * @param array $roles User roles
+     *
+     * @return self
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -145,6 +171,13 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
+    /**
+     * Set user password
+     * 
+     * @param string $password User password
+     *
+     * @return self
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -167,15 +200,5 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         $this->plainPassword = null;
-    }
-
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 }

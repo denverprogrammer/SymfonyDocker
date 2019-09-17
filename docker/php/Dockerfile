@@ -9,7 +9,9 @@ RUN apt-get update && \
     docker-php-ext-install zip \
                            pdo \
                            pdo_mysql && \
+    pecl install xdebug && \
     pecl install apcu-5.1.8 && \
+    docker-php-ext-enable xdebug && \
     docker-php-ext-enable apcu
 
 WORKDIR /usr/src/app

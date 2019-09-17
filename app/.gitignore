@@ -9,3 +9,4 @@
 /public/bundles/
 /config/jwt
 /bin
+/tests/coverage

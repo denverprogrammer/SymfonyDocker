@@ -7,12 +7,16 @@ RUN apt-get update && \
             wget \
             acl && \
     docker-php-ext-install zip \
-                           pdo \
                            pdo_mysql && \
-    pecl install xdebug && \
     pecl install apcu-5.1.8 && \
-    docker-php-ext-enable xdebug && \
     docker-php-ext-enable apcu
+
+# ARG WITH_XDEBUG=false
+# RUN if [ $WITH_XDEBUG = "true" ] ; then \
+#     fi;
+
+RUN pecl install xdebug && \
+    docker-php-ext-enable xdebug
 
 WORKDIR /usr/src/app
 

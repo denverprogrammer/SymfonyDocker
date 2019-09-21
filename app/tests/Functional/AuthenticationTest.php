@@ -5,32 +5,46 @@ namespace App\Tests\Functional;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 use App\Tests\Constants\UserConstants;
+use App\Entity\User;
+use App\Tests\Helpers\UserHelpers;
 
 class AuthenticationTest extends ApiTestCase
 {
     use ReloadDatabaseTrait;
+    use UserHelpers;
+
+    const HEADERS = ['Content-Type' => 'application/json'];
+
+    const URL = '/authentication_token';
+
+    private $client = null;
+
+    protected function setUp()
+    {
+        parent::setup();
+        $this->client = self::createClient();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        $this->client = null;
+    }
 
     public function testAuthentication()
     {
-        $client = self::createClient();
-
-        // Create user happy path
-        $client->request('POST', '/api/users', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json'    => UserConstants::TEST_USER
-        ]);
-        $this->assertResponseStatusCodeSame(201);
+        $user = $this->createApiUser();
 
         // Empty payload error
-        $client->request('POST', '/authentication_token', [
-            'headers' => ['Content-Type' => 'application/json'],
+        $this->client->request('POST', self::URL, [
+            'headers' => self::HEADERS,
             'json'    => []
         ]);
         $this->assertResponseStatusCodeSame(400);
 
-        // Create user happy path
-        $client->request('POST', '/authentication_token', [
-            'headers' => ['Content-Type' => 'application/json'],
+        // Invalid credentials
+        $this->client->request('POST', self::URL, [
+            'headers' => self::HEADERS,
             'json'    => [
                 'email'    => '',
                 'password' => ''
@@ -39,8 +53,8 @@ class AuthenticationTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(401);
 
         // Bad password
-        $client->request('POST', '/authentication_token', [
-            'headers' => ['Content-Type' => 'application/json'],
+        $this->client->request('POST', self::URL, [
+            'headers' => self::HEADERS,
             'json'    => [
                 'email'    => UserConstants::TEST_EMAIL,
                 'password' => UserConstants::TEST_BAD_PWD
@@ -49,8 +63,8 @@ class AuthenticationTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(401);
 
         // Bad email
-        $client->request('POST', '/authentication_token', [
-            'headers' => ['Content-Type' => 'application/json'],
+        $this->client->request('POST', self::URL, [
+            'headers' => self::HEADERS,
             'json'    => [
                 'email'    => UserConstants::TEST_BAD_EMAIL,
                 'password' => ''
@@ -59,8 +73,8 @@ class AuthenticationTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(401);
 
         // Create user happy path
-        $client->request('POST', '/authentication_token', [
-            'headers' => ['Content-Type' => 'application/json'],
+        $this->client->request('POST', self::URL, [
+            'headers' => self::HEADERS,
             'json'    => [
                 'email'    => UserConstants::TEST_EMAIL,
                 'password' => UserConstants::TEST_PLAIN_PWD

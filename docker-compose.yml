@@ -16,6 +16,7 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER_NAME: ${MYSQL_USER_NAME}
             MYSQL_USER_PASSWORD: ${MYSQL_USER_PASSWORD}
+            XDEBUG_CONFIG: "idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1"
         build:
             context: .
             dockerfile: docker/php/Dockerfile

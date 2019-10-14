@@ -1,5 +1,10 @@
 doctrine:
     dbal:
+        dbname: '%env(MYSQL_DATABASE)%'
+        host: '%env(resolve:MYSQL_HOST)%'
+        port: '%env(MYSQL_PORT)%'
+        user: '%env(MYSQL_USER)%'
+        password: '%env(MYSQL_PASSWORD)%'
         # configure these for your database server
         driver: 'pdo_mysql'
         server_version: '5.7'
@@ -8,7 +13,6 @@ doctrine:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
 
-        url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping: true

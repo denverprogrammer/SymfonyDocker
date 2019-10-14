@@ -1,45 +1,40 @@
 # docker-compose.yml
+
 version: '3.7'
+
 services:
     database:
+        command: ['--default-authentication-plugin=mysql_native_password']
+        env_file:
+            - ./docker/database/.env
+        hostname: database
         image: mysql:8.0
         restart: always
-        command: ["--default-authentication-plugin=mysql_native_password"]
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER_NAME}
-            MYSQL_PASSWORD: ${MYSQL_USER_PASSWORD}
 
     application:
-        environment:
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER_NAME: ${MYSQL_USER_NAME}
-            MYSQL_USER_PASSWORD: ${MYSQL_USER_PASSWORD}
-            XDEBUG_CONFIG: "idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1"
         build:
             context: .
-            dockerfile: docker/php/Dockerfile
-        restart: always
-        user: '${LOCAL_USER}'
+            dockerfile: docker/application/Dockerfile
         depends_on:
             - composer
             - database
+        env_file:
+            - ./docker/database/.env
+        hostname: application
+        restart: always
         volumes:
             - ./app:/usr/src/app
 
     webserver:
-        image: nginx:1.15.3-alpine
-        restart: always
         depends_on:
             - application
+        env_file:
+            - ./docker/webserver/.env
+        hostname: webserver
+        image: nginx:1.15.3-alpine
+        restart: always
 
     composer:
+        hostname: composer
+        image: composer/composer:alpine
         restart: 'no'
-        image: composer/composer
-
-    adminer:
-        image: adminer
-        restart: always
-        depends_on:
-            - database

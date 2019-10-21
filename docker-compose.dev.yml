@@ -1,0 +1,31 @@
+# docker-compose.yml
+
+version: '3.7'
+
+services:
+    database:
+        env_file:
+            - ./docker/database/.env
+        ports:
+            -   '3306:3306'
+
+    application:
+        environment:
+            APP_ENV: dev
+        env_file:
+            - ./docker/database/.env
+
+    webserver:
+        env_file:
+            - ./docker/webserver/.env
+        ports:
+            -   '80:80'
+
+    adminer:
+        depends_on:
+            - database
+        hostname: adminer
+        image: adminer
+        ports:
+            - "8080:8080"
+        restart: always

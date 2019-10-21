@@ -1,6 +1,23 @@
 
-start:
-	docker-compose up --build -d
+dev-up:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml down \
+		--remove-orphans --volumes && \
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up \
+		--build -d
 
-destroy:
-	docker-compose down --rmi=local --remove-orphans --volumes
+dev-down:
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml down \
+		--remove-orphans --volumes
+
+test-up:
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml down \
+		--remove-orphans --volumes && \
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml up \
+		--build -d
+
+test-down:
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml down \
+		--remove-orphans --volumes
+
+test:
+	@docker-compose exec application sh -c "vendor/bin/behat"

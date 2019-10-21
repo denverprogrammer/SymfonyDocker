@@ -13,7 +13,6 @@ setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
 if [ "$APP_ENV" != 'prod' ]; then
 
-	echo "\n"
 	echo "###############################################################################"
 	echo "##  Set Security keys if needed"
 	echo "###############################################################################"
@@ -28,20 +27,17 @@ if [ "$APP_ENV" != 'prod' ]; then
 		setfacl -dR -m u:www-data:rX -m u:"$(whoami)":rwX config/jwt
 	fi
 
-	echo "\n"
 	echo "###############################################################################"
 	echo "##  Install application dependencies using composer"
 	echo "###############################################################################"
 
 	composer install --prefer-dist --no-suggest
 
-	echo "\n"
 	until bin/console doctrine:query:sql "SELECT 1" > /dev/null 2>&1; do
 		echo "####  Waiting for database service to fully functional"
 		sleep 1
 	done
 
-	echo "\n"
 	echo "###############################################################################"
 	echo "##  Run database migration"
 	echo "###############################################################################"
@@ -49,7 +45,6 @@ if [ "$APP_ENV" != 'prod' ]; then
 	bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing
 fi
 
-echo "\n"
 echo "###############################################################################"
 echo "##  Application install completed"
 echo "###############################################################################"

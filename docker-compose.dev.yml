@@ -10,6 +10,8 @@ services:
     application:
         environment:
             APP_ENV: dev
+            XDEBUG_CONFIG: 'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1'
+
         env_file:
             - ./docker/database/.env
 

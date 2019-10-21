@@ -6,26 +6,9 @@ services:
     database:
         env_file:
             - ./docker/database/.env.test
-        ports:
-            -   '3306:3306'
 
     application:
         environment:
             APP_ENV: test
         env_file:
             - ./docker/database/.env.test
-
-    webserver:
-        env_file:
-            - ./docker/webserver/.env
-        ports:
-            -   '80:80'
-
-    adminer:
-        depends_on:
-            - database
-        hostname: adminer
-        image: adminer
-        ports:
-            - "8080:8080"
-        restart: always

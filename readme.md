@@ -5,27 +5,18 @@
 
 ## **How to run:** ##
 
-Builds all of the dev containers.
-
 ```bash
+# Builds all of the dev containers.  After containers are built and ready go to http://localhost:80 to view webpage.
 $ make build-dev
-```
 
-Brings down all containers.
-
-```bash
+# Brings down all containers.
 $ make destroy
-```
 
-In order to run tests you will have to build the test container using the following command.
-
-```bash
+# Use the following commands to run unit tests.  Successfull tests show up as green, errors are red and warnings are blue.
+# The url http://localhost:80 should also be available.
 $ make build-test
-```
 
-Runs functional tests using behat.  Successfull tests show up as green, errors are red and warnings are blue.  This command requires the *make build-test* make command to be run first.  After containers are built.  Wait a few seconds for the container internal processes (composer) to become available.
-
-```bash
+# Wait for a few seconds for because container dependencies may still be building.  Run make test again if command fails.
 $ make test
 ```
 
@@ -39,13 +30,13 @@ database    | [docker/database](https://github.com/denverprogrammer/SymfonyDocke
 application | [docker/application](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | Php 7.2 backend application language.
 adminer     | [docker/adminer](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/adminer) | Web based database administrator.  This container is only available locally.
 
-*All containers in this project use alpine to make the image size as small as possible.*
+*All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
 
 ## **Composer Packages:** ##
-Container    | Folder                 | Description
--------------|------------------------|-----------------------------------------------------------------------
-api platform | [docker/webserver](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/webserver) | Framework to simplify rest requests.
-behat        | [docker/database](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | Gerkin testing framework.
+Name         | Package                 | Description
+-------------|-------------------------|-----------------------------------------------------------------------
+api platform | [api-platform/core](https://api-platform.com/docs/core/) | Framework to simplify rest requests.
+behat        | [behat/behat](http://behat.org/en/latest/) | Gerkin testing framework.
 
 ## **NPM Packages:** ##
 Container   | Folder                 | Description

@@ -4,13 +4,13 @@
     * linux
 
 ##**Docker Containers:**##
-    Container   | Folder                 | Description
-    ------------|------------------------|-----------------------------------------------------------------------
-    alpine      | N/A                    | All containers in this project use alpine to make the image size as small as possible.
-    webserver   | [docker/webserver](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/webserver) | Nginx webserver.
-    database    | [docker/database](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | MySql 8 database webserver.
-    application | [docker/application](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | Php 7.2 backend application language.
-    adminer     | [docker/adminer](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/adminer) | Web based database administrator.  This container is only available locally.
+Container   | Folder                 | Description
+------------|------------------------|-----------------------------------------------------------------------
+alpine      | N/A                    | All containers in this project use alpine to make the image size as small as possible.
+webserver   | [docker/webserver](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/webserver) | Nginx webserver.
+database    | [docker/database](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | MySql 8 database webserver.
+application | [docker/application](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | Php 7.2 backend application language.
+adminer     | [docker/adminer](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/adminer) | Web based database administrator.  This container is only available locally.
 
 ##**Composer Packages:**##
     Container   | Folder                 | Description

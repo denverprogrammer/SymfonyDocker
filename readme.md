@@ -38,16 +38,16 @@ database    | [docker/database](https://github.com/denverprogrammer/SymfonyDocke
 application | [docker/application](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | Php 7.2 backend application language.
 adminer     | [docker/adminer](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/adminer) | Web based database administrator. \*
 
-*All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
-*\*This container is only available locally.*
+* All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
+* \*This container is only available locally.*
 
-## **Composer Packages:** ##
+## **Major Composer Packages:** ##
 Name         | Package                 | Description
 -------------|-------------------------|-----------------------------------------------------------------------
 api platform | [api-platform/core](https://api-platform.com/docs/core/) | Framework to simplify rest requests.
 behat        | [behat/behat](http://behat.org/en/latest/) | Gerkin testing framework.
 
-## **NPM Packages:** ##
+## **Major NPM Packages:** ##
 Container   | Folder                 | Description
 ------------|------------------------|-----------------------------------------------------------------------
 react       |N/A                     | Front end javascript framework.

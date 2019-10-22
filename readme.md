@@ -30,17 +30,17 @@ make test;
 
 ## **Container Environment Variables:** ##
 
-Name                | Location    | Used In                  | Default
---------------------|-------------|--------------------------|------------------------------------------
-NGINX_PORT          | webserver   | * webserver              | 80
-MYSQL_PORT          | database    | * database * application | 3306
-MYSQL_USER          | database    | * database * application | secretUser
-MYSQL_HOST          | database    | * database * application | database
-MYSQL_ROOT_PASSWORD | database    | * database * application | root
-MYSQL_PASSWORD      | database    | * database * application | drowssap
-MYSQL_DATABASE      | database    | * database * application | secretDb
-ADMINER_PORT        | adminer     | * adminer                | 8080
-APP_ENV             | application | * application            | dev
+Name                | Location    | Used In               | Default
+--------------------|-------------|-----------------------|-------------
+NGINX_PORT          | webserver   | webserver             | 80
+MYSQL_PORT          | database    | database, application | 3306
+MYSQL_USER          | database    | database, application | secretUser
+MYSQL_HOST          | database    | database, application | database
+MYSQL_ROOT_PASSWORD | database    | database, application | root
+MYSQL_PASSWORD      | database    | database, application | drowssap
+MYSQL_DATABASE      | database    | database, application | secretDb
+ADMINER_PORT        | adminer     | adminer               | 8080
+APP_ENV             | application | application           | dev
 
 ## **Docker Containers:** ##
 Container   | Folder                 | Description

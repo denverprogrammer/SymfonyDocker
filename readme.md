@@ -39,7 +39,7 @@ application | [docker/application](https://github.com/denverprogrammer/SymfonyDo
 adminer     | [docker/adminer](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/adminer) | Web based database administrator. \*
 
 * All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
-* \*This container is only available locally.*
+* \*This container is only available locally.
 
 ## **Major Composer Packages:** ##
 Name         | Package                 | Description

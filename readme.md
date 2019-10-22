@@ -28,15 +28,27 @@ make build-test;
 make test;
 ```
 
-## **Environment Variables:** ##
+## **Container Environment Variables:** ##
+
+Name                | Location    | Used In                  | Default
+--------------------|-------------|--------------------------|------------------------------------------
+NGINX_PORT          | webserver   | * webserver              | 80
+MYSQL_PORT          | database    | * database * application | 3306
+MYSQL_USER          | database    | * database * application | secretUser
+MYSQL_HOST          | database    | * database * application | database
+MYSQL_ROOT_PASSWORD | database    | * database * application | root
+MYSQL_PASSWORD      | database    | * database * application | drowssap
+MYSQL_DATABASE      | database    | * database * application | secretDb
+ADMINER_PORT        | adminer     | * adminer                | 8080
+APP_ENV             | application | * application            | dev
 
 ## **Docker Containers:** ##
 Container   | Folder                 | Description
 ------------|------------------------|-----------------------------------------------------------------------
-webserver   | [docker/webserver](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/webserver) | Nginx webserver.
-database    | [docker/database](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | MySql 8 database webserver.
-application | [docker/application](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/database) | Php 7.2 backend application language.
-adminer     | [docker/adminer](https://github.com/denverprogrammer/SymfonyDocker/tree/master/docker/adminer) | Web based database administrator. \*
+webserver   | [docker/webserver](./docker/webserver) | Nginx webserver.
+database    | [docker/database](./docker/database) | MySql 8 database webserver.
+application | [docker/application](./docker/application) | Php 7.2 backend application language.
+adminer     | [docker/adminer](./docker/adminer) | Web based database administrator. \*
 
 * All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
 * \*This container is only available locally.

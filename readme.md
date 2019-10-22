@@ -35,18 +35,18 @@ $ make test
 
 ## **Container Environment Variables:** ##
 
-Name                | Location    | Used In               | Default
---------------------|-------------|-----------------------|-------------
-APP_ENV             | application | application           | dev
-XDEBUG_CONFIG       | application | application           | 'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1'
-NGINX_PORT          | webserver   | webserver             | 80
-MYSQL_PORT          | database    | database, application | 3306
-MYSQL_USER          | database    | database, application | secretUser
-MYSQL_HOST          | database    | database, application | database
-MYSQL_ROOT_PASSWORD | database    | database, application | root
-MYSQL_PASSWORD      | database    | database, application | drowssap
-MYSQL_DATABASE      | database    | database, application | secretDb
-ADMINER_PORT        | adminer     | adminer               | 8080
+Name                | Location    | Used In               | Dev Default  | Test Default |
+--------------------|-------------|-----------------------|--------------|--------------|
+ADMINER_PORT        | adminer     | adminer               | > 8080                      |
+APP_ENV             | application | application           | dev          | test         |
+XDEBUG_CONFIG       | application | application           | > 'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1' |
+NGINX_PORT          | webserver   | webserver             | > 80                        |
+MYSQL_PORT          | database    | database, application | > 3306                      |
+MYSQL_USER          | database    | database, application | > secretUser                |
+MYSQL_HOST          | database    | database, application | > database                  |
+MYSQL_ROOT_PASSWORD | database    | database, application | > root                      |
+MYSQL_PASSWORD      | database    | database, application | > drowssap                  |
+MYSQL_DATABASE      | database    | database, application | secretDb     | secretDbTest |
 
 
 ## **Docker Containers:** ##
@@ -56,10 +56,10 @@ webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.
 database    | [docker/database](./docker/database)       | MySql 8 database webserver.
 application | [docker/application](./docker/application) | Php 7.2 backend application language.
 adminer     | [docker/adminer](./docker/adminer)         | Web based database administrator. \*
-composer    | N/A                                        | Installs application dependencies.  Exists when container is built.
+composer    | N/A                                        | Installs application dependencies.  Exits when finished.
 
 * All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
-* \*This container is only available locally.
+* \* This container is only available locally.
 
 
 ## **Major Composer Packages:** ##

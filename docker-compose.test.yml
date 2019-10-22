@@ -8,7 +8,6 @@ services:
             - ./docker/database/.env.test
 
     application:
-        environment:
-            APP_ENV: test
         env_file:
+            - ./docker/application/.env.test
             - ./docker/database/.env.test

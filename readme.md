@@ -15,14 +15,14 @@ Run any of the following commands in your terminal.
 ```bash
 # Builds all of the dev containers and starts the server.  
 # In your browser go to http://localhost to view webpage.
-$ make build-dev
+$ make build_dev
 
 # Brings down all containers.
 $ make destroy
 
 # Builds all of the test containers and starts the server.    
 # In your browser go to http://localhost to view webpage.
-$ make build-test
+$ make build_test
 
 # Runs functional tests.  Successfull tests show up as green, 
 # errors are red and warnings are blue. This command requires 
@@ -35,27 +35,81 @@ $ make test
 
 ## **Container Environment Variables:** ##
 
-Name                | Location    | Used In               | Dev Default  | Test Default |
---------------------|-------------|-----------------------|--------------|--------------|
-ADMINER_PORT        | adminer     | adminer               |COLSPAN| 8080                |
-APP_ENV             | application | application           | dev          | test         |
-XDEBUG_CONFIG       | application | application           |COLSPAN| 'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1' |
-NGINX_PORT          | webserver   | webserver             |COLSPAN| 80                  |
-MYSQL_PORT          | database    | database, application |COLSPAN| 3306                |
-MYSQL_USER          | database    | database, application |COLSPAN| secretUser          |
-MYSQL_HOST          | database    | database, application |COLSPAN| database            |
-MYSQL_ROOT_PASSWORD | database    | database, application |COLSPAN| root                |
-MYSQL_PASSWORD      | database    | database, application |COLSPAN| drowssap            |
-MYSQL_DATABASE      | database    | database, application | secretDb     | secretDbTest |
-
-
 <table>
   <tr>
-    <td>One</td>
-    <td>Two</td>
+    <td>Name</td>
+    <td>Location</td>
+    <td>Used In</td>
+    <td>Dev Default</td>
+    <td>Test Default</td>
   </tr>
   <tr>
-    <td colspan="2">Three</td>
+    <td>ADMINER_PORT</td>
+    <td>adminer</td>
+    <td>adminer</td>
+    <td colspan="2">8080</td>
+  </tr>
+  <tr>
+    <td>APP_ENV</td>
+    <td>application</td>
+    <td>application</td>
+    <td>dev</td>
+    <td>test</td>
+  </tr>
+  <tr>
+    <td>XDEBUG_CONFIG</td>
+    <td>application</td>
+    <td>application</td>
+    <td colspan="2">'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1'</td>
+  </tr>
+  <tr>
+    <td>NGINX_PORT</td>
+    <td>webserver</td>
+    <td>webserver</td>
+    <td colspan="2">80</td>
+  </tr>
+  <tr>
+    <td>NGINX_PORT</td>
+    <td>webserver</td>
+    <td>webserver</td>
+    <td colspan="2">80</td>
+  </tr>
+  <tr>
+    <td>MYSQL_PORT</td>
+    <td>database</td>
+    <td>database, application</td>
+    <td colspan="2">3306</td>
+  </tr>
+  <tr>
+    <td>MYSQL_USER</td>
+    <td>database</td>
+    <td>database, application</td>
+    <td colspan="2">secretUser</td>
+  </tr>
+  <tr>
+    <td>MYSQL_HOST</td>
+    <td>database</td>
+    <td>database, application</td>
+    <td colspan="2">database</td>
+  </tr>
+  <tr>
+    <td>MYSQL_ROOT_PASSWORD</td>
+    <td>database</td>
+    <td>database, application</td>
+    <td colspan="2">root</td>
+  </tr>
+  <tr>
+    <td>MYSQL_PASSWORD</td>
+    <td>database</td>
+    <td>database, application</td>
+    <td colspan="2">drowssap</td>
+  </tr>
+  <tr>
+    <td>MYSQL_DATABASE</td>
+    <td>database</td>
+    <td>database, application</td>
+    <td>secretDb</td>
+    <td>secretDbTest</td>
   </tr>
 </table>
 

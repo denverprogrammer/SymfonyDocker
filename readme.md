@@ -49,6 +49,16 @@ MYSQL_PASSWORD      | database    | database, application |COLSPAN| drowssap    
 MYSQL_DATABASE      | database    | database, application | secretDb     | secretDbTest |
 
 
+<table>
+  <tr>
+    <td>One</td>
+    <td>Two</td>
+  </tr>
+  <tr>
+    <td colspan="2">Three</td>
+  </tr>
+</table>
+
 ## **Docker Containers:** ##
 Container   | Folder                                     | Description
 ------------|--------------------------------------------|-----------------------------------------------------------------------

@@ -6,13 +6,13 @@ destroy:
 
 # Builds all of the dev containers and starts the server.  
 # In your browser go to http://localhost to view webpage.
-build-dev:
+build_dev:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up \
 		--build -d
 
 # Builds all of the test containers and starts the server.    
 # In your browser go to http://localhost to view webpage.
-build-test:
+build_test:
 	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.test.yml up \
 		--build -d
 

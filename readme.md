@@ -36,81 +36,85 @@ $ make test
 ## **Container Environment Variables:** ##
 
 <table>
-  <tr>
-    <td>Name</td>
-    <td>Location</td>
-    <td>Used In</td>
-    <td>Dev Default</td>
-    <td>Test Default</td>
-  </tr>
-  <tr>
-    <td>ADMINER_PORT</td>
-    <td>adminer</td>
-    <td>adminer</td>
-    <td colspan="2">8080</td>
-  </tr>
-  <tr>
-    <td>APP_ENV</td>
-    <td>application</td>
-    <td>application</td>
-    <td>dev</td>
-    <td>test</td>
-  </tr>
-  <tr>
-    <td>XDEBUG_CONFIG</td>
-    <td>application</td>
-    <td>application</td>
-    <td colspan="2">'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1'</td>
-  </tr>
-  <tr>
-    <td>NGINX_PORT</td>
-    <td>webserver</td>
-    <td>webserver</td>
-    <td colspan="2">80</td>
-  </tr>
-  <tr>
-    <td>NGINX_PORT</td>
-    <td>webserver</td>
-    <td>webserver</td>
-    <td colspan="2">80</td>
-  </tr>
-  <tr>
-    <td>MYSQL_PORT</td>
-    <td>database</td>
-    <td>database, application</td>
-    <td colspan="2">3306</td>
-  </tr>
-  <tr>
-    <td>MYSQL_USER</td>
-    <td>database</td>
-    <td>database, application</td>
-    <td colspan="2">secretUser</td>
-  </tr>
-  <tr>
-    <td>MYSQL_HOST</td>
-    <td>database</td>
-    <td>database, application</td>
-    <td colspan="2">database</td>
-  </tr>
-  <tr>
-    <td>MYSQL_ROOT_PASSWORD</td>
-    <td>database</td>
-    <td>database, application</td>
-    <td colspan="2">root</td>
-  </tr>
-  <tr>
-    <td>MYSQL_PASSWORD</td>
-    <td>database</td>
-    <td>database, application</td>
-    <td colspan="2">drowssap</td>
-  </tr>
-  <tr>
-    <td>MYSQL_DATABASE</td>
-    <td>database</td>
-    <td>database, application</td>
-    <td>secretDb</td>
-    <td>secretDbTest</td>
-  </tr>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Location</td>
+      <td>Used In</td>
+      <td>Dev Default</td>
+      <td>Test Default</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ADMINER_PORT</td>
+      <td>adminer</td>
+      <td>adminer</td>
+      <td colspan="2">8080</td>
+    </tr>
+    <tr>
+      <td>APP_ENV</td>
+      <td>application</td>
+      <td>application</td>
+      <td>dev</td>
+      <td>test</td>
+    </tr>
+    <tr>
+      <td>XDEBUG_CONFIG</td>
+      <td>application</td>
+      <td>application</td>
+      <td colspan="2">'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1'</td>
+    </tr>
+    <tr>
+      <td>NGINX_PORT</td>
+      <td>webserver</td>
+      <td>webserver</td>
+      <td colspan="2">80</td>
+    </tr>
+    <tr>
+      <td>NGINX_PORT</td>
+      <td>webserver</td>
+      <td>webserver</td>
+      <td colspan="2">80</td>
+    </tr>
+    <tr>
+      <td>MYSQL_PORT</td>
+      <td>database</td>
+      <td>database, application</td>
+      <td colspan="2">3306</td>
+    </tr>
+    <tr>
+      <td>MYSQL_USER</td>
+      <td>database</td>
+      <td>database, application</td>
+      <td colspan="2">secretUser</td>
+    </tr>
+    <tr>
+      <td>MYSQL_HOST</td>
+      <td>database</td>
+      <td>database, application</td>
+      <td colspan="2">database</td>
+    </tr>
+    <tr>
+      <td>MYSQL_ROOT_PASSWORD</td>
+      <td>database</td>
+      <td>database, application</td>
+      <td colspan="2">root</td>
+    </tr>
+    <tr>
+      <td>MYSQL_PASSWORD</td>
+      <td>database</td>
+      <td>database, application</td>
+      <td colspan="2">drowssap</td>
+    </tr>
+    <tr>
+      <td>MYSQL_DATABASE</td>
+      <td>database</td>
+      <td>database, application</td>
+      <td>secretDb</td>
+      <td>secretDbTest</td>
+    </tr>
+  </tbody>
 </table>
 
 ## **Docker Containers:** ##

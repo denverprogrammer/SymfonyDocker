@@ -10,7 +10,7 @@ Simple implementation of Symony 4 running in Docker.
 
 
 ## **How to run:** ##
-Run any of the following commands in your terminal.
+Any of the following commands can be run in your terminal.
 
 ```bash
 # Builds all of the dev containers and starts the server.  

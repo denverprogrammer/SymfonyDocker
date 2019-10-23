@@ -72,12 +72,6 @@ $ make test
       <td colspan="2">80</td>
     </tr>
     <tr>
-      <td>NGINX_PORT</td>
-      <td>webserver</td>
-      <td>webserver</td>
-      <td colspan="2">80</td>
-    </tr>
-    <tr>
       <td>MYSQL_PORT</td>
       <td>database</td>
       <td>database, application</td>

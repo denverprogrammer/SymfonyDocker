@@ -37,15 +37,15 @@ $ make test
 
 Name                | Location    | Used In               | Dev Default  | Test Default |
 --------------------|-------------|-----------------------|--------------|--------------|
-ADMINER_PORT        | adminer     | adminer               | > 8080                      |
+ADMINER_PORT        | adminer     | adminer               | 8080                       ||
 APP_ENV             | application | application           | dev          | test         |
-XDEBUG_CONFIG       | application | application           | > 'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1' |
-NGINX_PORT          | webserver   | webserver             | > 80                        |
-MYSQL_PORT          | database    | database, application | > 3306                      |
-MYSQL_USER          | database    | database, application | > secretUser                |
-MYSQL_HOST          | database    | database, application | > database                  |
-MYSQL_ROOT_PASSWORD | database    | database, application | > root                      |
-MYSQL_PASSWORD      | database    | database, application | > drowssap                  |
+XDEBUG_CONFIG       | application | application           | 'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1' ||
+NGINX_PORT          | webserver   | webserver             | 80                         ||
+MYSQL_PORT          | database    | database, application | 3306                       ||
+MYSQL_USER          | database    | database, application | secretUser                 ||
+MYSQL_HOST          | database    | database, application | database                   ||
+MYSQL_ROOT_PASSWORD | database    | database, application | root                       ||
+MYSQL_PASSWORD      | database    | database, application | drowssap                   ||
 MYSQL_DATABASE      | database    | database, application | secretDb     | secretDbTest |
 
 

@@ -6,10 +6,9 @@ Simple implementation of Symony 4 running in Docker.
 ## **Linux Requirements:** ##
 * [docker ce](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 * [docker-compose](https://docs.docker.com/compose/install/)
-
+* [make](https://linuxconfig.org/how-to-install-gcc-the-c-compiler-on-ubuntu-18-04-bionic-beaver-linux)
 
 ## **How to run:** ##
-
 Run any of the following commands in your terminal.
 
 ```bash
@@ -33,8 +32,22 @@ $ make test
 ```
 
 
-## **Container Environment Variables:** ##
+## **Docker Containers:** ##
+Container   | Folder                                     | Description
+------------|--------------------------------------------|-----------------------------------------------------------------------
+webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.
+database    | [docker/database](./docker/database)       | MySql 8 database server.
+application | [docker/application](./docker/application) | Php 7.2 backend application language.
+adminer     | [docker/adminer](./docker/adminer)         | Web based database administrator. \*
+composer    | N/A                                        | Installs application dependencies. \*\*
 
+* All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
+* \* This container is only available locally.
+* \*\* Exits when finished.
+
+
+## **Container Environment Variables:** ##
+Each nested folder in the docker folder matches the name of a container in docker-compose.  Each of these folders have .env.dev and .env.test files container environment variables.  The env variables in .env.dev file can be overridden in the .env.test file.
 <table>
   <thead>
     <tr>
@@ -110,18 +123,6 @@ $ make test
     </tr>
   </tbody>
 </table>
-
-## **Docker Containers:** ##
-Container   | Folder                                     | Description
-------------|--------------------------------------------|-----------------------------------------------------------------------
-webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.
-database    | [docker/database](./docker/database)       | MySql 8 database webserver.
-application | [docker/application](./docker/application) | Php 7.2 backend application language.
-adminer     | [docker/adminer](./docker/adminer)         | Web based database administrator. \*
-composer    | N/A                                        | Installs application dependencies.  Exits when finished.
-
-* All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
-* \* This container is only available locally.
 
 
 ## **Major Composer Packages:** ##

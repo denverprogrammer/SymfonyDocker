@@ -34,7 +34,7 @@ $ make test
 
 
 ## **Docker Containers:** ##
-Container   | Folder                                     | Description
+Container   | Folder                                     | Description                             |
 ------------|--------------------------------------------|-----------------------------------------|
 webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.                        |
 database    | [docker/database](./docker/database)       | MySql 8 database server.                |
@@ -129,17 +129,17 @@ The env variables in .env.dev file can be overridden in the .env.test file.
 
 
 ## **Major Composer Packages:** ##
-Name         | Package                 | Description
--------------|----------------------------------------------------------|---------------------------------------
-Symfony      | [symfony/symfony](https://symfony.com/)                  | Application framework.
-api platform | [api-platform/core](https://api-platform.com/docs/core/) | Framework to simplify rest requests.
-behat        | [behat/behat](http://behat.org/en/latest/)               | Gerkin testing framework.
+Name         | Package                                                  | Description                          |
+-------------|----------------------------------------------------------|--------------------------------------|
+Symfony      | [symfony/symfony](https://symfony.com/)                  | Application framework.               |
+api platform | [api-platform/core](https://api-platform.com/docs/core/) | Framework to simplify rest requests. |
+behat        | [behat/behat](http://behat.org/en/latest/)               | Gerkin testing framework.            |
 
 
 ## **Major NPM Packages:** ##
-Container   | Folder                 | Description
-------------|------------------------|-----------------------------------------------------------------------
-react       |N/A                     | Front end javascript framework.
+Container   | Folder                 | Description                     |
+------------|------------------------|---------------------------------|
+react       |N/A                     | Front end javascript framework. |
 
 
 ## **Tutorials:** ##

@@ -38,11 +38,11 @@ $ make test
 <table>
   <thead>
     <tr>
-      <td>Name</td>
-      <td>Location</td>
-      <td>Used In</td>
-      <td>Dev Default</td>
-      <td>Test Default</td>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Used In</th>
+      <th>Dev Default</th>
+      <th>Test Default</th>
     </tr>
   </thead>
   <tbody>

@@ -8,6 +8,7 @@ Simple implementation of Symony 4 running in Docker.
 * [docker-compose](https://docs.docker.com/compose/install/)
 * [make](https://linuxconfig.org/how-to-install-gcc-the-c-compiler-on-ubuntu-18-04-bionic-beaver-linux)
 
+
 ## **How to run:** ##
 Run any of the following commands in your terminal.
 
@@ -34,12 +35,12 @@ $ make test
 
 ## **Docker Containers:** ##
 Container   | Folder                                     | Description
-------------|--------------------------------------------|-----------------------------------------------------------------------
-webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.
-database    | [docker/database](./docker/database)       | MySql 8 database server.
-application | [docker/application](./docker/application) | Php 7.2 backend application language.
-adminer     | [docker/adminer](./docker/adminer)         | Web based database administrator. \*
-composer    | N/A                                        | Installs application dependencies. \*\*
+------------|--------------------------------------------|-----------------------------------------|
+webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.                        |
+database    | [docker/database](./docker/database)       | MySql 8 database server.                |
+application | [docker/application](./docker/application) | Php 7.2 backend application language.   |
+adminer     | [docker/adminer](./docker/adminer)         | Web based database administrator. \*    |
+composer    | N/A                                        | Installs application dependencies. \*\* |
 
 * All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.*
 * \* This container is only available locally.
@@ -47,7 +48,9 @@ composer    | N/A                                        | Installs application 
 
 
 ## **Container Environment Variables:** ##
-Each nested folder in the docker folder matches the name of a container in docker-compose.  Each of these folders have .env.dev and .env.test files container environment variables.  The env variables in .env.dev file can be overridden in the .env.test file.
+Each nested folder in the docker folder matches the name of a container in docker-compose.  
+Each of these folders have .env.dev and .env.test files containing environment variables.  
+The env variables in .env.dev file can be overridden in the .env.test file.
 <table>
   <thead>
     <tr>

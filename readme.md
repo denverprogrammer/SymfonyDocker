@@ -150,3 +150,5 @@ react       |N/A                     | Front end javascript framework. |
 * [JWT in Symfony 4](https://symfonycasts.com/screencast/symfony-rest4)
 * [Security in Symfony 4](https://symfonycasts.com/screencast/api-platform-security/test-reset-database#play)
 * [Behat in Symfony 4](https://blog.rafalmuszynski.pl/how-to-configure-behat-with-symfony-4/)
+* [Makefile setup](http://www.inanzzz.com/index.php/post/fr4t/creating-a-dockerised-symfony-application-and-a-makefile-based-build-script)
+* [Jenkins](https://www.nielsvandermolen.com/continuous-integration-jenkins-docker/)

@@ -1,19 +1,19 @@
 
 # Brings down all containers.
 destroy:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml down \
+	docker-compose -f build.yml -f docker-compose.dev.yml down \
 		--remove-orphans --volumes
 
 # Builds all of the dev containers and starts the server.  
 # In your browser go to http://localhost to view webpage.
 build_dev:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up \
+	docker-compose -f build.yml -f docker-compose.dev.yml up \
 		--build -d
 
 # Builds all of the test containers and starts the server.    
 # In your browser go to http://localhost to view webpage.
 build_test:
-	docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.test.yml up \
+	docker-compose -f build.yml -f docker-compose.dev.yml -f docker-compose.test.yml up \
 		--build -d
 
 # Runs functional tests.  Successfull tests show up as green, 

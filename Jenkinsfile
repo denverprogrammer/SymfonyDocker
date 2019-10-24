@@ -15,7 +15,7 @@ pipeline {
                 sh 'echo $GIT_BRANCH'
                 sh 'echo $GIT_COMMIT'
                 echo 'Install non-dev composer packages and test a symfony cache clear'
-                sh 'docker-compose -f build.yml -f staging.yml -t application:$GIT_COMMIT up --build --exit-code-from application --remove-orphans application'
+                sh 'docker-compose -f build.yml -f staging.yml -t application:$GIT_COMMIT up --build --exit-code-from application --remove-orphans'
             }
         }
         stage('Test') {

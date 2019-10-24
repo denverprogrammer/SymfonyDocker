@@ -10,17 +10,9 @@ services:
     application:
         env_file:
             - ./docker/application/.env
+            - ./docker/application/.env.test
             - ./docker/database/.env
 
     webserver:
         env_file:
             - ./docker/webserver/.env
-
-    adminer:
-        depends_on:
-            - database
-        hostname: adminer
-        image: adminer
-        ports:
-            - "8080:8080"
-        restart: always

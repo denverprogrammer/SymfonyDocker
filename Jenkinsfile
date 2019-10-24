@@ -1,8 +1,5 @@
 pipeline {
     agent { label 'docker' }
-    triggers {
-        githubPush()
-    }
     environment {
         // Specify your environment variables.
         APP_VERSION = '1'

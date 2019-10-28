@@ -1,9 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Initialize'){
-            export PATH = "docker/bin:${PATH}"
-        }
         stage('One') {
             steps {
                 echo 'Hi, this is Zulaikha from edureka'

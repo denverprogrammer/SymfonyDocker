@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Initialize'){
-            env.PATH = "docker/bin:${env.PATH}"
+            sh env.PATH = "docker/bin:${env.PATH}"
         }
         stage('One') {
             steps {

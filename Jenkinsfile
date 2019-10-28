@@ -36,7 +36,7 @@ pipeline {
                     agent {
                         docker {
                             reuseNode true
-                            image 'ubuntu'
+                            image 'alpine'
                         }
                     }
                     steps {

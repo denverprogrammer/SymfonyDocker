@@ -1,0 +1,13 @@
+# docker-compose.yml
+
+version: '3.7'
+
+services:
+    adminer:
+        depends_on:
+            - database
+        hostname: adminer
+        image: adminer
+        ports:
+            - "${ADMINER_PORT}:8080"
+        restart: always

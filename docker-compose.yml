@@ -8,8 +8,14 @@ services:
         hostname: database
         image: mysql:8.0
         restart: always
+        environment:
+            - MYSQL_HOST=${MYSQL_HOST}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
         ports:
-            -   '3306:3306'
+            - "${MYSQL_PORT}:3306"
 
     application:
         build:
@@ -22,6 +28,14 @@ services:
         restart: always
         volumes:
             - ./app:/usr/src/app
+        environment:
+            - MYSQL_HOST=${MYSQL_HOST}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_PORT=${MYSQL_PORT}
+            - APP_ENV=${APP_ENV}
 
     webserver:
         depends_on:
@@ -33,7 +47,7 @@ services:
             - './app:/usr/src/app'
             - './docker/webserver/default.conf:/etc/nginx/conf.d/default.conf:ro'
         ports:
-            -   '80:80'
+            - "${NGINX_PORT}:80"
 
     composer:
         hostname: composer

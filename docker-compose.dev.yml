@@ -3,24 +3,11 @@
 version: '3.7'
 
 services:
-    database:
-        env_file:
-            - ./docker/database/.env
-
-    application:
-        env_file:
-            - ./docker/application/.env
-            - ./docker/database/.env
-
-    webserver:
-        env_file:
-            - ./docker/webserver/.env
-
     adminer:
         depends_on:
             - database
         hostname: adminer
         image: adminer
         ports:
-            - "8080:8080"
+            - "${ADMINER_PORT}:8080"
         restart: always

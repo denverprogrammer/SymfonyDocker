@@ -4,10 +4,10 @@ version: '3.7'
 
 services:
     database:
-        env_file:
-            - ./docker/database/.env.test
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
 
     application:
-        env_file:
-            - ./docker/application/.env.test
-            - ./docker/database/.env.test
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
+            - APP_ENV=test

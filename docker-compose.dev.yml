@@ -3,6 +3,12 @@
 version: '3.7'
 
 services:
+
+    application:
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
+            - XDEBUG_CONFIG=idekey=${DEBUG_CODE} remote_host=${DEBUG_HOST} remote_port=${DEBUG_PORT} remote_enable=1
+
     adminer:
         depends_on:
             - database

@@ -71,9 +71,19 @@ A .env file containing environment variables is located in the project root dire
       <td>test</td>
     </tr>
     <tr>
-      <td>XDEBUG_CONFIG</td>
+      <td>DEBUG_CODE</td>
       <td>application</td>
-      <td colspan="2">'idekey=VSCODE remote_host=172.17.0.1 remote_port=9090 remote_enable=1'</td>
+      <td colspan="2">VSCODE</td>
+    </tr>
+    <tr>
+      <td>DEBUG_HOST</td>
+      <td>application</td>
+      <td colspan="2">172.17.0.1</td>
+    </tr>
+    <tr>
+      <td>DEBUG_PORT</td>
+      <td>application</td>
+      <td colspan="2">9090</td>
     </tr>
     <tr>
       <td>NGINX_PORT</td>

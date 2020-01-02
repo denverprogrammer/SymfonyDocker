@@ -1,0 +1,13 @@
+# test.yml
+
+version: '3.7'
+
+services:
+    database:
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}_test
+
+    application:
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}_test
+            - APP_ENV=test            

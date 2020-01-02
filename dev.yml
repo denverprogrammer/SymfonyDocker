@@ -1,4 +1,4 @@
-# docker-compose.yml
+# dev.yml
 
 version: '3.7'
 
@@ -6,8 +6,7 @@ services:
 
     application:
         environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
-            - XDEBUG_CONFIG=idekey=${DEBUG_CODE} remote_host=${DEBUG_HOST} remote_port=${DEBUG_PORT} remote_enable=1
+            - XDEBUG_CONFIG=idekey=${XDEBUG_CODE} remote_host=${XDEBUG_HOST} remote_port=${XDEBUG_PORT} remote_enable=1
 
     adminer:
         depends_on:

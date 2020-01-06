@@ -34,16 +34,13 @@ if [ "$APP_ENV" != 'prod' ]; then
 	composer install --prefer-dist --no-suggest
 
 	until bin/console doctrine:query:sql "SELECT 1" > /dev/null 2>&1; do
-		echo "####  Waiting for database service to fully functional"
+		echo "####  Waiting for database service to be fully functional"
 		sleep 1
 	done
 
-	echo "####  Database working"
-
 	echo "###############################################################################"
-	echo "##  Run database migration"
+	echo "##  Database service functional running migrations"
 	echo "###############################################################################"
-
 	bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing
 fi
 

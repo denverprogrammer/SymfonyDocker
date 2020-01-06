@@ -3,11 +3,14 @@
 version: '3.7'
 
 services:
-
+    database:
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
     application:
         environment:
             - XDEBUG_CONFIG=idekey=${XDEBUG_CODE} remote_host=${XDEBUG_HOST} remote_port=${XDEBUG_PORT} remote_enable=1
-
+            - APP_ENV=dev
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
     adminer:
         depends_on:
             - database

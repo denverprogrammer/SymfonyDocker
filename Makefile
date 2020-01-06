@@ -16,7 +16,7 @@ destroy:
 logs:
 	make wrapper ENV_FILES=${DEV_ENV} COMMAND="logs ${AREA}"
 
-# This cannot be used whena dev build is running.  Builds all 
+# This cannot be used when a dev build is running.  Builds all 
 # of the test containers and starts the server.  In your browser
 # go to http://localhost to view webpage.
 build_test:

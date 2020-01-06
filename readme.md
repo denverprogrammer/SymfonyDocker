@@ -13,23 +13,27 @@ Simple implementation of Symony 4 running in Docker.
 Any of the following commands can be run in your terminal.
 
 ```bash
-# Builds all of the dev containers and starts the server.  
-# In your browser go to http://localhost to view webpage.
-$ make build_dev
-
 # Brings down all containers.
 $ make destroy
 
-# Builds all of the test containers and starts the server.    
-# In your browser go to http://localhost to view webpage.
-$ make build_test
+# Prints all logs to the screen.  Logs can be filtered by container.
+# Example make logs AREA="application" to display application logs only.
+$ make logs
 
-# Runs functional tests.  Successfull tests show up as green, 
-# errors are red and warnings are blue. This command requires 
-# make build-test to be run first.  After building please wait 
-# for a few seconds because composer may still be downloading
-# dependencies may still be building.  Run make test again if command fails.
-$ make test
+# This cannot be used when a test build is running.  Builds all 
+# of the dev containers and starts the server.  In your browser 
+# go to http://localhost to view webpage.
+$ make build_dev:
+
+# This cannot be used when a dev build is running.  Builds all 
+# of the test containers and starts the server.  In your browser
+# go to http://localhost to view webpage.
+$ make build_test:
+
+# This command requires a test build.  Runs functional tests.  
+# Successfull tests show up as green, errors are red and warnings 
+# are blue.
+$ make run_test:
 ```
 
 
@@ -62,7 +66,8 @@ A .env file containing environment variables is located in the project root dire
     <tr>
       <td>ADMINER_PORT</td>
       <td>adminer</td>
-      <td colspan="2">8080</td>
+      <td>8080</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>APP_ENV</td>
@@ -73,57 +78,68 @@ A .env file containing environment variables is located in the project root dire
     <tr>
       <td>DEBUG_CODE</td>
       <td>application</td>
-      <td colspan="2">VSCODE</td>
+      <td>VSCODE</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>DEBUG_HOST</td>
       <td>application</td>
-      <td colspan="2">172.17.0.1</td>
+      <td>172.17.0.1</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>DEBUG_PORT</td>
       <td>application</td>
-      <td colspan="2">9090</td>
+      <td>9090</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>NGINX_PORT</td>
       <td>webserver</td>
-      <td colspan="2">80</td>
+      <td>80</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_PORT</td>
       <td>database, application</td>
-      <td colspan="2">3306</td>
+      <td>3306</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_USER</td>
       <td>database, application</td>
-      <td colspan="2">secretUser</td>
+      <td>secretUser</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_HOST</td>
       <td>database, application</td>
-      <td colspan="2">database</td>
+      <td>database</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_ROOT_PASSWORD</td>
       <td>database, application</td>
-      <td colspan="2">root</td>
+      <td>root</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_PASSWORD</td>
       <td>database, application</td>
-      <td colspan="2">drowssap</td>
+      <td>drowssap</td>
+      <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_DATABASE</td>
       <td>database, application</td>
       <td>secretDb</td>
-      <td>secretDbTest</td>
+      <td>secretDbTest **</td>
     </tr>
   </tbody>
 </table>
 
+* \* Same as dev env.
+* \*\* This variable cannot be overriden.
 
 ## **Major Composer Packages:** ##
 Name         | Package                                                  | Description                          |

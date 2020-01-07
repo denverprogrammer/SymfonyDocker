@@ -1,21 +1,22 @@
 node('docker') {
 
-    environment {
-        MYSQL_HOST          = 'database'
-        MYSQL_ROOT_PASSWORD = 'root'
-        MYSQL_USER          = 'serectUser'
-        MYSQL_PORT          = '3306'
-        MYSQL_PASSWORD      = 'drowssap'
-        MYSQL_DATABASE      = 'secretDb'
-        APP_ENV             = 'dev'
-        NGINX_PORT          = '80'
-        ADMINER_PORT        = '8080'
-    }
-
     stage 'Checkout'
         checkout scm
 
     stage 'Build'
+
+        environment {
+            MYSQL_HOST          = 'database'
+            MYSQL_ROOT_PASSWORD = 'root'
+            MYSQL_USER          = 'serectUser'
+            MYSQL_PORT          = '3306'
+            MYSQL_PASSWORD      = 'drowssap'
+            MYSQL_DATABASE      = 'secretDb'
+            APP_ENV             = 'dev'
+            NGINX_PORT          = '80'
+            ADMINER_PORT        = '8080'
+        }
+
         sh "printenv"
         sh "docker-compose -f base.yml -f staging.yml build"
 

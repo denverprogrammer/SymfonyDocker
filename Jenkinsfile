@@ -10,7 +10,7 @@ pipeline {
         MYSQL_DATABASE      = 'secretDb'
         APP_ENV             = 'dev'
         NGINX_PORT          = '80'
-        ADMINER_PORT        = '8080'
+        ADMINER_PORT        = '9080'
     }
 
    stages {

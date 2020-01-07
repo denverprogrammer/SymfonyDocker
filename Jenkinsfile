@@ -6,10 +6,8 @@ node('docker') {
 
     stage 'Build'
         sh "printenv"
-        sh "echo ${GIT_BRANCH}"
-        sh "echo ${GIT_COMMIT}"
         sh "echo ${BUILD_NUMBER}"
-        sh "docker-compose -f build.yml -f staging.yml build -t symfonydocker:B${GIT_COMMIT} --exit-code-from application --remove-orphans --volumes"
+        sh "docker-compose -f build.yml -f staging.yml build -t symfonydocker:B${BUILD_NUMBER} --exit-code-from application --remove-orphans --volumes"
 
     stage 'Test'
         sh "docker-compose -f base.yml -f staging.yml up --force-recreate --abort-on-container-exit"

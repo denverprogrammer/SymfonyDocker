@@ -11,6 +11,7 @@ pipeline {
         APP_ENV             = 'dev'
         NGINX_PORT          = '80'
         ADMINER_PORT        = '9080'
+        COMPOSE_INTERACTIVE_NO_CLI = '1'
     }
 
    stages {
@@ -31,7 +32,7 @@ pipeline {
          steps {
             sh "docker-compose -f base.yml -f staging.yml up --force-recreate -d"
             sh 'sleep 15'
-            sh "docker-compose -f base.yml -f staging.yml exec application sh -i -c 'vendor/bin/behat'"
+            sh "docker-compose -f base.yml -f staging.yml exec application sh -c 'vendor/bin/behat'"
             sh "docker-compose -f base.yml -f staging.yml down -v --remove-orphans --volumes"
          }
       }

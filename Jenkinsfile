@@ -1,18 +1,17 @@
 
-node('docker') {
- 
-    environment {
-        MYSQL_HOST          = database
-        MYSQL_ROOT_PASSWORD = root
-        MYSQL_USER          = serectUser
-        MYSQL_PORT          = 3306
-        MYSQL_PASSWORD      = drowssap
-        MYSQL_DATABASE      = secretDb
-        APP_ENV             = dev
-        NGINX_PORT          = 80
-        ADMINER_PORT        = 8080
-    }
+environment {
+    MYSQL_HOST          = database
+    MYSQL_ROOT_PASSWORD = root
+    MYSQL_USER          = serectUser
+    MYSQL_PORT          = 3306
+    MYSQL_PASSWORD      = drowssap
+    MYSQL_DATABASE      = secretDb
+    APP_ENV             = dev
+    NGINX_PORT          = 80
+    ADMINER_PORT        = 8080
+}
 
+node('docker') {
     stage 'Checkout'
         checkout scm
 

@@ -1,49 +1,19 @@
-pipeline {
-    agent any
-    stages {
-        stage('One') {
-            steps {
-                echo 'Hi, this is Zulaikha from edureka'
-            }
-        }
-        
-        stage('Two') {
-            steps {
-                input('Do you want to proceed?')
-            }
-        }
-        
-        stage('Three') {
-            when {
-                not {
-                    branch 'master'
-                }
-            }
-            steps {
-                echo 'Hello'
-            }
-        }
-        
-        stage('Four') {
-            parallel { 
-                stage('Unit Test') {
-                    steps {
-                        echo 'Running the unit test...'
-                    }
-                }
-                
-                stage('Integration test') {
-                    agent {
-                        docker {
-                            reuseNode true
-                            image 'alpine'
-                        }
-                    }
-                    steps {
-                        echo 'Running the integration test...'
-                    }
-                }
-            }
-        }
-    }
+
+node('docker') {
+ 
+    stage 'Checkout'
+        checkout scm
+
+    stage 'Build'
+        sh "printenv"
+        sh "echo ${GIT_BRANCH}"
+        sh "echo ${GIT_COMMIT}"
+        sh "echo ${BUILD_NUMBER}"
+        sh "docker-compose -f build.yml -f staging.yml build -t symfonydocker:B${GIT_COMMIT} --exit-code-from application --remove-orphans --volumes"
+
+    stage 'Test'
+        sh "docker-compose -f base.yml -f staging.yml up --force-recreate --abort-on-container-exit"
+        sh 'sleep 15'
+        sh "docker-compose -f base.yml -f staging.yml exec application sh -c 'vendor/bin/behat'"
+        sh "docker-compose -f base.yml -f staging.yml down -v"
 }

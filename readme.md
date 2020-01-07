@@ -167,3 +167,4 @@ react       |N/A                     | Front end javascript framework. \*|
 * [Makefile setup](http://www.inanzzz.com/index.php/post/fr4t/creating-a-dockerised-symfony-application-and-a-makefile-based-build-script)
 * [Jenkins build server](https://www.nielsvandermolen.com/continuous-integration-jenkins-docker/)
 * [Docker environment setup](https://medium.com/caendra-tech/a-docker-development-environment-for-a-symfony-application-a301df340b58)
+* [Docker + Jenkins + Behat example](https://code-maze.com/ci-jenkins-docker/)

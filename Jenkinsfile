@@ -33,11 +33,13 @@ pipeline {
             sh "docker-compose -f base.yml -f staging.yml exec -T application bash -c 'vendor/bin/behat'"
          }
       }
-      
-      post {
-         always {
-            // Always cleanup after the build.
-            sh "docker-compose -f base.yml -f staging.yml down --remove-orphans --volumes"
+
+      stage('Post') {
+         post {
+            always {
+               // Always cleanup after the build.
+               sh "docker-compose -f base.yml -f staging.yml down --remove-orphans --volumes"
+            }
          }
       }
    }

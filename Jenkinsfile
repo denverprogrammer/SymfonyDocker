@@ -31,15 +31,7 @@ pipeline {
             sh "docker-compose -f base.yml -f staging.yml up -d --build --remove-orphans --force-recreate"
             sh 'sleep 15'
             sh "docker-compose -f base.yml -f staging.yml exec -T application bash -c 'vendor/bin/behat'"
-         }
-      }
-
-      stage('Post') {
-         post {
-            always {
-               // Always cleanup after the build.
-               sh "docker-compose -f base.yml -f staging.yml down --remove-orphans --volumes"
-            }
+            sh "docker-compose -f base.yml -f staging.yml down --remove-orphans --volumes"
          }
       }
    }

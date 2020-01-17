@@ -30,7 +30,7 @@ pipeline {
          steps {
             sh "docker-compose -f base.yml -f staging.yml up -d --build --remove-orphans --force-recreate"
             sh 'sleep 15'
-            sh "docker-compose -f base.yml -f staging.yml exec -T application bash -c 'vendor/bin/behat'"
+            sh "docker-compose -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat'"
             sh "docker-compose -f base.yml -f staging.yml down --remove-orphans --volumes"
          }
       }

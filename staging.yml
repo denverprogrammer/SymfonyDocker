@@ -5,16 +5,8 @@ version: '3.3'
 services:
     database:
         environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
     application:
         environment:
-            - APP_ENV=dev
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-    adminer:
-        depends_on:
-            - database
-        hostname: adminer
-        image: adminer
-        ports:
-            - "${ADMINER_PORT}:8080"
-        restart: always
+            - APP_ENV=test
+            - MYSQL_DATABASE=${MYSQL_DATABASE}Test

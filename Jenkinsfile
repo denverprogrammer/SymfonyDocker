@@ -10,7 +10,6 @@ pipeline {
         MYSQL_DATABASE      = 'secretDb'
         APP_ENV             = 'dev'
         NGINX_PORT          = '80'
-        ADMINER_PORT        = '9080'
     }
 
    stages {
@@ -33,6 +32,14 @@ pipeline {
             sh 'sleep 15'
             sh "docker-compose -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat'"
             sh "docker-compose -f base.yml -f staging.yml down --remove-orphans --volumes"
+         }
+      }
+      
+      post {
+         always {
+            // Always cleanup after the build.
+            sh 'docker-compose -f build.yml down'
+            sh 'docker-compose -f test.yml down'
          }
       }
    }

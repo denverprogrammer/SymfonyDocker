@@ -8,7 +8,7 @@ pipeline {
       MYSQL_PORT          = '3307'
       MYSQL_PASSWORD      = 'drowssap'
       MYSQL_DATABASE      = 'secretDb'
-      APP_ENV             = 'dev'
+      APP_ENV             = 'test'
       NGINX_PORT          = '80'
    }
 

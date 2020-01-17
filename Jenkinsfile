@@ -5,7 +5,7 @@ pipeline {
       MYSQL_HOST          = 'database'
       MYSQL_ROOT_PASSWORD = 'root'
       MYSQL_USER          = 'serectUser'
-      MYSQL_PORT          = '3306'
+      MYSQL_PORT          = '3307'
       MYSQL_PASSWORD      = 'drowssap'
       MYSQL_DATABASE      = 'secretDb'
       APP_ENV             = 'dev'

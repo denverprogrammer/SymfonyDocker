@@ -43,43 +43,13 @@ pipeline {
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml down --remove-orphans --volumes"
          }
       }
-
-      stage('cleanup') {
-         steps {
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml down --remove-orphans --volumes"
-         }
-      }
    }
 
    post { 
       always { 
-         echo 'I will always say Hello again!'
+         sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
          // cleanWs()
-      }
-      success {
-         echo 'I succeeeded!'
-         mail to: 'denverprogrammer@gmail.com',
-            subject: "Tested Pipeline: ${currentBuild.fullDisplayName}",
-            body: "Testing a success ${env.BUILD_URL}"
-      }
-      unstable {
-         echo 'I am unstable :/'
-         mail to: 'denverprogrammer@gmail.com',
-            subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
-            body: "Looks like it passed but something is wrong with ${env.BUILD_URL}"
-      }
-      failure {
-         echo 'I failed :('
-         mail to: 'denverprogrammer@gmail.com',
-            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-            body: "Something is wrong with ${env.BUILD_URL}"
-      }
-      changed {
-         echo 'Things were different before...'
-         mail to: 'denverprogrammer@gmail.com',
-            subject: "Changed Pipeline: ${currentBuild.fullDisplayName}",
-            body: "Pipeline ${env.BUILD_URL} has been changed"
       }
    }
 }

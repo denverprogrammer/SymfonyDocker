@@ -28,9 +28,16 @@ pipeline {
          }
       }
 
-      stage('Test') {
+      stage('Startup') {
          steps {
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml up -d --build --remove-orphans --force-recreate"
+            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml logs"
+         }
+      }
+
+      stage('Testing') {
+         steps {
+            input('Is the server started?')
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml logs"
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat'"
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml down --remove-orphans --volumes"

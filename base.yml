@@ -53,3 +53,7 @@ services:
         hostname: composer
         image: composer/composer:alpine
         restart: 'no'
+
+networks:
+    ${NETWORK_NAME}:
+        driver: bridge

@@ -11,6 +11,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Setup ApplicationInstall.sh file to run after container build is completed.
 COPY docker/application/ApplicationInstall.sh /usr/local/bin/ApplicationInstall.sh
+COPY docker/application/Wait.sh /usr/local/bin/Wait.sh
 
 RUN apk update && \
     apk add --no-cache \
@@ -25,7 +26,8 @@ RUN apk update && \
         docker-php-ext-enable apcu && \
         apk del .build-deps && \
     PATH=$PATH:/usr/src/app/vendor/bin:bin && \
-    chmod +x /usr/local/bin/ApplicationInstall.sh
+    chmod +x /usr/local/bin/ApplicationInstall.sh && \
+    chmod +x /usr/local/bin/Wait.sh
 
 # Install XDebug if needed.
 # RUN pecl install xdebug && \

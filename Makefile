@@ -1,16 +1,17 @@
+#!make
+include .env
+export $(shell sed 's/=.*//' .env)
 
-.PHONY: wrapper destroy build_test build_dev run_test logs
+.PHONY: wrapper destroy logs start_initial_dev start_test start_dev build_test build_dev run_test run_initialize run_migrations run_composer run_wait
 
 CURRENT_BRANCH = `git rev-parse --abbrev-ref HEAD`
 CURRENT_COMMIT = `git log -n 1 ${CURRENT_BRANCH} --pretty=format:"%H"`
-
-BUILD_ENV =-f base.yml
-DEV_ENV =${BUILD_ENV} -f dev.yml
-TEST_ENV =${DEV_ENV} -f test.yml
-
-TEST_CMD = "vendor/bin/behat"
-MIGRATE_CMD = "bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing"
-WAIT_CMD = "/usr/local/bin/Wait.sh"
+BUILD_ENV      = -f base.yml
+DEV_ENV        = ${BUILD_ENV} -f dev.yml
+TEST_ENV       = ${DEV_ENV} -f test.yml
+TEST_CMD       = "vendor/bin/behat"
+MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
+COMPOSER_CMD   = "composer install --prefer-dist --no-suggest"
 
 # Generic wrapper command
 wrapper:
@@ -23,6 +24,16 @@ destroy:
 # Displays container logs.  Areas match names defined in base.yml file
 logs:
 	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="logs ${AREA}"
+
+initial_start_dev:
+	setup/InitialSetup
+	cd app && composer install --prefer-dist --no-suggest
+	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="up --build -d"
+	sleep 10
+	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${MIGRATE_CMD}"
+
+	# setfacl -R -m u:www-data:rX -m u:"$(whoami)":rwX config/jwt
+	# setfacl -dR -m u:www-data:rX -m u:"$(whoami)":rwX config/jwt
 
 # This cannot be used when a dev build is running.  Builds all 
 # of the test containers and starts the server.  In your browser
@@ -53,9 +64,3 @@ build_dev:
 # are blue.
 run_test:
 	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${TEST_CMD}"
-
-run_migrations:
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD}"
-
-run_wait:
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${WAIT_CMD}"

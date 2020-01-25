@@ -11,7 +11,10 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 TEST_CMD       = "vendor/bin/behat"
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
-COMPOSER_CMD   = "composer install --prefer-dist --no-suggest"
+COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest'
+DB_WAIT_CMD    = cat build/DatabaseWait.sh
+
+# RUN composer dump-autoload --optimize && composer run-scripts post-install-cmd
 
 # Generic wrapper command
 wrapper:
@@ -26,14 +29,11 @@ logs:
 	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="logs ${AREA}"
 
 initial_start_dev:
-	setup/InitialSetup
-	cd app && composer install --prefer-dist --no-suggest
+	build/InitialSetup.sh
 	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="up --build -d"
+	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${COMPOSER_CMD}"
 	sleep 10
 	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${MIGRATE_CMD}"
-
-	# setfacl -R -m u:www-data:rX -m u:"$(whoami)":rwX config/jwt
-	# setfacl -dR -m u:www-data:rX -m u:"$(whoami)":rwX config/jwt
 
 # This cannot be used when a dev build is running.  Builds all 
 # of the test containers and starts the server.  In your browser

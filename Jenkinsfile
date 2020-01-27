@@ -12,6 +12,7 @@ pipeline {
       NGINX_PORT          = '80'
       ADMINER_PORT        = '9080'
       COMPOSE_ID          = 'symfony_docker' // '{env.BRANCH_NAME}'
+      NETWORK_NAME        = 'symfony_docker'
    }
 
    stages {

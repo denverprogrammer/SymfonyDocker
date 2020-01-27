@@ -24,23 +24,22 @@ pipeline {
       stage('Build') {
          steps {
             sh "printenv"
-            sh "docker-compose -f base.yml -f staging.yml build"
+            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml build"
          }
       }
 
       stage('Startup') {
          steps {
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml up -d --build --remove-orphans --force-recreate"
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml logs"
+            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml up -d --remove-orphans --force-recreate"
+            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec application sh -c 'composer install --no-interaction --prefer-dist --no-suggest'"
+            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
+            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
          }
       }
 
       stage('Testing') {
          steps {
-            input('Is the server started?')
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml logs"
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat'"
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml down --remove-orphans --volumes"
          }
       }
    }
@@ -49,7 +48,6 @@ pipeline {
       always { 
          sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
-         // cleanWs()
       }
    }
 }

@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '3.3'
+version: '3.5'
 
 services:
     database:
@@ -8,6 +8,8 @@ services:
         hostname: database
         image: mysql:8.0
         restart: always
+        networks:
+            - symfony_docker
         environment:
             - MYSQL_HOST=${MYSQL_HOST}
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -26,6 +28,8 @@ services:
             - database
         hostname: application
         restart: always
+        networks:
+            - symfony_docker
         volumes:
             - ./app:/usr/src/app
         environment:
@@ -44,6 +48,8 @@ services:
         hostname: webserver
         image: nginx:1.15.3-alpine
         restart: always
+        networks:
+            - symfony_docker
         volumes:
             - './app:/usr/src/app'
             - './docker/webserver/default.conf:/etc/nginx/conf.d/default.conf:ro'
@@ -54,7 +60,10 @@ services:
         hostname: composer
         image: composer/composer:alpine
         restart: 'no'
+        networks:
+            - symfony_docker
 
 networks:
-    ${NETWORK_NAME}:
+    symfony_docker:
+        name: ${NETWORK_NAME}
         driver: bridge

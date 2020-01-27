@@ -9,6 +9,9 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_CACHE_DIR=/dev/null
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+# Setup ApplicationInstall.sh file to run after container build is completed.
+COPY build/DatabaseWait.sh /usr/local/bin/DatabaseWait.sh
+
 RUN apk update && \
     apk add --no-cache \
         wget \
@@ -19,7 +22,8 @@ RUN apk update && \
         pecl install apcu-5.1.8 && \
         docker-php-ext-enable apcu && \
         apk del .build-deps && \
-    PATH=$PATH:/usr/src/app/vendor/bin:bin;
+    PATH=$PATH:/usr/src/app/vendor/bin:bin && \
+    chmod +x /usr/local/bin/DatabaseWait.sh;
 
 # Install XDebug if needed.
 # RUN pecl install xdebug && \

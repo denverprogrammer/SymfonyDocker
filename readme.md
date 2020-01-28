@@ -1,41 +1,57 @@
 
 ## **Description:** ##
-Simple implementation of Symony 4 running in Docker. 
-
+Simple implementation of Symony 4 running in Docker.  This project is intended to be 
+built by [Jenkins Build Server](https://github.com/denverprogrammer/JenkinsBuildServer)
 
 ## **Linux Requirements:** ##
 * [docker ce](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 * [docker-compose](https://docs.docker.com/compose/install/)
 * [make](https://linuxconfig.org/how-to-install-gcc-the-c-compiler-on-ubuntu-18-04-bionic-beaver-linux)
-
+* Before running please create a new copy of the .env.dist.  This new copy needs to be called .env and should be in the same location as .env.dist.
+* Please change any screts in the .env file like JWT_PASSPHRASE to a more secure value.
 
 ## **How to run:** ##
 Any of the following commands can be run in your terminal.
 
 ```bash
+# Need a way to cover up your mistakes?
+# Does it need to be fast so that nobody will notice?
+# Or do you need to just start from scratch ... a lot.
+# Then this target is made for you.
+$ make NUKE_IT_NUKE_IT
+
 # Brings down all containers.
 $ make destroy
 
-# Prints all logs to the screen.  Logs can be filtered by container.
-# Example make logs AREA="application" to display application logs only.
+# Displays container logs.  Areas match names defined in base.yml file
 $ make logs
 
-# This cannot be used when a test build is running.  Builds all 
-# of the dev containers and starts the server.  In your browser 
-# go to http://localhost to view webpage.
-$ make build_dev:
+# Sets up and starts all of the dev containers for the first time.
+# Go to http://localhost in your browser to view webpage.
+$ make initial_dev_start
 
-# This cannot be used when a dev build is running.  Builds all 
-# of the test containers and starts the server.  In your browser
-# go to http://localhost to view webpage.
-$ make build_test:
+# Sets up and starts all of the test containers for the first time.
+# Go to http://localhost in your browser to view webpage.
+$ make initial_test_start
 
-# This command requires a test build.  Runs functional tests.  
-# Successfull tests show up as green, errors are red and warnings 
-# are blue.
-$ make run_test:
+# Starts all of the test containers.
+# Go to http://localhost in your browser to view webpage.
+$ make start_test$ 
+
+# Starts all of the dev containers.
+# Go to http://localhost in your browser to view webpage.
+$ make start_dev
+
+# Builds all of the test containers.
+$ make build_test
+
+# Builds all of the dev containers.
+$ make build_dev
+
+# Runs functional tests against a the application.
+# Successfull tests show up as green, errors are red and warnings are blue.
+$ make run_local_tests
 ```
-
 
 ## **Docker Containers:** ##
 Container   | Folder                                     | Description                             |
@@ -49,7 +65,6 @@ composer    | N/A                                        | Installs application 
 * All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.
 * \* This container is only available locally.
 * \*\* Exits when finished.
-
 
 ## **Container Environment Variables:** ##
 A .env file containing environment variables is located in the project root directory.  These can be changed when needed.

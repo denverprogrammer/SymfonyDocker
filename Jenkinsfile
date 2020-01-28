@@ -1,3 +1,6 @@
+// This project is intended to be built by Jenkins Build Server. 
+// https://github.com/denverprogrammer/JenkinsBuildServer
+
 pipeline {
    
    agent any

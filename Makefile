@@ -9,7 +9,7 @@ CURRENT_COMMIT = `git log -n 1 ${CURRENT_BRANCH} --pretty=format:"%H"`
 BUILD_ENV      = -f base.yml
 DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
-TEST_CMD       = "vendor/bin/behat"
+TEST_CMD       = "vendor/bin/behat --colors"
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'

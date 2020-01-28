@@ -11,7 +11,7 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 TEST_CMD       = "vendor/bin/behat"
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
-COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress'
+COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
 
 # Generic wrapper command

@@ -52,7 +52,7 @@ pipeline {
       stage('Testing') {
          steps {
             sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --format junit --out tests/coverage'"
-            junit 'build/reports/**/*.xml'
+            junit 'tests/coverage/*.xml'
          }
       }
    }

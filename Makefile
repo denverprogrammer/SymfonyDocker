@@ -14,7 +14,7 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
-TEST_CMD       = "vendor/bin/behat --colors"
+TEST_CMD       = 'vendor/bin/behat --colors --format junit --out tests/coverage'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
@@ -71,7 +71,7 @@ start_dev:
 
 # Generic docker-compose start command for any environment.
 start:
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="start -d"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="up -d"
 
 # Builds all of the test containers.
 build_test:

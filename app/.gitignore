@@ -9,7 +9,7 @@
 /public/bundles/
 /config/jwt
 /bin
-/tests/coverage/
+/tests/coverage/*
 ###> behat/symfony2-extension ###
 behat.yml
 ###< behat/symfony2-extension ###

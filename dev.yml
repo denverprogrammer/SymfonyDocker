@@ -19,3 +19,5 @@ services:
         ports:
             - "${ADMINER_PORT}:8080"
         restart: always
+        networks:
+            - symfony_docker

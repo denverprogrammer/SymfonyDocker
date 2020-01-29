@@ -15,8 +15,8 @@ pipeline {
       APP_ENV             = 'test'
       NGINX_PORT          = '80'
       ADMINER_PORT        = '9080'
-      COMPOSE_ID          = 'symfony_docker' // '{env.BRANCH_NAME}'
-      NETWORK_NAME        = 'symfony_docker'
+      PROJECT_ID          = {env.BRANCH_NAME}
+      NETWORK_NAME        = {env.BRANCH_NAME}
       JWT_PASSPHRASE      = 'Test'
    }
    
@@ -36,29 +36,30 @@ pipeline {
       stage('Build') {
          steps {
             sh "printenv"
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml build"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
          }
       }
 
       stage('Startup') {
          steps {
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'"
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
          }
       }
 
       stage('Testing') {
          steps {
-            sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors'"
          }
       }
    }
 
    post { 
       always { 
-         sh "docker-compose -p $COMPOSE_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
+         junit '**/tests/*.xml'
+         sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }
    }

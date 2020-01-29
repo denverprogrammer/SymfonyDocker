@@ -15,8 +15,8 @@ pipeline {
       APP_ENV             = 'test'
       NGINX_PORT          = '80'
       ADMINER_PORT        = '9080'
-      PROJECT_ID          = {env.BRANCH_NAME}
-      NETWORK_NAME        = {env.BRANCH_NAME}
+      PROJECT_ID          = '{env.BRANCH_NAME}'
+      NETWORK_NAME        = '{env.BRANCH_NAME}'
       JWT_PASSPHRASE      = 'Test'
    }
    

@@ -14,7 +14,7 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
-TEST_CMD       = 'vendor/bin/behat --colors --format junit --out tests --format pretty --out std'
+TEST_CMD       = 'vendor/bin/behat --colors --format junit --out Tests --format pretty --out std'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'

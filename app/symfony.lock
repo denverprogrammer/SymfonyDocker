@@ -554,7 +554,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "2.5",
-            "ref": "429afc6c6778a1fdddb52a4f708cd94ff2c9960f"
+            "ref": "ae4d22af30bbd484506bc1817c5a3ef72c855b93"
         },
         "files": [
             "config/packages/dev/swiftmailer.yaml",

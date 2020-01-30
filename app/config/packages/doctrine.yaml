@@ -1,6 +1,5 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
         dbname: '%env(MYSQL_DATABASE)%'
         host: '%env(resolve:MYSQL_HOST)%'
         port: '%env(MYSQL_PORT)%'

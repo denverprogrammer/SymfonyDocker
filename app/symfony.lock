@@ -440,7 +440,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.3",
-            "ref": "6240c6d43e8237a32452f057f81816820fd56ab6"
+            "ref": "222b46a1bb02cd04bbc59700adec2f44f1a644b7"
         },
         "files": [
             "config/packages/dev/monolog.yaml",

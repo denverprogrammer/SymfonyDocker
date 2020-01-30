@@ -590,9 +590,10 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.3",
-            "ref": "369b5b29dc52b2c190002825ae7ec24ab6f962dd"
+            "ref": "1da1987340b5ba64b16383906d678b989e3d096e"
         },
         "files": [
+            "config/packages/test/twig.yaml",
             "config/packages/twig.yaml",
             "config/routes/dev/twig.yaml",
             "templates/base.html.twig"

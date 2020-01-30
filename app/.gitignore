@@ -4,12 +4,20 @@
 /.env.local.php
 /.env.*.local
 
-/vendor
-/var
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/config/jwt
-/bin
-/Tests/*
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
 ###> behat/symfony2-extension ###
 behat.yml
 ###< behat/symfony2-extension ###
+
+/config/jwt
+/bin
+/Tests/*

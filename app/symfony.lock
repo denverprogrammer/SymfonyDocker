@@ -307,12 +307,12 @@
         "version": "v4.3.3"
     },
     "symfony/console": {
-        "version": "3.3",
+        "version": "4.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "3.3",
-            "ref": "482d233eb8de91ebd042992077bbd5838858890c"
+            "version": "4.2",
+            "ref": "5a91936749730b3df50d98f8f1d4a47ebd52f70c"
         },
         "files": [
             "bin/console",

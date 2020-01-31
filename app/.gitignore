@@ -20,4 +20,5 @@ behat.yml
 
 /config/jwt
 /bin
-/Tests/*
+/Test/*
+!/Tests/features/*

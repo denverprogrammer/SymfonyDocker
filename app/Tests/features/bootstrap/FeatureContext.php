@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests;
+
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
@@ -9,6 +11,7 @@ use Behatch\Context\RestContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 use App\Kernel;
 use App\Entity\User;
@@ -17,16 +20,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
 {
     use KernelDictionary;
 
-    // private static $container;
-
-    public function __construct()
+    public function __construct(KernelInterface $kernel)
     {
+        $this->setKernel($kernel);
     }
 
-    public static function createUser(
-        string $email,
-        string $password
-    ): User {
+    public static function createUser(string $email, string $password): User
+    {
         $user = new User();
         $user->setEmail($email);
         $user->setPassword($password);

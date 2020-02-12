@@ -93,3 +93,6 @@ run_local_tests:
 # Generic wrapper command
 wrapper:
 	docker-compose ${ENV_FILES} ${COMMAND}
+
+push:
+	git push -u origin ${CURRENT_BRANCH}

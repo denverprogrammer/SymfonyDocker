@@ -2,7 +2,7 @@
 include .env
 export $(shell sed 's/=.*//' .env)
 
-.PHONY: NUKE_IT_NUKE_IT destroy logs initial_dev_start initial_test_start initial_start start_test start_dev start build_test build_dev build run_local_tests wrapper
+.PHONY: NUKE_IT_NUKE_IT destroy logs initial_dev_start initial_test_start initial_start start_test start_dev start build_test build_dev build run_local_tests wrapper push
 
 # Common git commands
 CURRENT_BRANCH = `git rev-parse --abbrev-ref HEAD`
@@ -93,3 +93,7 @@ run_local_tests:
 # Generic wrapper command
 wrapper:
 	docker-compose ${ENV_FILES} ${COMMAND}
+
+# Common way to push to github.
+push:
+	git push -u origin ${CURRENT_BRANCH}

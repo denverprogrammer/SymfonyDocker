@@ -97,3 +97,7 @@ wrapper:
 # Common way to push to github.
 push:
 	git push -u origin ${CURRENT_BRANCH}
+
+# Check for psr issues.
+psr-check:
+	cd app && vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .

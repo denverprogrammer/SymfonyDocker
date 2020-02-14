@@ -22,3 +22,7 @@ behat.yml
 /bin
 /Test/*
 !/Tests/features/*
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

@@ -12,7 +12,7 @@ use App\Entity\Interfaces\UserInterface;
 
 /**
  * User class/table
- * 
+ *
  * @ApiResource
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"})
@@ -67,7 +67,7 @@ class User implements UserInterface
 
     /**
      * Set first name of user
-     * 
+     *
      * @param string $name Value of user's firstname
      *
      * @return self
@@ -91,7 +91,7 @@ class User implements UserInterface
 
     /**
      * Set last name of user
-     * 
+     *
      * @param string $name Value of user's lastname
      *
      * @return self
@@ -115,7 +115,7 @@ class User implements UserInterface
 
     /**
      * Set email of user
-     * 
+     *
      * @param string $email Value of user's email
      *
      * @return self
@@ -151,7 +151,7 @@ class User implements UserInterface
 
     /**
      * Set user roles
-     * 
+     *
      * @param array $roles User roles
      *
      * @return self
@@ -173,7 +173,7 @@ class User implements UserInterface
 
     /**
      * Set user password
-     * 
+     *
      * @param string $password User password
      *
      * @return self

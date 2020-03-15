@@ -40,6 +40,12 @@ pipeline {
          }
       }
 
+      stage('Code sniffing and Unit testing') {
+         steps {
+            sh "cd app && vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist ."
+         }
+      }
+
       stage('Startup') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
@@ -49,10 +55,9 @@ pipeline {
          }
       }
 
-      stage('Testing') {
+      stage('Functional Testing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .'"
-            sh "cd app && vendor/bin/behat --colors --format junit --out Tests --format pretty --out std"
          }
       }
    }

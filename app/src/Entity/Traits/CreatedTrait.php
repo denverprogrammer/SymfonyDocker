@@ -14,6 +14,10 @@ trait CreatedTrait
     /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
+     * @return 
+     * @return
+     * @param
+     * @param
      */
     protected $created;
 

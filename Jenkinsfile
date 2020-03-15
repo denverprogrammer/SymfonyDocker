@@ -49,7 +49,12 @@ pipeline {
          }
       }
 
-      stage('Testing') {
+      stage('Code Sniffing') {
+         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .'"
+         }
+      }
+      stage('Functional Testing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --format junit --out Tests --format pretty --out std'"
          }

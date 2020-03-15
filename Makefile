@@ -101,4 +101,4 @@ push:
 
 # Check for psr issues.
 psr-check:
-	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${PSR_CHECK_CMD}"
+	cd app && vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .

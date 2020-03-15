@@ -40,6 +40,13 @@ pipeline {
          }
       }
 
+      stage('Pre Testing') {
+         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'cd app && vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .'"
+         }
+      }
+
       stage('Startup') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"

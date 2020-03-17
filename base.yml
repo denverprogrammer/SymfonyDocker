@@ -60,7 +60,7 @@ services:
 
     composer:
         hostname: composer
-        image: composer/composer:alpine
+        image: composer:1.9.3
         restart: 'no'
         networks:
             - symfony_docker

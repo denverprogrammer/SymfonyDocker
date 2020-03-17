@@ -102,3 +102,12 @@ push:
 # Check for psr issues.
 psr-check:
 	cd app && vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .
+
+update-cert:
+	sudo rm -irf /usr/local/share/ca-certificates/updated
+	cd /usr/local/share/ca-certificates/
+	sudo mkdir /usr/local/share/ca-certificates/updated
+	sudo cp /usr/local/share/ca-certificates/ca-certificates.crt /usr/local/share/ca-certificates/updated/ca-certificates.crt
+	sudo chmod 755 /usr/local/share/ca-certificates/updated
+	sudo chmod 644 /usr/local/share/ca-certificates/updated/ca-certificates.crt
+	sudo update-ca-certificates

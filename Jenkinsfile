@@ -1,8 +1,7 @@
-// This project is intended to be built by Jenkins Build Server. 
-// https://github.com/denverprogrammer/JenkinsBuildServer
-
 pipeline {
-   
+   // This project is intended to be built by Jenkins Build Server. 
+   // https://github.com/denverprogrammer/JenkinsBuildServer   
+
    agent any
    
    environment {
@@ -51,19 +50,19 @@ pipeline {
 
       stage('Code Sniffing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=Tests/linter/phpcs.xml.dist .'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'"
          }
       }
       stage('Functional Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --format junit --out Tests --format pretty --out std'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --format junit --out tests --format pretty --out std'"
          }
       }
    }
 
    post { 
       always { 
-         junit '**/Tests/*.xml'
+         junit '**/tests/*.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

@@ -150,6 +150,9 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "friends-of-behat/mink-extension": {
+        "version": "2.3.1"
+    },
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
@@ -175,6 +178,9 @@
     },
     "justinrainbow/json-schema": {
         "version": "5.2.8"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.3"
     },
     "lcobucci/jwt": {
         "version": "3.3.1"
@@ -308,9 +314,6 @@
     },
     "symfony/cache-contracts": {
         "version": "v1.1.5"
-    },
-    "symfony/class-loader": {
-        "version": "v3.4.31"
     },
     "symfony/config": {
         "version": "v4.3.3"
@@ -473,14 +476,13 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.3",
-            "ref": "b0582341f1df39aaf3a9a866cdbe49937da35984"
+            "ref": "6d0e35f749d5f4bfe1f011762875275cd3f9874f"
         },
         "files": [
             ".env.test",
             "bin/phpunit",
-            "config/bootstrap.php",
             "phpunit.xml.dist",
-            "tests/.gitignore"
+            "tests/bootstrap.php"
         ]
     },
     "symfony/polyfill-intl-icu": {

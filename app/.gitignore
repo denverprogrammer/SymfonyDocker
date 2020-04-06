@@ -13,16 +13,11 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-###> behat/symfony2-extension ###
-behat.yml
-###< behat/symfony2-extension ###
-
 /config/jwt
 /bin
-/Test/*
-!/Tests/features/*
 
-###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
-###< squizlabs/php_codesniffer ###
+###> testing results ###
+/tests/phpcs-cache
+/tests/unit/.phpunit.result.cache
+/tests/default.xml
+###> testing results ###

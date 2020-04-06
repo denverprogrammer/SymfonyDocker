@@ -15,7 +15,7 @@ default:
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: ../tests/functional/bootstrap/bootstrap.php
+                bootstrap: ./bootstrap.php
                 class: App\Kernel
 
         Behat\MinkExtension:

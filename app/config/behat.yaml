@@ -4,9 +4,9 @@ default:
     suites:
         default:
             paths:
-                features: ../Tests/features
+                features: ../tests/functional
             contexts:
-                - App\Tests\FeatureContext:
+                - App\Tests\Functional\FeatureContext:
                     kernel: '@kernel'
                 - Behat\MinkExtension\Context\MinkContext
                 - Behatch\Context\RestContext
@@ -15,7 +15,7 @@ default:
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: ../Tests/features/bootstrap/bootstrap.php
+                bootstrap: ../tests/functional/bootstrap/bootstrap.php
                 class: App\Kernel
 
         Behat\MinkExtension:

@@ -4,7 +4,7 @@ default:
     suites:
         default:
             paths:
-                features: ../tests/functional
+                features: ../tests/functional/features
             contexts:
                 - App\Tests\Functional\FeatureContext:
                     kernel: '@kernel'

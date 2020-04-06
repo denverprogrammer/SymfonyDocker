@@ -61,7 +61,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\Functional\\": "tests/functional/bootstrap"
+            "App\\Tests\\Functional\\": "tests/functional"
         }
     },
     "replace": {

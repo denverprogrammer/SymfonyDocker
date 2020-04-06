@@ -19,10 +19,14 @@ behat.yml
 
 /config/jwt
 /bin
-/Test/*
-!/Tests/features/*
+/test/*
+!/tests/features/*
 
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> testing results ###
+/tests/default.xml
+###> testing results ###

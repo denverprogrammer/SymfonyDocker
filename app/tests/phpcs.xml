@@ -10,6 +10,7 @@
 
     <rule ref="PSR2"/>
 
+    <exclude-pattern>*/bin</exclude-pattern>
     <exclude-pattern>*/public</exclude-pattern>
     <exclude-pattern>*/config</exclude-pattern>
     <exclude-pattern>*/Tests</exclude-pattern>

@@ -45,6 +45,7 @@
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.12",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "*",
         "symfony/web-server-bundle": "4.4.*"
     },
@@ -61,7 +62,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\Functional\\": "tests/functional"
+            "App\\": "src/",
+            "App\\Tests\\": "tests/"
         }
     },
     "replace": {

@@ -4,9 +4,9 @@ default:
     suites:
         default:
             paths:
-                features: ../tests/functional/features
+                features: ../tests/functional
             contexts:
-                - App\Tests\Functional\FeatureContext:
+                - App\Tests\FeatureContext:
                     kernel: '@kernel'
                 - Behat\MinkExtension\Context\MinkContext
                 - Behatch\Context\RestContext

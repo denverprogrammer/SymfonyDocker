@@ -18,7 +18,7 @@ TEST_CMD      = 'vendor/bin/behat --colors --format junit --out tests --format p
 MIGRATE_CMD   = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD  = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD   = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
-PSR_CHECK_CMD = 'vendor/bin/phpcs -p --standard=tests/linter/phpcs.xml.dist .'
+PSR_CHECK_CMD = 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'
 
 # Need a way to cover up your mistakes?
 # Does it need to be fast so that nobody will notice?
@@ -86,9 +86,13 @@ build_dev:
 build:
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="build"
 
+# Runs unit tests against a the application.
+run_unit_tests:
+	cd app && bin/phpunit -c tests/phpunit.xml
+
 # Runs functional tests against a the application.
 # Successfull tests show up as green, errors are red and warnings are blue.
-run_local_tests:
+run_functional_tests:
 	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${TEST_CMD}"
 
 # Generic wrapper command
@@ -101,7 +105,7 @@ push:
 
 # Check for psr issues.
 psr-check:
-	cd app && vendor/bin/phpcs -p --standard=tests/linter/phpcs.xml.dist .
+	cd app && vendor/bin/phpcs -p --standard=tests/phpcs.xml .
 
 update-cert:
 	sudo rm -irf /usr/local/share/ca-certificates/updated

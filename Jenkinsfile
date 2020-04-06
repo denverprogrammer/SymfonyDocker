@@ -50,7 +50,7 @@ pipeline {
 
       stage('Code Sniffing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/linter/phpcs.xml.dist .'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml.dist .'"
          }
       }
       stage('Functional Testing') {

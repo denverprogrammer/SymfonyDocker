@@ -2,7 +2,7 @@
 include .env
 export $(shell sed 's/=.*//' .env)
 
-.PHONY: NUKE_IT_NUKE_IT destroy logs initial_dev_start initial_test_start initial_start start_test start_dev start build_test build_dev build run_local_tests wrapper push
+.PHONY: NUKE_IT_NUKE_IT destroy logs initial_dev_start initial_test_start initial_start start_test start_dev start build_test build_dev build run_unit_tests run_functional_tests wrapper push
 
 # Common git commands
 CURRENT_BRANCH = `git rev-parse --abbrev-ref HEAD`
@@ -14,11 +14,12 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
-TEST_CMD      = 'vendor/bin/behat --colors --format junit --out tests --format pretty --out std'
-MIGRATE_CMD   = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
-COMPOSER_CMD  = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
-DB_WAIT_CMD   = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
-PSR_CHECK_CMD = 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'
+UNIT_TEST_CMD  = 'bin/phpunit -c tests/phpunit.xml'
+FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --no-snippets --colors --config tests/behat.yaml'
+MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
+COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
+DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
+PSR_CHECK_CMD  = 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'
 
 # Need a way to cover up your mistakes?
 # Does it need to be fast so that nobody will notice?
@@ -88,12 +89,12 @@ build:
 
 # Runs unit tests against a the application.
 run_unit_tests:
-	cd app && bin/phpunit -c tests/phpunit.xml
+	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${UNIT_TEST_CMD}"
 
 # Runs functional tests against a the application.
 # Successfull tests show up as green, errors are red and warnings are blue.
 run_functional_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${TEST_CMD}"
+	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${FUNCT_TEST_CMD}"
 
 # Generic wrapper command
 wrapper:

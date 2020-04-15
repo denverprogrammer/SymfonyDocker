@@ -19,15 +19,14 @@ RUN apk update && \
     docker-php-ext-install pdo_mysql && \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
         libzip-dev && \
-        pecl install apcu-5.1.8 && \
-        docker-php-ext-enable apcu && \
-        apk del .build-deps && \
+    pecl install apcu-5.1.8 && \
+    docker-php-ext-enable apcu && \
+    apk del .build-deps && \
     PATH=$PATH:/usr/src/app/vendor/bin:bin && \
     chmod +x /usr/local/bin/DatabaseWait.sh;
 
-# Install XDebug if needed.
-# RUN pecl install xdebug && \
-#     docker-php-ext-enable xdebug
-
-# ENTRYPOINT ["/usr/local/bin/ApplicationInstall.sh"]
-# CMD ["php-fpm"]
+# Install XDebug
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
+    pecl install xdebug && \
+    docker-php-ext-enable xdebug && \
+    apk del .build-deps

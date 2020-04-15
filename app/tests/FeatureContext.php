@@ -12,6 +12,8 @@ use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
 
 use App\Kernel;
 use App\Entity\User;
@@ -46,14 +48,32 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function clearData(): void
     {
-        $manager = $this->entityManager();
-        $purger = new ORMPurger($manager);
-        $purger->purge();
-        $manager->clear();
+        $application = new Application($this->getKernel());
+
+        $command = $application->find('doctrine:schema:drop');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([
+            '--quiet'          => null,
+            '--force'          => null,
+            '--no-interaction' => null
+        ]);
+
+        $command = $application->find('doctrine:schema:create');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([
+            '--quiet'          => null,
+            '--no-interaction' => null
+        ]);
+
+        // doctrine:schema:drop
+        // $manager = $this->entityManager();
+        // $purger = new ORMPurger($manager);
+        // $purger->purge();
+        // $manager->clear();
     }
 
     /**
-     * @Given there is an admin user :email with password :password
+     * @Given there is a admin user :email with password :password
      */
     public function thereIsAnAdminUserWithPassword(
         string $email,
@@ -61,6 +81,19 @@ class FeatureContext implements Context, SnippetAcceptingContext
     ) {
         $user = self::createUser($email, $password);
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $manager = $this->entityManager();
+        $manager->persist($user);
+        $manager->flush();
+    }
+
+    /**
+     * @Given there is a common user
+     */
+    public function thereIsACommonUser() {
+        $user = self::createUser('common@test.com', 'drowssap');
+        $user->setFirstName('Jon');
+        $user->setLastName('Doe');
+        $user->setRoles(['ROLE_USER']);
         $manager = $this->entityManager();
         $manager->persist($user);
         $manager->flush();

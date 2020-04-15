@@ -2,7 +2,7 @@
 
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="bin/.phpunit/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.0/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="../config/bootstrap.php"
@@ -21,6 +21,12 @@
         </testsuite>
     </testsuites>
 
+    <logging>
+        <log lowUpperBound="35" highLowerBound="70" showUncoveredFiles="true" />
+        <log type="coverage-text" target="php://stdout" />
+        <log type="coverage-html" target="unit/results/html" />
+    </logging>
+
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../src/</directory>
@@ -33,5 +39,6 @@
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+        <listener class="Symfony\Bridge\PhpUnit\CoverageListener"/>
     </listeners>
 </phpunit>

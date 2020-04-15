@@ -17,6 +17,8 @@ pipeline {
       PROJECT_ID          = '{env.BRANCH_NAME}'
       NETWORK_NAME        = '{env.BRANCH_NAME}'
       JWT_PASSPHRASE      = 'Test'
+      JWT_SECRET_KEY      = '%kernel.project_dir%/config/jwt/private.pem'
+      JWT_PUBLIC_KEY      = '%kernel.project_dir%/config/jwt/public.pem'
    }
    
    options {

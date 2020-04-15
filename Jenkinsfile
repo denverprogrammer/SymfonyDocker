@@ -53,16 +53,22 @@ pipeline {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'"
          }
       }
+      stage('Unit Testing') {
+         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/phpunit -c tests/phpunit.xml'"
+         }
+      }
       stage('Functional Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --format junit --out tests --format pretty --out std'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
          }
       }
    }
 
    post { 
       always { 
-         junit '**/tests/*.xml'
+         junit '**/tests/functional/results/junit/*.xml'
+         junit '**/tests/unit/results/junit/*.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

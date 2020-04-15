@@ -25,6 +25,7 @@
         <log lowUpperBound="35" highLowerBound="70" showUncoveredFiles="true" />
         <log type="coverage-text" target="php://stdout" />
         <log type="coverage-html" target="unit/results/html" />
+        <log type="junit" target="unit/results/junit/junit.xml"/>
     </logging>
 
     <filter>

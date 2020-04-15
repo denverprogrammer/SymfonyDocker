@@ -15,7 +15,7 @@ TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
 UNIT_TEST_CMD  = 'bin/phpunit -c tests/phpunit.xml'
-FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --no-snippets --colors --config tests/behat.yaml'
+FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'

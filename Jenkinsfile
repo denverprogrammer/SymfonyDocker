@@ -14,11 +14,9 @@ pipeline {
       APP_ENV             = 'test'
       NGINX_PORT          = '80'
       ADMINER_PORT        = '9080'
-      PROJECT_ID          = '{env.BRANCH_NAME}'
-      NETWORK_NAME        = '{env.BRANCH_NAME}'
+      PROJECT_ID          = '${env.BRANCH_NAME}'
+      NETWORK_NAME        = '${env.BRANCH_NAME}'
       JWT_PASSPHRASE      = 'Test'
-      JWT_SECRET_KEY      = '%kernel.project_dir%/config/jwt/private.pem'
-      JWT_PUBLIC_KEY      = '%kernel.project_dir%/config/jwt/public.pem'
    }
    
    options {
@@ -44,7 +42,7 @@ pipeline {
       stage('Startup') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi && bin/phpunit'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
          }
@@ -53,11 +51,6 @@ pipeline {
       stage('Code Sniffing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'"
-         }
-      }
-      stage('Unit Testing') {
-         steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/phpunit -c tests/phpunit.xml'"
          }
       }
       stage('Functional Testing') {
@@ -70,7 +63,6 @@ pipeline {
    post { 
       always { 
          junit '**/tests/functional/results/junit/*.xml'
-         junit '**/tests/unit/results/junit/*.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

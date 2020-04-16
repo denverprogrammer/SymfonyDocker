@@ -38,6 +38,7 @@ pipeline {
          steps {
             sh "printenv"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/phpunit'"
          }
       }
 

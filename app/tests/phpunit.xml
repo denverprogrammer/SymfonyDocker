@@ -10,6 +10,9 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
+        <server name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem" />
+        <server name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem" />
+        <server name="JWT_PASSPHRASE" value="14bac7d2cf4c46f978ae7a13bf6d4ed7" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />

@@ -4,6 +4,9 @@ pipeline {
 
    agent any
    
+   def branch = "${env.BRANCH_NAME}"
+   branch.replaceAll("-", "_")
+
    environment {
       MYSQL_HOST          = 'database'
       MYSQL_ROOT_PASSWORD = 'root'
@@ -14,8 +17,8 @@ pipeline {
       APP_ENV             = 'test'
       NGINX_PORT          = '80'
       ADMINER_PORT        = '9080'
-      PROJECT_ID          = '${env.BRANCH_NAME}'
-      NETWORK_NAME        = '${env.BRANCH_NAME}'
+      PROJECT_ID          = text
+      NETWORK_NAME        = text
       JWT_PASSPHRASE      = 'Test'
    }
    

@@ -17,7 +17,7 @@ trait IdentifierTrait
     protected $id;
 
     /**
-     * Unique id of record
+     * Get unique id of record
      *
      * @return int|null
      */

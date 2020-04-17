@@ -14,9 +14,9 @@ pipeline {
       APP_ENV             = 'test'
       NGINX_PORT          = '80'
       ADMINER_PORT        = '9080'
-      PROJECT_ID          = '{env.BRANCH_NAME}'
-      NETWORK_NAME        = '{env.BRANCH_NAME}'
-      JWT_PASSPHRASE      = 'Test'
+      PROJECT_ID          = "${env.BRANCH_NAME}".replace("-", "_")
+      NETWORK_NAME        = "${env.BRANCH_NAME}".replace("-", "_")
+      JWT_PASSPHRASE      = '14bac7d2cf4c46f978ae7a13bf6d4ed7'
    }
    
    options {
@@ -53,16 +53,17 @@ pipeline {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'"
          }
       }
+
       stage('Functional Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --format junit --out tests --format pretty --out std'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
          }
       }
    }
 
    post { 
       always { 
-         junit '**/tests/*.xml'
+         junit '**/tests/functional/results/junit/*.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

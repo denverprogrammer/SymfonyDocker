@@ -16,7 +16,7 @@ pipeline {
       ADMINER_PORT        = '9080'
       PROJECT_ID          = "${env.BRANCH_NAME}".replace("-", "_")
       NETWORK_NAME        = "${env.BRANCH_NAME}".replace("-", "_")
-      JWT_PASSPHRASE      = 'Test'
+      JWT_PASSPHRASE      = '14bac7d2cf4c46f978ae7a13bf6d4ed7'
    }
    
    options {
@@ -51,6 +51,11 @@ pipeline {
       stage('Code Sniffing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'"
+         }
+      }
+      stage('Unit Testing') {
+         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/phpunit -c tests/phpunit.xml'"
          }
       }
       stage('Functional Testing') {

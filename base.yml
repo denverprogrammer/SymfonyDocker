@@ -40,9 +40,6 @@ services:
             - MYSQL_DATABASE=${MYSQL_DATABASE}
             - MYSQL_PORT=${MYSQL_PORT}
             - APP_ENV=${APP_ENV}
-            - JWT_PASSPHRASE=${JWT_PASSPHRASE}
-            - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-            - JWT_PUBLIC_KEY=${JWT_PUBLIC_KEY}
 
     webserver:
         depends_on:

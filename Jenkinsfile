@@ -68,17 +68,17 @@ pipeline {
 
       stage('Collection Results') {
          steps {
-            sh "ls -lac app/tests/spec"
-            sh "ls -lac app/tests/functional"
+            sh "ls -lac app/tests/spec/results"
+            sh "ls -lac app/tests/functional/results"
             step([
                $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/spec',
+               cloverReportDir: 'app/tests/spec/results/clover',
                cloverReportFileName: 'coverage.xml'
             ])
 
             step([
                $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/functional',
+               cloverReportDir: 'app/tests/functional/results/clover',
                cloverReportFileName: 'coverage.xml'
             ])
          }

@@ -15,7 +15,7 @@ extensions:
           - clover
 
         output:
-            clover: tests/spec/coverage.xml
+            clover: tests/spec/results/clover/coverage.xml
 
         whitelist:
             - src

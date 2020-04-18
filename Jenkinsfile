@@ -56,7 +56,6 @@ pipeline {
 
       stage('Unit Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.test.yaml --format pretty --ansi --no-interaction'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/unit/results && bin/phpunit -c tests/phpunit.xml'"
          }
       }

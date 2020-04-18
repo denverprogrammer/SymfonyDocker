@@ -57,14 +57,6 @@ pipeline {
       stage('Unit Testing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.yaml --format pretty --ansi --no-interaction'"
-            step([
-               $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/spec/results/clover',
-               cloverReportFileName: 'coverage.xml',
-               healthyTarget: [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80],
-               unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50],
-               failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
-            ])
          }
       }
 
@@ -73,7 +65,25 @@ pipeline {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
          }
       }
+
+      stage('Collection Results') {
+         steps {
+            step([
+               $class: 'CloverPublisher',
+               cloverReportDir: 'app/tests/spec/results/clover',
+               cloverReportFileName: 'coverage.xml'
+            ])
+
+            step([
+               $class: 'CloverPublisher',
+               cloverReportDir: 'app/tests/functional/results/clover',
+               cloverReportFileName: 'coverage.xml'
+            ])
+         }
+      }
    }
+
+
 
    post { 
       always { 

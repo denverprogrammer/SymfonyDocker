@@ -4,7 +4,8 @@ default:
     formatters:
         pretty: true
         junit:
-            output_path: "./tests/functional/results/junit"
+            output_path: ./tests/functional/results/junit
+
     suites:
         default:
             paths:
@@ -39,10 +40,10 @@ default:
                 whitelist:
                     include:
                         directories:
-                            'src': ~
+                            src: ~
                     exclude:
                         directories:
-                            'src/Migrations': ~
+                            src/Migrations: ~
                         files:
                             - src/Kernel.php
             report:

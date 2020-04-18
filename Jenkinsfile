@@ -54,6 +54,12 @@ pipeline {
          }
       }
 
+      stage('Unit Testing') {
+         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.yaml --format pretty'"
+         }
+      }
+
       stage('Functional Testing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"

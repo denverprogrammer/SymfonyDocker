@@ -56,7 +56,7 @@ pipeline {
 
       stage('Unit Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.yaml --format pretty'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.yaml --format pretty --ansi --no-interaction'"
          }
       }
 
@@ -68,10 +68,12 @@ pipeline {
    }
 
    post { 
-      always { 
-         junit '**/tests/functional/results/junit/*.xml'
-         sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
-         deleteDir() /* clean up our workspace */
+      stage('Cleanup') {
+         always { 
+            junit '**/tests/functional/results/junit/*.xml'
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
+            deleteDir() /* clean up our workspace */
+         }
       }
    }
 }

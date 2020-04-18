@@ -49,4 +49,4 @@ default:
             report:
                 format: clover
                 options:
-                    target: tests/functional/results
+                    target: tests/functional

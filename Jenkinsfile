@@ -56,29 +56,29 @@ pipeline {
 
       stage('Unit Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.yaml --format pretty --ansi --no-interaction'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.test.yaml --format pretty --ansi --no-interaction'"
          }
       }
 
       stage('Functional Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.test.yaml'"
          }
       }
 
       stage('Collection Results') {
          steps {
-            sh "ls -lac app/tests/spec/results"
-            sh "ls -lac app/tests/functional/results"
+            sh "ls -lac app/tests/spec"
+            sh "ls -lac app/tests/functional"
             step([
                $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/spec/results',
+               cloverReportDir: 'app/tests/spec',
                cloverReportFileName: 'coverage.xml'
             ])
 
             step([
                $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/functional/results',
+               cloverReportDir: 'app/tests/functional',
                cloverReportFileName: 'coverage.xml'
             ])
          }

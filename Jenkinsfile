@@ -66,7 +66,7 @@ pipeline {
          }
       }
 
-      stage('Collection Results') {
+      stage('Collecting Test Results') {
          steps {
             sh "ls -lac app/tests/spec/results/clover"
             sh "ls -lac app/tests/functional/results/clover"
@@ -89,7 +89,7 @@ pipeline {
 
    post { 
       always { 
-         junit '**/tests/functional/results/junit/*.xml'
+         // junit '**/tests/functional/results/junit/*.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

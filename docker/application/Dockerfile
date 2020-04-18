@@ -1,6 +1,9 @@
 # ./docker/php/Dockerfile
 FROM php:7.2-fpm-alpine
 
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
+    sed -i -e "s/^ *memory_limit.*/memory_limit = 4G/g" /usr/local/etc/php/php.ini
+
 # Copy application to correct place in container
 WORKDIR /usr/src/app
 

@@ -14,7 +14,7 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
-UNIT_TEST_CMD  = 'rm -irf tests/unit/results && bin/phpunit -c tests/phpunit.xml'
+UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
 SPEC_TEST_CMD  = 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.test.yaml --format junit --ansi'
 FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.test.yaml'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'

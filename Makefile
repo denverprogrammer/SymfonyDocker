@@ -14,10 +14,8 @@ DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
-MAKE_SPEC_CMD  = 'vendor/bin/phpspec describe --config tests/phpspec.yaml App\\Entity\\User'
-SPEC_TEST_CMD  = 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.yaml --format pretty'
-UNIT_TEST_CMD  = 'rm -irf tests/unit/results && bin/phpunit -c tests/phpunit.xml'
-FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
+SPEC_TEST_CMD  = 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.test.yaml --format junit --ansi'
+FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.test.yaml'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'

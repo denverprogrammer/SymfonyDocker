@@ -1,0 +1,52 @@
+
+# behat.yml
+default:
+    formatters:
+        pretty: true
+        junit:
+            output_path: ./tests/functional/results/junit
+
+    suites:
+        default:
+            paths:
+                features: ./functional
+            contexts:
+                - App\Tests\FeatureContext:
+                    kernel: '@kernel'
+                - Behat\MinkExtension\Context\MinkContext
+                - Behatch\Context\RestContext
+                - Behatch\Context\JsonContext
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: ../config/bootstrap.php
+                class: App\Kernel
+
+        Behat\MinkExtension:
+            show_auto: true
+            show_cmd: firefox %s
+            base_url: "http://localhost"
+            sessions:
+                default:
+                    symfony2: ~
+
+        Behatch\Extension: ~
+
+        LeanPHP\Behat\CodeCoverage\Extension:
+            drivers:
+                - local
+            filter:
+                whitelist:
+                    include:
+                        directories:
+                            src: ~
+                    exclude:
+                        directories:
+                            src/Migrations: ~
+                        files:
+                            - src/Kernel.php
+            report:
+                format: clover
+                options:
+                    target: tests/functional/results/clover

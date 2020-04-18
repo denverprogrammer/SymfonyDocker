@@ -1,0 +1,27 @@
+suites:
+    default:
+        bootstrap: ../config/bootstrap.php
+        namespace: App
+        psr4_prefix: App
+        src_path: ../src
+        spec_prefix: spec
+        spec_path: ./tests
+        stop_on_failure: true
+        verbose: true
+
+extensions:
+    FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
+        format:
+          - clover
+
+        output:
+            clover: tests/spec/results/clover/coverage.xml
+
+        whitelist:
+            - src
+
+        blacklist:
+            - src/Migrations
+
+        blacklist_files:
+            - src/Kernel.php

@@ -65,15 +65,15 @@ pipeline {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
          }
       }
+      stage('Cleanup') {
+      }
    }
 
    post { 
-      stage('Cleanup') {
-         always { 
-            junit '**/tests/functional/results/junit/*.xml'
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
-            deleteDir() /* clean up our workspace */
-         }
+      always { 
+         junit '**/tests/functional/results/junit/*.xml'
+         sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
+         deleteDir() /* clean up our workspace */
       }
    }
 }

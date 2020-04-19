@@ -63,13 +63,13 @@ pipeline {
 
       stage('Functional Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.test.yaml'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
          }
       }
 
       stage('Collecting Test Results') {
          steps {
-            junit 'tests/*/results/junit/junit.xml'
+            junit 'tests/*/results/junit/default.xml'
          }
       }
    }

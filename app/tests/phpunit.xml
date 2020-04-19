@@ -29,7 +29,7 @@
         <log type="coverage-text" target="php://stdout" />
         <log type="coverage-html" target="unit/results/html" />
         <log type="coverage-clover" target="unit/results/clover/junit.xml"/>
-        <log type="junit" target="unit/results/junit/junit.xml"/>
+        <log type="junit" target="unit/results/junit/default.xml"/>
     </logging>
 
     <filter>

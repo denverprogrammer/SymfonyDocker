@@ -69,7 +69,7 @@ pipeline {
 
       stage('Collecting Test Results') {
          steps {
-            junit 'tests/*/results/junit/default.xml'
+            junit '**/tests/*/results/junit/default.xml'
          }
       }
    }

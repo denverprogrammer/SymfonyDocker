@@ -49,4 +49,4 @@ default:
             report:
                 format: clover
                 options:
-                    target: tests/functional/results/clover/coverage.xml
+                    target: tests/functional/results/clover/unit_functional.xml

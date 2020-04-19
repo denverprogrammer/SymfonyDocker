@@ -15,7 +15,6 @@ TEST_ENV       = ${DEV_ENV} -f test.yml
 
 # Common commands run inside the docker container.
 UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
-SPEC_TEST_CMD  = 'rm -irf tests/spec/results && vendor/bin/phpspec run --config tests/phpspec.test.yaml --format junit --ansi'
 FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.test.yaml'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
@@ -87,14 +86,6 @@ build_dev:
 # Generic docker-compose build command for any environment.
 build:
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="build"
-
-# Runs spec tests against a the application.
-make_spec_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${CREATE_SPEC_CMD}"
-
-# Runs spec tests against a the application.
-run_spec_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${SPEC_TEST_CMD}"
 
 # Runs unit tests against a the application.
 run_unit_tests:

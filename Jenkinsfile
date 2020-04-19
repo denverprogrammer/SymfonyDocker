@@ -36,6 +36,7 @@ pipeline {
          steps {
             sh "printenv"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c ' vendor/bin/simple-phpunit --help'"
          }
       }
 
@@ -56,7 +57,7 @@ pipeline {
 
       stage('Unit Testing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/unit/results && bin/phpunit -c tests/phpunit.xml'"
          }
       }
 
@@ -73,13 +74,13 @@ pipeline {
             step([
                $class: 'CloverPublisher',
                cloverReportDir: 'app/tests/unit/results/clover/',
-               cloverReportFileName: 'coverage.xml'
+               cloverReportFileName: 'unit_coverage.xml'
             ])
 
             step([
                $class: 'CloverPublisher',
                cloverReportDir: 'app/tests/functional/results/clover/',
-               cloverReportFileName: 'coverage.xml'
+               cloverReportFileName: 'functional_coverage.xml'
             ])
          }
       }

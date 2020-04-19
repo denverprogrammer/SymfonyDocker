@@ -70,6 +70,8 @@ pipeline {
       stage('Collecting Test Results') {
          steps {
             junit '**/tests/*/results/junit/default.xml'
+            llvm-cov export -instr-profile tests/unit/results/junit/default.xml tests/unit/results/junit
+            llvm-cov export -instr-profile tests/functional/results/junit/default.xml tests/functional/results/junit
             publishCoverage adapters: [jacocoAdapter('tests/unit/results/junit/default.xml')], tag: 'unit'
             publishCoverage adapters: [jacocoAdapter('tests/functional/results/junit/default.xml')], tag: 'functional'
          }

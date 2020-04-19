@@ -73,6 +73,16 @@ pipeline {
             sh "pwd"
             sh "ls -lac app/tests/unit/results"
             sh "ls -lac app/tests/unit/results/html"
+
+            fileOperations([fileCopyOperation(
+               excludes: '',
+               flattenFiles: false,
+               includes: '${env.WORKSPACE}/app/tests/unit/results/clover/default.xml',
+               targetLocation: "${env.WORKSPACE}/app/tests/unit/results/html/default.xml"
+            )]).
+
+            sh "ls -lac app/tests/unit/results/html"
+
             step([
                $class: 'CloverPublisher',
                cloverReportDir: 'app/tests/unit/results/html',

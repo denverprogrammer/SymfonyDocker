@@ -47,6 +47,6 @@ default:
                         files:
                             - src/Kernel.php
             report:
-                format: clover
+                format: junit
                 options:
-                    target: tests/functional/results/clover/unit_functional.xml
+                    target: tests/functional/results/junit/junit.xml

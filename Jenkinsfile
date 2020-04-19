@@ -71,12 +71,16 @@ pipeline {
          steps {
             junit '**/tests/*/results/junit/default.xml'
             sh "pwd"
-            sh "ls -lac app/tests/unit/results/junit"
-            sh "llvm-cov export -instr-profile app/tests/unit/results/junit/default.xml tests/unit/results/junit"
-            sh "ls -lac app/tests/unit/results/junit"
-            // sh "llvm-cov export -instr-profile tests/functional/results/junit/default.xml tests/functional/results/junit"
-            publishCoverage adapters: [jacocoAdapter('app/tests/unit/results/junit/default.xml')], tag: 'unit'
-            // publishCoverage adapters: [jacocoAdapter('tests/functional/results/junit/default.xml')], tag: 'functional'
+            sh "ls -lac app/tests/unit/results"
+            sh "ls -lac app/tests/unit/results/clover"
+            step([
+               $class: 'CloverPublisher',
+               cloverReportDir: 'app/tests/unit/results/html',
+               cloverReportFileName: 'app/tests/unit/results/clover/default.xml',
+               healthyTarget: [methodCoverage: 70, conditionalCoverage: 80, statementCoverage: 80], // optional, default is: method=70, conditional=80, statement=80
+               unhealthyTarget: [methodCoverage: 50, conditionalCoverage: 50, statementCoverage: 50], // optional, default is none
+               failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]     // optional, default is none
+            ])
          }
       }
    }

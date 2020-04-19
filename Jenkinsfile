@@ -72,7 +72,7 @@ pipeline {
             junit '**/tests/*/results/junit/default.xml'
             sh "pwd"
             sh "ls -lac app/tests/unit/results"
-            sh "ls -lac app/tests/unit/results/clover"
+            sh "ls -lac app/tests/unit/results/html"
             step([
                $class: 'CloverPublisher',
                cloverReportDir: 'app/tests/unit/results/html',

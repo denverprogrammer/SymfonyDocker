@@ -74,8 +74,6 @@ pipeline {
       }
    }
 
-
-
    post { 
       always { 
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"

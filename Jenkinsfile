@@ -69,19 +69,7 @@ pipeline {
 
       stage('Collecting Test Results') {
          steps {
-            sh "ls -lac app/tests/unit/results/clover"
-            sh "ls -lac app/tests/functional/results/clover"
-            step([
-               $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/unit/results/clover/',
-               cloverReportFileName: 'unit_coverage.xml'
-            ])
-
-            step([
-               $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/functional/results/clover/',
-               cloverReportFileName: 'functional_coverage.xml'
-            ])
+            junit 'tests/*/results/junit/junit.xml'
          }
       }
    }
@@ -90,7 +78,6 @@ pipeline {
 
    post { 
       always { 
-         junit 'tests/*/results/junit/junit.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

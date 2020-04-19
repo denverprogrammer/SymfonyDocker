@@ -70,8 +70,8 @@ pipeline {
       stage('Collecting Test Results') {
          steps {
             junit '**/tests/*/results/junit/default.xml'
-            publishCoverage adapters: [jacoco('**/tests/unit/results/junit/default.xml')], tag: ‘unit’
-            publishCoverage adapters: [jacoco('**/tests/functional/results/junit/default.xml')], tag: ‘functional’
+            publishCoverage adapters: [jacoco('**/tests/unit/results/junit/default.xml')], tag: ‘t’
+            publishCoverage adapters: [jacoco('**/tests/functional/results/junit/default.xml')], tag: ‘t’
          }
       }
    }

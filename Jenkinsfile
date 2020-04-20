@@ -67,7 +67,8 @@ pipeline {
                keepAll: false,
                reportDir: 'app/tests/unit/results/html',
                reportFiles: 'index.html',
-               reportName: "Unit Tests Report"
+               reportName: "Unit Tests Report",
+               reportTitles: "Testing Unit"
             ])
 
             publishHTML (target: [
@@ -76,7 +77,8 @@ pipeline {
                keepAll: false,
                reportDir: 'app/tests/functional/results/html',
                reportFiles: 'index.html',
-               reportName: "Functional Tests Report"
+               reportName: "Functional Tests Report",
+               reportTitles: "Testing Functional"
             ])
          }
       }

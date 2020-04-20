@@ -60,11 +60,14 @@ pipeline {
       stage('Collecting Test Results') {
          steps {
             junit '**/tests/*/results/junit/default.xml'
+
             step([
                $class: 'CloverPublisher',
                cloverReportDir: 'app/tests/unit/results/html',
                cloverReportFileName: 'default.xml'
             ])
+
+            archiveArtifacts artifacts: 'app/tests/unit/results/html'
          }
       }
    }

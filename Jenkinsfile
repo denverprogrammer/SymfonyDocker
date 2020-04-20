@@ -27,10 +27,11 @@ pipeline {
 
    stages {
 
-      stage('Build Containers') {
+      stage('Build & Start Containers') {
          steps {
             checkout scm
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml up -d --remove-orphans --force-recreate"
          }
       }
 
@@ -48,7 +49,7 @@ pipeline {
          }
       }
 
-      stage('Code Sniffing') {
+      stage('Sniffing & Testing Code') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs --colors -p --standard=tests/phpcs.xml .'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'"

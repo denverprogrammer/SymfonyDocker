@@ -2,7 +2,7 @@ pipeline {
    // This project is intended to be built by Jenkins Build Server. 
    // https://github.com/denverprogrammer/JenkinsBuildServer   
 
-   agent any
+   agent label 'my-defined-label'
    
    environment {
       MYSQL_HOST          = 'database'

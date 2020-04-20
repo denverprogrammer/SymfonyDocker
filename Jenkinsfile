@@ -26,17 +26,11 @@ pipeline {
    }
 
    stages {
-      stage('Checkout Code') {
-         steps {
-            checkout scm
-         }
-      }
 
       stage('Build Containers') {
          steps {
-            sh "printenv"
+            checkout scm
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
          }
       }
 
@@ -50,24 +44,14 @@ pipeline {
       stage('Database Migrations') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing --ansi'"
          }
       }
 
       stage('Code Sniffing') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs -p --standard=tests/phpcs.xml .'"
-         }
-      }
-
-      stage('Unit Testing') {
-         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/phpcs --colors -w -s -e --standard=tests/phpcs.xml .'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'"
-         }
-      }
-
-      stage('Functional Testing') {
-         steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
          }
       }
@@ -86,7 +70,7 @@ pipeline {
 
    post { 
       always { 
-         sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
+         sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }
    }

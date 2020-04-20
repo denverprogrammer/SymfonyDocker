@@ -61,13 +61,23 @@ pipeline {
          steps {
             junit '**/tests/*/results/junit/default.xml'
 
-            step([
-               $class: 'CloverPublisher',
-               cloverReportDir: 'app/tests/unit/results/html',
-               cloverReportFileName: 'default.xml'
+            publishHTML (target: [
+               allowMissing: true,
+               alwaysLinkToLastBuild: true,
+               keepAll: false,
+               reportDir: 'app/tests/unit/results/html',
+               reportFiles: 'index.html',
+               reportName: "Unit Tests Report"
             ])
 
-            archiveArtifacts artifacts: 'app/tests/unit/results/html/'
+            publishHTML (target: [
+               allowMissing: true,
+               alwaysLinkToLastBuild: true,
+               keepAll: false,
+               reportDir: 'app/tests/functional/results/html',
+               reportFiles: 'index.html',
+               reportName: "Functional Tests Report"
+            ])
          }
       }
    }

@@ -26,26 +26,31 @@ pipeline {
    }
 
    stages {
-      stage('Checkout') {
+      stage('Checkout Code') {
          steps {
             checkout scm
          }
       }
 
-      stage('Build') {
+      stage('Build Containers') {
          steps {
             sh "printenv"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
          }
       }
 
-      stage('Startup') {
+      stage('Install Dependencies') {
          steps {
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi up -d --remove-orphans --force-recreate"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/simple-phpunit -c tests/phpunit.xml --version'"
+         }
+      }
+
+      stage('Database Migrations') {
+         steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
-            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/simple-phpunit -c tests/phpunit.xml --version'"
          }
       }
 
@@ -70,10 +75,6 @@ pipeline {
       stage('Collecting Test Results') {
          steps {
             junit '**/tests/*/results/junit/default.xml'
-            sh "pwd"
-            sh "ls -lac app/tests/unit/results"
-            sh "ls -lac app/tests/unit/results/html"
-
             step([
                $class: 'CloverPublisher',
                cloverReportDir: 'app/tests/unit/results/html',

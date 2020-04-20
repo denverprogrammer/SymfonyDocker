@@ -67,7 +67,7 @@ pipeline {
                cloverReportFileName: 'default.xml'
             ])
 
-            archiveArtifacts artifacts: 'app/tests/unit/results/html'
+            archiveArtifacts artifacts: 'app/tests/unit/results/html/'
          }
       }
    }

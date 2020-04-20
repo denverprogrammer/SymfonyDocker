@@ -5,7 +5,7 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.0/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="../config/bootstrap.php"
+         bootstrap="./bootstrap.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -15,7 +15,7 @@
         <server name="JWT_PASSPHRASE" value="14bac7d2cf4c46f978ae7a13bf6d4ed7" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="8.5" />
     </php>
 
     <testsuites>
@@ -28,7 +28,8 @@
         <log lowUpperBound="35" highLowerBound="70" showUncoveredFiles="true" />
         <log type="coverage-text" target="php://stdout" />
         <log type="coverage-html" target="unit/results/html" />
-        <log type="junit" target="unit/results/junit/junit.xml"/>
+        <log type="coverage-clover" target="unit/results/html/default.xml" />
+        <log type="junit" target="unit/results/junit/default.xml"/>
     </logging>
 
     <filter>

@@ -45,6 +45,7 @@ pipeline {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/DatabaseWait.sh'"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/simple-phpunit -c tests/phpunit.xml --version'"
          }
       }
 
@@ -54,16 +55,36 @@ pipeline {
          }
       }
 
+      stage('Unit Testing') {
+         steps {
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'"
+         }
+      }
+
       stage('Functional Testing') {
          steps {
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'vendor/bin/behat --colors --config tests/behat.yaml'"
+         }
+      }
+
+      stage('Collecting Test Results') {
+         steps {
+            junit '**/tests/*/results/junit/default.xml'
+            sh "pwd"
+            sh "ls -lac app/tests/unit/results"
+            sh "ls -lac app/tests/unit/results/html"
+
+            step([
+               $class: 'CloverPublisher',
+               cloverReportDir: 'app/tests/unit/results/html',
+               cloverReportFileName: 'default.xml'
+            ])
          }
       }
    }
 
    post { 
       always { 
-         junit '**/tests/functional/results/junit/*.xml'
          sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml --no-ansi down --remove-orphans --volumes"
          deleteDir() /* clean up our workspace */
       }

@@ -4,7 +4,8 @@ default:
     formatters:
         pretty: true
         junit:
-            output_path: "./tests/functional/results/junit"
+            output_path: ./tests/functional/results/junit
+
     suites:
         default:
             paths:
@@ -19,7 +20,7 @@ default:
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: ../config/bootstrap.php
+                bootstrap: bootstrap.php
                 class: App\Kernel
 
         Behat\MinkExtension:
@@ -39,10 +40,10 @@ default:
                 whitelist:
                     include:
                         directories:
-                            'src': ~
+                            src: ~
                     exclude:
                         directories:
-                            'src/Migrations': ~
+                            src/Migrations: ~
                         files:
                             - src/Kernel.php
             report:

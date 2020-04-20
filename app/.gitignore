@@ -17,6 +17,7 @@
 /bin
 /tests/functional/results
 /tests/unit/results
+/tests/spec/results
 
 ###> testing results ###
 /tests/phpcs-cache

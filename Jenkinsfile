@@ -4,7 +4,7 @@ pipeline {
 
    agent {
    
-      label 'my-defined-label'
+      label 'PHP'
       
       environment {
          MYSQL_HOST          = 'database'

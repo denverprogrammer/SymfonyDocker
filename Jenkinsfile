@@ -18,7 +18,7 @@ pipeline {
       NETWORK_NAME        = "${env.BRANCH_NAME}".replace("-", "_")
       USER_ID             = sh(script: "id -u ${USER}", returnStdout: true)
       GROUP_ID            = sh(script: "id -g ${USER}", returnStdout: true)
-      CURRENT_UID         = ${USER_ID}:${GROUP_ID}
+      CURRENT_UID         = '${USER_ID}:${GROUP_ID}'
    }
    
    options {

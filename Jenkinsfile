@@ -8,12 +8,12 @@ pipeline {
       MYSQL_HOST          = 'database'
       MYSQL_ROOT_PASSWORD = 'root'
       MYSQL_USER          = 'serectUser'
-      MYSQL_PORT          = '3306'
+      MYSQL_PORT          = $((3306+env.EXECUTOR_NUMBER))
       MYSQL_PASSWORD      = 'drowssap'
       MYSQL_DATABASE      = 'secretDb'
       APP_ENV             = 'test'
-      NGINX_PORT          = '80'
-      ADMINER_PORT        = '9080'
+      NGINX_PORT          = $((80+env.EXECUTOR_NUMBER))
+      ADMINER_PORT        = $((9080+env.EXECUTOR_NUMBER))
       PROJECT_ID          = "${env.BRANCH_NAME}".replace("-", "_")
       NETWORK_NAME        = "${env.BRANCH_NAME}".replace("-", "_")
       USER_ID             = sh(script: "id -u", returnStdout: true).trim()

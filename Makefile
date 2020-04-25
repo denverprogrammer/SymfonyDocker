@@ -12,6 +12,9 @@ CURRENT_COMMIT = `git log -n 1 ${CURRENT_BRANCH} --pretty=format:"%H"`
 BUILD_ENV      = -f base.yml
 DEV_ENV        = ${BUILD_ENV} -f dev.yml
 TEST_ENV       = ${DEV_ENV} -f test.yml
+USER_ID        = `id -u`
+GROUP_ID       = `id -g`
+CURRENT_UID    = ${USER_ID}:${GROUP_ID}
 
 # Common commands run inside the docker container.
 UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
@@ -31,6 +34,9 @@ NUKE_IT_NUKE_IT:
 	docker network prune --force
 	docker container prune --force
 	docker rmi -f $(`docker images -aq`)
+
+set_user:
+	echo ${CURRENT_UID}
 
 # Brings down all containers.
 destroy:
@@ -57,9 +63,9 @@ initial_start:
 	build/InitialSetup.sh
 	make build ENV_FILES="${ENV_FILES}"
 	make start ENV_FILES="${ENV_FILES}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${COMPOSER_CMD}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${DB_WAIT_CMD}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD}"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${CURRENT_UID}"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${CURRENT_UID}"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${CURRENT_UID}"
 
 # Starts all of the test containers.
 # Go to http://localhost in your browser to view webpage.
@@ -89,12 +95,12 @@ build:
 
 # Runs unit tests against a the application.
 run_unit_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${UNIT_TEST_CMD}"
+	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${UNIT_TEST_CMD} --user ${CURRENT_UID}"
 
 # Runs functional tests against a the application.
 # Successfull tests show up as green, errors are red and warnings are blue.
 run_functional_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${FUNCT_TEST_CMD}"
+	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${FUNCT_TEST_CMD} --user ${CURRENT_UID}"
 
 # Generic wrapper command
 wrapper:
@@ -106,7 +112,7 @@ push:
 
 # Check for psr issues.
 psr-check:
-	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${PSR_CHECK_CMD}"
+	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${PSR_CHECK_CMD} --user ${CURRENT_UID}"
 
 update-cert:
 	sudo rm -irf /usr/local/share/ca-certificates/updated

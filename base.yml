@@ -41,6 +41,7 @@ services:
             - MYSQL_PORT=${MYSQL_PORT}
             - APP_ENV=${APP_ENV}
             - JWT_PASSPHRASE=${JWT_PASSPHRASE}
+        user: ${CURRENT_UID}
 
     webserver:
         depends_on:
@@ -62,6 +63,7 @@ services:
         restart: 'no'
         networks:
             - symfony_docker
+        user: ${CURRENT_UID}
 
 networks:
     symfony_docker:

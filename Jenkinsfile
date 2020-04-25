@@ -16,9 +16,9 @@ pipeline {
       ADMINER_PORT        = '9080'
       PROJECT_ID          = "${env.BRANCH_NAME}".replace("-", "_")
       NETWORK_NAME        = "${env.BRANCH_NAME}".replace("-", "_")
-      USER_ID             = sh(script: "id -u", returnStdout: true)
-      GROUP_ID            = sh(script: "id -g", returnStdout: true)
-      CURRENT_UID         = "0:0"
+      USER_ID             = sh(script: "id -u", returnStdout: true).trim()
+      GROUP_ID            = sh(script: "id -g", returnStdout: true).trim()
+      CURRENT_UID         = "${USER_ID}:${GROUP_ID}"
    }
    
    options {

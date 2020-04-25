@@ -8,7 +8,7 @@ pipeline {
       MYSQL_HOST          = 'database'
       MYSQL_ROOT_PASSWORD = 'root'
       MYSQL_USER          = 'serectUser'
-      MYSQL_PORT          = sh(script: "echo $((3306+$env.EXECUTOR_NUMBER))", returnStdout: true).trim()
+      MYSQL_PORT          = sh(script: "echo $((${3306}+$env.EXECUTOR_NUMBER))", returnStdout: true).trim()
       MYSQL_PASSWORD      = 'drowssap'
       MYSQL_DATABASE      = 'secretDb'
       APP_ENV             = 'test'

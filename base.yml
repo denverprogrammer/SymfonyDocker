@@ -18,6 +18,8 @@ services:
             - MYSQL_DATABASE=${MYSQL_DATABASE}
         ports:
             - "${MYSQL_PORT}:3306"
+        expose:
+            - ${MYSQL_PORT}
 
     application:
         build:
@@ -38,9 +40,10 @@ services:
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
             - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_PORT=${MYSQL_PORT}
+            - MYSQL_PORT=3306
             - APP_ENV=${APP_ENV}
             - JWT_PASSPHRASE=${JWT_PASSPHRASE}
+        user: ${CURRENT_UID}
 
     webserver:
         depends_on:
@@ -62,6 +65,7 @@ services:
         restart: 'no'
         networks:
             - symfony_docker
+        user: ${CURRENT_UID}
 
 networks:
     symfony_docker:

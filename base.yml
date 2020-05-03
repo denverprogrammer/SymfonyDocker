@@ -43,6 +43,8 @@ services:
             - MYSQL_PORT=3306
             - APP_ENV=${APP_ENV}
             - JWT_PASSPHRASE=${JWT_PASSPHRASE}
+            - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+            - JWT_PUBLIC_KEY=${JWT_PUBLIC_KEY}
         user: ${CURRENT_UID}
 
     webserver:

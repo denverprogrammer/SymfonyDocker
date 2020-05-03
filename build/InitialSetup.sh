@@ -15,4 +15,6 @@ echo $JWT_PASSPHRASE | openssl genpkey -out $JWT_SECRET_KEY -pass stdin -aes256 
 echo "Generating pkey for JWT"
 echo $JWT_PASSPHRASE | openssl pkey -in $JWT_SECRET_KEY -passin stdin -out $JWT_PUBLIC_KEY -pubout
 
+chmod -R 644 app/config/jwt/*
+
 exit $?

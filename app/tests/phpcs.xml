@@ -16,6 +16,7 @@
     <exclude-pattern>*/Tests</exclude-pattern>
     <exclude-pattern>*/var</exclude-pattern>
     <exclude-pattern>*/vendor</exclude-pattern>
+    <exclude-pattern>*/Kernel.php</exclude-pattern>
 
     <!-- <file>bin/</file>
     <file>config/</file>
@@ -23,5 +24,8 @@
     <file>src/</file>
     <!-- <file>Tests/</file> -->
 
+    <rule ref="Squiz.Commenting.FunctionComment" />
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+    <rule ref="Squiz.Commenting.ClassComment" />
+    <rule ref="Squiz.Commenting.VariableComment" />
 </ruleset>
-

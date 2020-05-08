@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Interfaces\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User class/table
@@ -24,18 +23,24 @@ class User implements UserInterface
     use Traits\UpdatedTrait;
 
     /**
+     * @var string First name of user.
+     *
      * @ORM\Column(type="string", length=180)
      * @Assert\NotBlank()
      */
     private $firstName = 'first name';
 
     /**
+     * @var string Last name of user.
+     *
      * @ORM\Column(type="string", length=180)
      * @Assert\NotBlank()
      */
     private $lastName = 'last name';
 
     /**
+     * @var string Email name of user.
+     *
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
@@ -43,12 +48,15 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var array User roles.
+     *
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var string Hashed password
+     *
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -56,7 +64,7 @@ class User implements UserInterface
 
 
     /**
-     * First name of user
+     * First name of user.
      *
      * @return string
      */
@@ -66,9 +74,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set first name of user
+     * Set first name of user.
      *
-     * @param string $name Value of user's firstname
+     * @param string $name User's first name.
      *
      * @return self
      */
@@ -80,7 +88,7 @@ class User implements UserInterface
     }
 
     /**
-     * Last name of user
+     * Last name of user.
      *
      * @return string
      */
@@ -90,9 +98,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set last name of user
+     * Set last name of user.
      *
-     * @param string $name Value of user's lastname
+     * @param string $name User's last name.
      *
      * @return self
      */
@@ -104,7 +112,7 @@ class User implements UserInterface
     }
 
     /**
-     * Email of user
+     * Email of user.
      *
      * @return string|null
      */
@@ -114,9 +122,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set email of user
+     * Set email of user.
      *
-     * @param string $email Value of user's email
+     * @param string $email User's email.
      *
      * @return self
      */
@@ -128,17 +136,19 @@ class User implements UserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
+     * Get username of user.
      *
-     * @see UserInterface
+     * @return string|null
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return (string) $this->email;
     }
 
     /**
-     * @see UserInterface
+     * Get roles of user.
+     *
+     * @return array
      */
     public function getRoles(): array
     {
@@ -150,9 +160,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set user roles
+     * Set user roles.
      *
-     * @param array $roles User roles
+     * @param array $roles User roles.
      *
      * @return self
      */
@@ -164,7 +174,9 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * Get password of user
+     *
+     * @return string
      */
     public function getPassword(): string
     {
@@ -172,9 +184,9 @@ class User implements UserInterface
     }
 
     /**
-     * Set user password
+     * Set user password.
      *
-     * @param string $password User password
+     * @param string $password User password.
      *
      * @return self
      */
@@ -186,19 +198,41 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * Get password salt for user.
+     *
+     * @return string|null
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
-     * @see UserInterface
+     * Erase plain text password.
+     *
+     * @return void
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+    }
+
+    /**
+     * Check if the given user is equal to the current user.
+     *
+     * @param UserInterface $user User.
+     *
+     * @return boolean
+     */
+    public function isEqualTo(UserInterface $user)
+    {
+        if (!$user instanceof User) {
+            return false;
+        }
+
+        if ($this->getUsername() !== $user->getUsername()) {
+            return false;
+        }
+
+        return true;
     }
 }

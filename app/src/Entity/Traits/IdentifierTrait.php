@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 trait IdentifierTrait
 {
     /**
+     * @var integer|null Identifier of record.
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -17,9 +18,9 @@ trait IdentifierTrait
     protected $id;
 
     /**
-     * Get unique id of record
+     * Get unique id of record.
      *
-     * @return int|null
+     * @return integer|null
      */
     public function getId(): ?int
     {

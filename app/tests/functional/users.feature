@@ -33,7 +33,6 @@ Feature: Users feature
 			| lastName  | Doe            | 
 			| email     | test@test9.com | 
 			| roles[0]  | ROLE_USER      | 
-			| password  | drowssap       | 
 		And the Json Node "roles" should have 1 element
 
 	@AdminLogin

@@ -22,7 +22,7 @@ FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors 
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
-PSR_CHECK_CMD  = 'vendor/bin/phpcs --colors -p --standard=tests/phpcs.xml .'
+PSR_CHECK_CMD  = 'vendor/bin/phpcs --colors -ps --standard=tests/phpcs.xml .'
 
 # Need a way to cover up your mistakes?
 # Does it need to be fast so that nobody will notice?

@@ -11,9 +11,11 @@ use Behatch\Context\RestContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 use App\Kernel;
 use App\Entity\User;
@@ -22,15 +24,22 @@ class FeatureContext implements Context, SnippetAcceptingContext
 {
     use KernelDictionary;
 
-    public function __construct(KernelInterface $kernel)
+    protected $jwtManager = null;
+
+    protected $pwdEncoder = null;
+
+    public function __construct(KernelInterface $kernel, object $jwtManager, UserPasswordEncoderInterface $encoder)
     {
         $this->setKernel($kernel);
+        $this->jwtManager = $jwtManager;
+        $this->pwdEncoder = $encoder;
     }
 
-    public static function createUser(string $email, string $password): User
+    public function createUser(string $email, string $plainPassword): User
     {
         $user = new User();
         $user->setEmail($email);
+        $password = $this->pwdEncoder->encodePassword($user, $plainPassword);
         $user->setPassword($password);
 
         return $user;
@@ -78,51 +87,68 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function thereIsAnAdminUserWithPassword(
         string $email,
         string $password
-    ) {
+    ): User {
         $user = self::createUser($email, $password);
+        $user->setFirstName('Jane');
+        $user->setLastName('Smith');        
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $manager = $this->entityManager();
         $manager->persist($user);
         $manager->flush();
+
+        return $user;
     }
 
     /**
-     * @Given there is a common user
+     * @Given there is a common user :email with password :password
      */
-    public function thereIsACommonUser() {
-        $user = self::createUser('common@test.com', 'drowssap');
+    public function thereIsACommonUserWithPassword(
+        string $email,
+        string $password
+    ): User {
+        $user = self::createUser($email, $password);
         $user->setFirstName('Jon');
         $user->setLastName('Doe');
         $user->setRoles(['ROLE_USER']);
         $manager = $this->entityManager();
         $manager->persist($user);
         $manager->flush();
+
+        return $user;
     }
 
-    // /**
-    //  * @BeforeScenario
-    //  * @login
-    //  *
-    //  * @see https://symfony.com/doc/current/security/entity_provider.html#creating-your-first-user
-    //  */
-    // public function login(BeforeScenarioScope $scope)
-    // {
-    //     $user = self::createUser(
-    //         'test@test.com',
-    //         'drowssap'
-    //     );
-    //     $this->manager->persist($user);
-    //     $this->manager->flush();
-    //     $token = $this->jwtManager->create($user);
-    //     $this->restContext = $scope->getEnvironment()->getContext(RestContext::class);
-    //     $this->restContext->iAddHeaderEqualTo('Authorization', "Bearer $token");
-    // }
+    private function login(BeforeScenarioScope $scope, User $user): void
+    {
+        $token = $this->jwtManager->create($user);
+        $this->restContext = $scope->getEnvironment()->getContext(RestContext::class);
+        $this->restContext->iAddHeaderEqualTo('Authorization', "Bearer $token");
+    }
 
-    // /**
-    //  * @AfterScenario
-    //  * @logout
-    //  */
-    // public function logout() {
-    //     $this->restContext->iAddHeaderEqualTo('Authorization', '');
-    // }
+    /**
+     * @BeforeScenario
+     * @AdminLogin
+     */
+    public function adminLogin(BeforeScenarioScope $scope)
+    {
+        $user = $this->thereIsAnAdminUserWithPassword('admin@test.com', 'drowssap');
+        $this->login($scope, $user);
+    }
+
+    /**
+     * @BeforeScenario
+     * @UserLogin
+     */
+    public function userLogin(BeforeScenarioScope $scope)
+    {
+        $user = $this->thereIsACommonUserWithPassword('test@test.com', 'drowssap');
+        $this->login($scope, $user);
+    }
+
+    /**
+     * @AfterScenario
+     * @logout
+     */
+    public function logout() {
+        $this->restContext->iAddHeaderEqualTo('Authorization', '');
+    }
 }

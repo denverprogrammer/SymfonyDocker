@@ -11,6 +11,7 @@ use Behatch\Context\RestContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -23,17 +24,41 @@ class FeatureContext implements Context, SnippetAcceptingContext
 {
     use KernelDictionary;
 
+    /**
+     * Lexik JWT Manager
+     *
+     * @var JWTManager
+     */
     protected $jwtManager = null;
 
+    /**
+     * Symfony password encoder.
+     *
+     * @var UserPasswordEncoderInterface
+     */
     protected $pwdEncoder = null;
 
-    public function __construct(KernelInterface $kernel, object $jwtManager, UserPasswordEncoderInterface $encoder)
-    {
+    /**
+     * FeatureContext constructor
+     */
+    public function __construct(
+        KernelInterface $kernel,
+        JWTManager $jwtManager,
+        UserPasswordEncoderInterface $encoder
+    ) {
         $this->setKernel($kernel);
         $this->jwtManager = $jwtManager;
         $this->pwdEncoder = $encoder;
     }
 
+    /**
+     * Create a new admin user.
+     *
+     * @param string email
+     * @param string password
+     *
+     * @return User
+     */
     public function createUser(string $email, string $plainPassword): User
     {
         $user = new User();
@@ -44,6 +69,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
         return $user;
     }
 
+    /**
+     * Get Doctrine entity manager.
+     *
+     * @return EntityManagerInterface
+     */
     private function entityManager(): EntityManagerInterface
     {
         return $this->getContainer()
@@ -52,6 +82,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * Clears database of data.
+     *
      * @BeforeScenario
      */
     public function clearData(): void
@@ -81,12 +113,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * Create a new admin user.
+     *
+     * @param string email
+     * @param string password
+     *
+     * @return User
+     *
      * @Given there is a admin user :email with password :password
      */
-    public function thereIsAnAdminUserWithPassword(
-        string $email,
-        string $password
-    ): User {
+    public function createAdminUser(string $email, string $password): User
+    {
         $user = self::createUser($email, $password);
         $user->setFirstName('Jane');
         $user->setLastName('Smith');
@@ -99,12 +136,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * Create a new common user.
+     *
+     * @param string email
+     * @param string password
+     *
+     * @return User
+     *
      * @Given there is a common user :email with password :password
      */
-    public function thereIsACommonUserWithPassword(
-        string $email,
-        string $password
-    ): User {
+    public function createCommonUser(string $email, string $password): User
+    {
         $user = self::createUser($email, $password);
         $user->setFirstName('Jon');
         $user->setLastName('Doe');
@@ -116,6 +158,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
         return $user;
     }
 
+    /**
+     * Logs in the given user.
+     *
+     * @param BeforeScenarioScope $scope
+     * @param User $user
+     */
     private function login(BeforeScenarioScope $scope, User $user): void
     {
         $token = $this->jwtManager->create($user);
@@ -124,26 +172,36 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * Create admin user and log them in.
+     *
+     * @param BeforeScenarioScope $scope
+     *
      * @BeforeScenario
      * @AdminLogin
      */
     public function adminLogin(BeforeScenarioScope $scope)
     {
-        $user = $this->thereIsAnAdminUserWithPassword('admin@test.com', 'drowssap');
+        $user = $this->createAdminUser('admin@test.com', 'drowssap');
         $this->login($scope, $user);
     }
 
     /**
+     * Create common user and log them in.
+     *
+     * @param BeforeScenarioScope $scope
+     *
      * @BeforeScenario
      * @UserLogin
      */
     public function userLogin(BeforeScenarioScope $scope)
     {
-        $user = $this->thereIsACommonUserWithPassword('test@test.com', 'drowssap');
+        $user = $this->createCommonUser('test@test.com', 'drowssap');
         $this->login($scope, $user);
     }
 
     /**
+     * Log out user.
+     *
      * @AfterScenario
      * @logout
      */

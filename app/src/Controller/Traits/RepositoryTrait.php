@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\Traits;
 
 use App\Entity\User;

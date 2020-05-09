@@ -17,7 +17,7 @@ final class Version20190912012440 extends AbstractMigration
      *
      * @return string
      */
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Add users and logging tables';
     }
@@ -29,7 +29,7 @@ final class Version20190912012440 extends AbstractMigration
      *
      * @return void
      */
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->abortIf(
             $this->connection->getDatabasePlatform()->getName() !== 'mysql',
@@ -71,7 +71,7 @@ final class Version20190912012440 extends AbstractMigration
      *
      * @return void
      */
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         $this->abortIf(
             $this->connection->getDatabasePlatform()->getName() !== 'mysql',

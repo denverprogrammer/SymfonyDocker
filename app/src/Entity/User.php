@@ -23,7 +23,9 @@ class User implements UserInterface
     use Traits\UpdatedTrait;
 
     /**
-     * @var string First name of user.
+     * First name of user.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=180)
      * @Assert\NotBlank()
@@ -31,7 +33,9 @@ class User implements UserInterface
     private $firstName = 'first name';
 
     /**
-     * @var string Last name of user.
+     * Last name of user.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=180)
      * @Assert\NotBlank()
@@ -39,7 +43,9 @@ class User implements UserInterface
     private $lastName = 'last name';
 
     /**
-     * @var string Email name of user.
+     * Email name of user.
+     *
+     * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
@@ -48,14 +54,18 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @var array User roles.
+     * User roles.
+     *
+     * @var array
      *
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * @var string Hashed password
+     * Hashed password
+     *
+     * @var string
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank()

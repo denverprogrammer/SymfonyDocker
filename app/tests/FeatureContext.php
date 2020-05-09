@@ -16,7 +16,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 use App\Kernel;
 use App\Entity\User;
 
@@ -49,7 +48,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         return $this->getContainer()
             ->get('doctrine')
-            ->getManager();        
+            ->getManager();
     }
 
     /**
@@ -90,7 +89,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     ): User {
         $user = self::createUser($email, $password);
         $user->setFirstName('Jane');
-        $user->setLastName('Smith');        
+        $user->setLastName('Smith');
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $manager = $this->entityManager();
         $manager->persist($user);
@@ -148,7 +147,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
      * @AfterScenario
      * @logout
      */
-    public function logout() {
+    public function logout()
+    {
         $this->restContext->iAddHeaderEqualTo('Authorization', '');
     }
 }

@@ -8,21 +8,29 @@ namespace App\Entity\DTO;
 class RegisterUser
 {
     /**
+     * First name of user.
+     *
      * @var string First name of user.
      */
     public $firstName = 'first name';
 
     /**
+     * Last name of user.
+     *
      * @var string Last name of user.
      */
     public $lastName = 'last name';
 
     /**
+     * Email of user.
+     *
      * @var string Email of user.  This will also become the username.
      */
     public $email = '';
 
     /**
+     * Password of user.
+     *
      * @var string The plaintext password.
      */
     public $password = '';
@@ -100,7 +108,7 @@ class RegisterUser
     }
 
     /**
-     * @see UserInterface
+     * Get password of user.
      *
      * @return string
      */

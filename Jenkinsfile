@@ -20,6 +20,8 @@ pipeline {
       GROUP_ID            = sh(script: "id -g", returnStdout: true).trim()
       CURRENT_UID         = "${USER_ID}:${GROUP_ID}"
       JWT_PASSPHRASE      = '14bac7d2cf4c46f978ae7a13bf6d4ed7'
+      JWT_SECRET_KEY      = '%kernel.project_dir%/config/jwt/private.pem'
+      JWT_PUBLIC_KEY      = '%kernel.project_dir%/config/jwt/public.pem'
    }
    
    options {

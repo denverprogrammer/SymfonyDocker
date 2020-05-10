@@ -19,7 +19,7 @@ echo "Generating pkey for JWT"
 echo $JWT_PASSPHRASE | openssl pkey -in $JWT_SECRET_KEY -passin stdin -out $JWT_PUBLIC_KEY -pubout
 
 chmod -R 644 /usr/src/app/config/jwt/*
-chown -R ${CURRENT_UID} /usr/src/app/config/jwt/*
+chown -R 1000:1000 /usr/src/app/config/jwt/*
 
 echo "========================================================== current dir"
 ls -lac /usr/src/app

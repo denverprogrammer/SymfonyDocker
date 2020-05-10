@@ -20,9 +20,4 @@ echo $JWT_PASSPHRASE | openssl pkey -in $JWT_SECRET_KEY -passin stdin -out $JWT_
 
 chmod -R 644 /usr/src/app/config/jwt/*
 
-echo "========================================================== current dir"
-ls -lac /usr/src/app
-echo "========================================================== jwt dir"
-ls -lac /usr/src/app/config/jwt
-
 exit $?

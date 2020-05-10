@@ -3,7 +3,7 @@ pipeline {
    // https://github.com/denverprogrammer/JenkinsBuildServer   
 
    agent { label 'PHP' }
-   
+
    environment {
       MYSQL_HOST          = 'database'
       MYSQL_ROOT_PASSWORD = 'root'
@@ -19,8 +19,11 @@ pipeline {
       USER_ID             = sh(script: "id -u", returnStdout: true).trim()
       GROUP_ID            = sh(script: "id -g", returnStdout: true).trim()
       CURRENT_UID         = "${USER_ID}:${GROUP_ID}"
+      JWT_SECRET_KEY      = 'app/config/jwt/private.pem'
+      JWT_PUBLIC_KEY      = 'app/config/jwt/public.pem'
+      JWT_PASSPHRASE      = '14bac7d2cf4c46f978ae7a13bf6d4ed7'
    }
-   
+
    options {
       buildDiscarder logRotator(daysToKeepStr: '7')
       timeout(time: 10, unit: 'MINUTES')

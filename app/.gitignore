@@ -19,7 +19,7 @@
 /tests/spec/results
 
 ###> testing results ###
-/tests/cache/phpcs-cache
+/tests/phpcs-cache
 /tests/unit/.phpunit.result.cache
 /tests/default.xml
 ###> testing results ###

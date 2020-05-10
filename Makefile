@@ -21,6 +21,7 @@ UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tes
 FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
+INITIALIZE_CMD = 'timeout 300s /usr/local/bin/InitialSetup.sh'
 DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
 PSR_CHECK_CMD  = 'vendor/bin/phpcs --standard=tests/phpcs.xml .'
 
@@ -60,9 +61,9 @@ initial_test_start:
 # This target sets up the initial folders, builds containers, 
 # starts containers, installs composer dependencies and migrates data.
 initial_start:
-	build/InitialSetup.sh
 	make build ENV_FILES="${ENV_FILES}"
 	make start ENV_FILES="${ENV_FILES}"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${INITIALIZE_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${CURRENT_UID}"

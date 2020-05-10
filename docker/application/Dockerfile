@@ -14,6 +14,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Setup ApplicationInstall.sh file to run after container build is completed.
 COPY build/DatabaseWait.sh /usr/local/bin/DatabaseWait.sh
+COPY build/InitialSetup.sh /usr/local/bin/InitialSetup.sh
 
 RUN apk update && \
     apk add --no-cache \
@@ -26,7 +27,8 @@ RUN apk update && \
     docker-php-ext-enable apcu && \
     apk del .build-deps && \
     PATH=$PATH:/usr/src/app/vendor/bin:bin && \
-    chmod +x /usr/local/bin/DatabaseWait.sh;
+    chmod +x /usr/local/bin/DatabaseWait.sh && \
+    chmod +x /usr/local/bin/InitialSetup.sh;
 
 # Install XDebug
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \

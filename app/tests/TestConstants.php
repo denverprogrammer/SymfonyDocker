@@ -4,9 +4,38 @@ namespace App\Tests;
 
 class TestConstants
 {
-    public const FIRST_NAME    = 'Jon';
-    public const LAST_NAME     = 'Doe';
-    public const TEST_EMAIL    = 'test@test.com';
+    /**
+     * First name of user.
+     *
+     * @var string
+     */
+    public const FIRST_NAME = 'Jon';
+
+    /**
+     * Last name of user.
+     *
+     * @var string
+     */
+    public const LAST_NAME = 'Doe';
+
+    /**
+     * Email of test user.
+     *
+     * @var string
+     */
+    public const TEST_EMAIL = 'test@test.com';
+
+    /**
+     * Password of test user.
+     *
+     * @var string
+     */
     public const TEST_PASSWORD = 'drowssap';
-    public const TEST_ROLES    = ['ROLE_USER'];
+
+    /**
+     * Roles of test user.
+     *
+     * @var string
+     */
+    public const TEST_ROLES = ['ROLE_USER'];
 }

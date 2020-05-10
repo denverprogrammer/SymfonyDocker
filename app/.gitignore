@@ -13,14 +13,13 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-/config/jwt
 /bin
 /tests/functional/results
 /tests/unit/results
 /tests/spec/results
 
 ###> testing results ###
-/tests/phpcs-cache
+/tests/cache/phpcs-cache
 /tests/unit/.phpunit.result.cache
 /tests/default.xml
 ###> testing results ###

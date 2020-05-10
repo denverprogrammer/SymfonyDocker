@@ -33,6 +33,7 @@ pipeline {
          steps {
             checkout scm
             sh "printenv"
+            sh "build/InitialSetup.sh"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml up -d --remove-orphans --force-recreate"
          }

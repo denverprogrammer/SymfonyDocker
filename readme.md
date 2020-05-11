@@ -183,3 +183,4 @@ react       |N/A                     | Front end javascript framework. \*|
 * [Jenkins build server](https://www.nielsvandermolen.com/continuous-integration-jenkins-docker/)
 * [Docker environment setup](https://medium.com/caendra-tech/a-docker-development-environment-for-a-symfony-application-a301df340b58)
 * [Docker + Jenkins + Behat example](https://code-maze.com/ci-jenkins-docker/)
+* [React training site](https://reacttraining.com/react-router/web/example/basic)

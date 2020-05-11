@@ -48,11 +48,11 @@ class RegisterUser
     /**
      * Set first name of user.
      *
-     * @param string $name Value of user's first name.
+     * @param string|null $name Value of user's first name.
      *
      * @return self
      */
-    public function setFirstName(string $name): self
+    public function setFirstName(?string $name): self
     {
         $this->firstName = $name;
 
@@ -72,11 +72,11 @@ class RegisterUser
     /**
      * Set last name of user
      *
-     * @param string $name Value of user's last name.
+     * @param string|null $name Value of user's last name.
      *
      * @return self
      */
-    public function setLastName(string $name): self
+    public function setLastName(?string $name): self
     {
         $this->lastName = $name;
 
@@ -86,9 +86,9 @@ class RegisterUser
     /**
      * Email of user.
      *
-     * @return string|null
+     * @return string
      */
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -96,11 +96,11 @@ class RegisterUser
     /**
      * Set email of user.
      *
-     * @param string $email Value of user's email.
+     * @param string|null $email Value of user's email.
      *
      * @return self
      */
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -120,11 +120,11 @@ class RegisterUser
     /**
      * Set user password.
      *
-     * @param string $password User password.
+     * @param string|null $password User password.
      *
      * @return self
      */
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 

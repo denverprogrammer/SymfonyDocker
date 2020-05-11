@@ -32,7 +32,7 @@ trait FormTrait
      *
      * @return array
      */
-    private function getErrorsFromForm(FormInterface $form): array
+    private function getErrors(FormInterface $form): array
     {
         $errors = [];
         foreach ($form->getErrors() as $error) {
@@ -41,7 +41,7 @@ trait FormTrait
 
         foreach ($form->all() as $childForm) {
             if ($childForm instanceof FormInterface) {
-                if ($childErrors = $this->getErrorsFromForm($childForm)) {
+                if ($childErrors = $this->getErrors($childForm)) {
                     $errors[$childForm->getName()] = $childErrors;
                 }
             }

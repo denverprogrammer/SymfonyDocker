@@ -47,7 +47,7 @@ class SecurityController extends AbstractController
                 [
                     'type'   => 'validation error',
                     'title'  => 'There was a validation error',
-                    'errors' => $this->getErrorsFromForm($form)
+                    'errors' => $this->getErrors($form)
                 ],
                 JsonResponse::HTTP_BAD_REQUEST
             );

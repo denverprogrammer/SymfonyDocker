@@ -29,7 +29,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "lint": "node node_modules/eslint/bin/eslint ."
+        "lint": "node node_modules/eslint/bin/eslint ./assets/**/**/*.*"
     },
     "eslintConfig": {
         "extends": "react-app"

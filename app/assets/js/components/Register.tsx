@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Modal from './Modal';
 import Email from '../fields/Email';
@@ -41,7 +41,7 @@ export default function Register() {
         }
 
         event.preventDefault();
-    }
+    };
 
     const handleSubmit = (event: React.FormEvent): void => {
         const payload = {
@@ -72,7 +72,7 @@ export default function Register() {
             });
 
         event.preventDefault();
-    }
+    };
 
     return(
         <div className="row d-flex justify-content-center">

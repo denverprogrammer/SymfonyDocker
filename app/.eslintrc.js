@@ -4,8 +4,9 @@ module.exports = {
         es6: true,
     },
     extends: [
-        'plugin:react/recommended',
+        'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
         'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
     ],
@@ -21,7 +22,7 @@ module.exports = {
         ecmaVersion: 11,
         sourceType: 'module',
     },
-    ignorePatterns: ['**/vendor/*', '**/var/*', '**/node_modules/*', '**/public/*', 'webpack.config.js'],
     plugins: ['react', '@typescript-eslint'],
-    rules: {},
+    rules: {
+    }
 };

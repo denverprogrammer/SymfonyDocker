@@ -19,7 +19,7 @@ export default function Register() {
 
     const [confirm, setConfirm] = useState('');
 
-    let history = useHistory();
+    const history = useHistory();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         switch(event.target.name) {

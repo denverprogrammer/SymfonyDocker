@@ -184,3 +184,4 @@ react       |N/A                     | Front end javascript framework. \*|
 * [Docker environment setup](https://medium.com/caendra-tech/a-docker-development-environment-for-a-symfony-application-a301df340b58)
 * [Docker + Jenkins + Behat example](https://code-maze.com/ci-jenkins-docker/)
 * [React training site](https://reacttraining.com/react-router/web/example/basic)
+* [Eslint & Prettier](https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project)

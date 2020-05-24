@@ -84,26 +84,36 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * Clears database of data.
      *
-     * @BeforeScenario
+     * @ClearDatabase
      */
     public function clearData(): void
     {
+        putenv('APP_ENV=test');
+        dump(getEnv());
+
         $application = new Application($this->getKernel());
 
-        $command = $application->find('doctrine:schema:drop');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([
+        $dropCommand = $application->find('doctrine:schema:drop');
+        $dropTester = new CommandTester($dropCommand);
+        $dropTester->execute([
             '--quiet'          => null,
             '--force'          => null,
+            '--no-interaction' => null,
+            '--verbose'        => null,
+            '--full-database'  => null,
+            '--env=test'
+        ]);
+
+        dump($dropTester->getDisplay());
+
+        $createCommand = $application->find('doctrine:schema:create');
+        $createTester = new CommandTester($createCommand);
+        $createTester->execute([
+            '--quiet'          => null,
             '--no-interaction' => null
         ]);
 
-        $command = $application->find('doctrine:schema:create');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([
-            '--quiet'          => null,
-            '--no-interaction' => null
-        ]);
+        dump($createTester->getDisplay());
 
         // doctrine:schema:drop
         // $manager = $this->entityManager();
@@ -176,7 +186,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
      *
      * @param BeforeScenarioScope $scope
      *
-     * @BeforeScenario
      * @AdminLogin
      */
     public function adminLogin(BeforeScenarioScope $scope)
@@ -190,7 +199,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
      *
      * @param BeforeScenarioScope $scope
      *
-     * @BeforeScenario
      * @UserLogin
      */
     public function userLogin(BeforeScenarioScope $scope)

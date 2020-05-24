@@ -1,11 +1,11 @@
 import React from 'react';
 import InputTypes from './InputTypes';
 
-export default function TextInput({
-    title = 'Text',
-    name = 'text',
+export default function Password({
+    title = 'Password',
+    name = 'password',
     value = '',
-    onChange,
+    onChange
 }: InputTypes): React.ReactElement {
     return (
         <div className='form-group'>
@@ -13,7 +13,7 @@ export default function TextInput({
             <input
                 id={`id_${name}`}
                 name={name}
-                type='text'
+                type='password'
                 className='form-control'
                 value={value}
                 onChange={onChange}

@@ -1,11 +1,11 @@
 import React from 'react';
 import InputTypes from './InputTypes';
 
-export default function Email({
-    title = 'Email',
-    name = 'email',
+export default function TextInput({
+    title = 'Text',
+    name = 'text',
     value = '',
-    onChange,
+    onChange
 }: InputTypes): React.ReactElement {
     return (
         <div className='form-group'>
@@ -13,7 +13,7 @@ export default function Email({
             <input
                 id={`id_${name}`}
                 name={name}
-                type='email'
+                type='text'
                 className='form-control'
                 value={value}
                 onChange={onChange}

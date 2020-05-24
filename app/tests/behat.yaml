@@ -22,7 +22,7 @@ default:
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: bootstrap.php
+                # bootstrap: bootstrap.php
                 class: App\Kernel
 
         Behat\MinkExtension:

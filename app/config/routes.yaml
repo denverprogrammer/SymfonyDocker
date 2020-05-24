@@ -5,5 +5,5 @@
 #     path: /authentication_token
 #     methods: ['POST']
 
-api_login_check:
-    path: /api/login_check
+api_login:
+    path: /login_check

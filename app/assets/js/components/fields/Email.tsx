@@ -1,11 +1,11 @@
 import React from 'react';
 import InputTypes from './InputTypes';
 
-export default function Password({
-    title = 'Password',
-    name = 'password',
+export default function Email({
+    title = 'Email',
+    name = 'email',
     value = '',
-    onChange,
+    onChange
 }: InputTypes): React.ReactElement {
     return (
         <div className='form-group'>
@@ -13,7 +13,7 @@ export default function Password({
             <input
                 id={`id_${name}`}
                 name={name}
-                type='password'
+                type='email'
                 className='form-control'
                 value={value}
                 onChange={onChange}

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Common routes for react.
  */
-class DefaultController extends AbstractController
+class ReactController extends AbstractController
 {
     /**
      * Initial react page.

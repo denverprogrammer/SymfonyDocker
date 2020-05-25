@@ -5,6 +5,7 @@ namespace App\Tests;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Behat\Hook\Scope\BeforeStepScope;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behatch\Context\RestContext;
@@ -84,27 +85,18 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * Clears database of data.
      *
-     * @ClearDatabase
+     * @BeforeScenario
      */
-    public function clearData(): void
+    public function clearData(BeforeScenarioScope $scope): void
     {
-        putenv('APP_ENV=test');
-        dump(getEnv());
-
         $application = new Application($this->getKernel());
-
         $dropCommand = $application->find('doctrine:schema:drop');
         $dropTester = new CommandTester($dropCommand);
         $dropTester->execute([
             '--quiet'          => null,
             '--force'          => null,
             '--no-interaction' => null,
-            '--verbose'        => null,
-            '--full-database'  => null,
-            '--env=test'
         ]);
-
-        dump($dropTester->getDisplay());
 
         $createCommand = $application->find('doctrine:schema:create');
         $createTester = new CommandTester($createCommand);
@@ -112,8 +104,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
             '--quiet'          => null,
             '--no-interaction' => null
         ]);
-
-        dump($createTester->getDisplay());
 
         // doctrine:schema:drop
         // $manager = $this->entityManager();
@@ -186,7 +176,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      *
      * @param BeforeScenarioScope $scope
      *
-     * @AdminLogin
+     * @BeforeScenario @AdminLogin
      */
     public function adminLogin(BeforeScenarioScope $scope)
     {
@@ -199,7 +189,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      *
      * @param BeforeScenarioScope $scope
      *
-     * @UserLogin
+     * @BeforeScenario @UserLogin
      */
     public function userLogin(BeforeScenarioScope $scope)
     {
@@ -215,6 +205,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function logout()
     {
-        $this->restContext->iAddHeaderEqualTo('Authorization', '');
+        // $this->restContext->iAddHeaderEqualTo('Authorization', '');
     }
 }

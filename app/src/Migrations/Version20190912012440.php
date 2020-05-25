@@ -12,14 +12,25 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190912012440 extends AbstractMigration
 {
-    public function getDescription() : string
+    /**
+     * Get description of migration.
+     *
+     * @return string
+     */
+    public function getDescription(): string
     {
         return 'Add users and logging tables';
     }
 
-    public function up(Schema $schema) : void
+    /**
+     * Apply next changes to database.
+     *
+     * @param Schema $schema Structure about the database.
+     *
+     * @return void
+     */
+    public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf(
             $this->connection->getDatabasePlatform()->getName() !== 'mysql',
             'Migration can only be executed safely on \'mysql\'.'
@@ -53,9 +64,15 @@ final class Version20190912012440 extends AbstractMigration
         ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB ROW_FORMAT = DYNAMIC');
     }
 
-    public function down(Schema $schema) : void
+    /**
+     * Apply past changes to database.
+     *
+     * @param Schema $schema Structure about the database.
+     *
+     * @return void
+     */
+    public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf(
             $this->connection->getDatabasePlatform()->getName() !== 'mysql',
             'Migration can only be executed safely on \'mysql\'.'

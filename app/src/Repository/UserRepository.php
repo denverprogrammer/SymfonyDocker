@@ -8,44 +8,44 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Doctrine respository for user entities.
  */
 class UserRepository extends ServiceEntityRepository
 {
+    /**
+     * User repository constructor
+     *
+     * @param ManagerRegistry $registry Manager registry.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Create entity
+     *
+     * @return User
+     */
+    public function create()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return new User();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    /**
+     * Find user by email.
+     *
+     * @param string $email User email.
+     *
+     * @return User|null
+     */
+    public function findUserByEmail(string $email): ?User
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('u.email = :email')
+            ->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

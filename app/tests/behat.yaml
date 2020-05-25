@@ -13,6 +13,8 @@ default:
             contexts:
                 - App\Tests\FeatureContext:
                     kernel: '@kernel'
+                    jwtManager: '@lexik_jwt_authentication.jwt_manager'
+                    encoder: '@security.user_password_encoder.generic'
                 - Behat\MinkExtension\Context\MinkContext
                 - Behatch\Context\RestContext
                 - Behatch\Context\JsonContext
@@ -20,7 +22,7 @@ default:
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: bootstrap.php
+                # bootstrap: bootstrap.php
                 class: App\Kernel
 
         Behat\MinkExtension:

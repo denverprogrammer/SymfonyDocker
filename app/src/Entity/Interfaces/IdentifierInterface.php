@@ -10,7 +10,7 @@ interface IdentifierInterface
     /**
      * Unique id of record
      *
-     * @return int|null
+     * @return integer|null
      */
     public function getId(): ?int;
 }

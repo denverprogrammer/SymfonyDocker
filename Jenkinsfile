@@ -19,6 +19,9 @@ pipeline {
       USER_ID             = sh(script: "id -u", returnStdout: true).trim()
       GROUP_ID            = sh(script: "id -g", returnStdout: true).trim()
       CURRENT_UID         = "${USER_ID}:${GROUP_ID}"
+      JWT_PASSPHRASE      = '14bac7d2cf4c46f978ae7a13bf6d4ed7'
+      JWT_SECRET_KEY      = '%kernel.project_dir%/config/jwt/private.pem'
+      JWT_PUBLIC_KEY      = '%kernel.project_dir%/config/jwt/public.pem'
    }
    
    options {
@@ -35,6 +38,7 @@ pipeline {
             sh "printenv"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml build"
             sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml up -d --remove-orphans --force-recreate"
+            sh "docker-compose -p $PROJECT_ID -f base.yml -f staging.yml exec -T application sh -c 'timeout 300s /usr/local/bin/InitialSetup.sh' --user ${CURRENT_UID}"
          }
       }
 

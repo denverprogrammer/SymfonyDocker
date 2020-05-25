@@ -12,17 +12,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
 trait CreatedTrait
 {
     /**
+     * Date & time record was created.
+     *
+     * @var DateTime
+     *
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="created",type="datetime")
      */
     protected $created;
 
     /**
-     * Date and time record was created
+     * Date & time record was created.
      *
      * @return DateTime
      */
-    public function getCreated() : DateTime
+    public function getCreated(): DateTime
     {
         return $this->created;
     }

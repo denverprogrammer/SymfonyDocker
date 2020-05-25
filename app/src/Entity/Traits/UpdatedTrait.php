@@ -12,13 +12,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
 trait UpdatedTrait
 {
     /**
-     * @ORM\Column(name="updated", type="datetime")
+     * Date & time record was changed.
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(name="updated",type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
     protected $updated;
 
     /**
-     * Date and time record was changed
+     * Date and time record was changed.
      *
      * @return DateTime
      */

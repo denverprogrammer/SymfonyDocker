@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -23,7 +22,7 @@ class SecurityController extends AbstractController
      *
      * @Route("/profile", name="profile")
      */
-    public function profile(Security $security) : JsonResponse
+    public function profile(Security $security): JsonResponse
     {
         $user = $security->getUser();
 

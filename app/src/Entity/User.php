@@ -21,6 +21,7 @@ class User implements UserInterface
     use Traits\IdentifierTrait;
     use Traits\CreatedTrait;
     use Traits\UpdatedTrait;
+    use Traits\TokenTrait;
 
     /**
      * First name of user.

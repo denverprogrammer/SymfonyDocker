@@ -6,11 +6,26 @@ services:
     database:
         environment:
             - MYSQL_DATABASE=${MYSQL_DATABASE}
+
     application:
         environment:
             - XDEBUG_CONFIG=idekey=${XDEBUG_CODE} remote_host=${XDEBUG_HOST} remote_port=${XDEBUG_PORT} remote_enable=1
             - APP_ENV=dev
             - MYSQL_DATABASE=${MYSQL_DATABASE}
+        volumes:
+            - ./docker/application/supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
+
+    messenger:
+        image: rabbitmq:3-management-alpine
+        hostname: messenger
+        restart: always
+        networks:
+            - symfony_docker
+        ports:
+            - 5672:5672
+            - 15672:15672
+        user: ${CURRENT_UID}
+
     adminer:
         depends_on:
             - database

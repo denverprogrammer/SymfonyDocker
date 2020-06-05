@@ -4,17 +4,16 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\DTO\RegisterUser;
 
 /**
- * Register user form
+ * Create password form.  Used to set a user password.
  */
-class RegistrationForm extends AbstractType
+class PasswordForm extends AbstractType
 {
     /**
      * Builds form.
@@ -27,11 +26,13 @@ class RegistrationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-            ->add('email', EmailType::class, [
+            ->add('password', PasswordType::class, [
                 'constraints' => [
-                    new NotBlank()
+                    new NotBlank(),
+                    new Length([
+                        'min'        => 5,
+                        'minMessage' => 'Password must be at least 5 characters.'
+                    ])
                 ]
             ])
         ;
@@ -47,7 +48,6 @@ class RegistrationForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'      => RegisterUser::class,
             'csrf_protection' => false
         ]);
     }

@@ -46,7 +46,7 @@ export default class ApiService {
 
     public async register(payload: RegisterRequest): Promise<AxiosResponse<ApiResponse>> {
         return await axios
-            .post(`/register`, JSON.stringify(payload), this.getHeaders())
+            .post(`/home/register`, JSON.stringify(payload), this.getHeaders())
             .then((response: AxiosResponse<ApiResponse>) => {
                 return response;
             });

@@ -9,33 +9,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validation;
-use App\Entity\DTO\RegisterUser;
-use App\Form\RegistrationForm;
+use Symfony\Component\Security\Core\Security;
+use App\Form\EmailForm;
 
 /**
  * Common routes for site.
  */
-class HomeController extends AbstractController
+class ResetController extends AbstractController
 {
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
     use Traits\FormTrait;
 
     /**
-     * Register user route.
+     * Reset password route.
      *
-     * @param Request                      $request Http Request.
-     * @param UserPasswordEncoderInterface $encoder Common security methods.
+     * @param Request $request Http Request.
      *
      * @return JsonResponse
      *
-     * @Route("/register", name="register", methods={"post"})
+     * @Route("/reset_password", name="reset_password", methods={"post"})
      */
-    public function register(
-        Request $request,
-        UserPasswordEncoderInterface $encoder
-    ): JsonResponse {
-        $form = $this->createForm(RegistrationForm::class);
+    public function resetPassword(Request $request): JsonResponse {
+        $form = $this->createForm(EmailForm::class);
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
 
@@ -51,23 +47,35 @@ class HomeController extends AbstractController
         }
 
         $data = $form->getData();
-        $user = $this->getUserRepository()->create();
-        $user->setFirstName($data->getFirstName());
-        $user->setLastName($data->getLastName());
-        $user->setEmail($data->getEmail());
-        $user->setRoles(['ROLE_USER']);
-        $password = $encoder->encodePassword($user, $data->getPassword());
-        $user->setPassword($password);
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
 
         return new JsonResponse(
             [
-                'type'   => 'user created',
+                'type'   => 'forgot password',
                 'title'  => 'A confirmation email has been sent.',
                 'errors' => null
             ],
             JsonResponse::HTTP_CREATED
+        );
+    }
+
+    /**
+     * Reset user password.
+     *
+     * @return JsonResponse
+     *
+     * @Route("/set_password", name="set_password", methods={"post"})
+     */
+    public function resetConfirmation(Security $security, string $token): JsonResponse
+    {
+        $user = $security->getUser();
+
+        return new JsonResponse(
+            [
+                'firstName' => $user->getFirstName(),
+                'lastName'  => $user->getLastName(),
+                'email'     => $user->getEmail()
+            ],
+            JsonResponse::HTTP_OK
         );
     }
 }

@@ -29,13 +29,6 @@ class RegisterUser
     public $email = '';
 
     /**
-     * Password of user.
-     *
-     * @var string The plaintext password.
-     */
-    public $password = '';
-
-    /**
      * First name of user.
      *
      * @return string
@@ -103,30 +96,6 @@ class RegisterUser
     public function setEmail(?string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get password of user.
-     *
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set user password.
-     *
-     * @param string|null $password User password.
-     *
-     * @return self
-     */
-    public function setPassword(?string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }

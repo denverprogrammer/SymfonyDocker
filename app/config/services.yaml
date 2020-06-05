@@ -30,3 +30,6 @@ services:
     jwt_manager:
         public: true
         alias: lexik_jwt_authentication.jwt_manager
+
+    App\Controller\Tasks\SendAccountEmailTask:
+        tags: [messenger.message_handler]

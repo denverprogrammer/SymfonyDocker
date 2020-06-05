@@ -1,6 +1,6 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# register:
+#    path: /register
+#    controller: App\Controller\RegisterController::createAccount
 # authentication_token:
 #     path: /authentication_token
 #     methods: ['POST']

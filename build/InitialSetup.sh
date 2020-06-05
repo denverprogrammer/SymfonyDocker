@@ -8,9 +8,6 @@ echo "${JWT_SECRET_KEY} JWT_SECRET_KEY."
 echo "${JWT_PUBLIC_KEY} JWT_PUBLIC_KEY."
 
 echo 
-echo "Setup applications folders"
-mkdir -p /usr/src/app/var/cache
-mkdir -p /usr/src/app/var/log
 mkdir -p /usr/src/app/config/jwt
 
 echo "Generating genpkey for JWT"

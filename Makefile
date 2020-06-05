@@ -19,10 +19,13 @@ CURRENT_UID    = ${USER_ID}:${GROUP_ID}
 # Common commands run inside the docker container.
 UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
 FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
+
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
-INITIALIZE_CMD = 'timeout 300s /usr/local/bin/InitialSetup.sh'
-DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
+WORKER_CMD     = 'timeout 300s /usr/src/bin/WorkerSetup.sh'
+INITIALIZE_CMD = 'timeout 300s /usr/src/bin/InitialSetup.sh'
+DB_WAIT_CMD    = 'timeout 300s /usr/src/bin/DatabaseWait.sh'
+WORKER_CMD     = 'timeout 300s /usr/src/bin/WorkerSetup.sh'
 PSR_CHECK_CMD  = 'vendor/bin/phpcs --standard=tests/phpcs.xml .'
 
 # Need a way to cover up your mistakes?
@@ -67,6 +70,7 @@ initial_start:
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${CURRENT_UID}"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${WORKER_CMD} --user ${CURRENT_UID}"
 
 # Starts all of the test containers.
 # Go to http://localhost in your browser to view webpage.

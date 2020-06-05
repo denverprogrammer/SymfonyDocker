@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../components/Modal';
 import Email from '../components/fields/Email';
-import Password from '../components/fields/Password';
 import TextInput from '../components/fields/TextInput';
 import ApiService from '../helpers/ApiService';
 import SecuritySubject from '../helpers/SecuritySubject';
@@ -26,16 +25,6 @@ export default function Register({ security }: AuthenticationProps): React.React
      * Email of user.
      */
     const [email, setEmail] = useState<string>('');
-
-    /**
-     * Password of user.
-     */
-    const [password, setPassword] = useState<string>('');
-
-    /**
-     * Password confirmation of user.
-     */
-    const [confirm, setConfirm] = useState<string>('');
 
     /**
      * Reach router history.
@@ -62,9 +51,10 @@ export default function Register({ security }: AuthenticationProps): React.React
         const response = await apiService.register({
             firstName: firstName,
             lastName: lastName,
-            email: email,
-            password: password
+            email: email
         });
+
+        console.log(response);
 
         if (response.status === 201) {
             history.push('/');
@@ -83,14 +73,6 @@ export default function Register({ security }: AuthenticationProps): React.React
         setEmail(event.target.value);
     };
 
-    const handleSetPassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        setPassword(event.target.value);
-    };
-
-    const handleSetConfirmation = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        setConfirm(event.target.value);
-    };
-
     return (
         <div className='row d-flex justify-content-center'>
             <div className='col-sm-8 col-md-6'>
@@ -104,13 +86,6 @@ export default function Register({ security }: AuthenticationProps): React.React
                         />
                         <TextInput title='Last Name' name='lastName' value={lastName} onChange={handleSetLastName} />
                         <Email value={email} onChange={handleSetEmail} />
-                        <Password value={password} onChange={handleSetPassword} />
-                        <Password
-                            title='Confirm Password'
-                            name='confirm'
-                            value={confirm}
-                            onChange={handleSetConfirmation}
-                        />
                         <div className='d-flex justify-content-between'>
                             <button type='submit' className='btn btn-primary'>
                                 Submit

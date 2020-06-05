@@ -5,16 +5,13 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\DTO\RegisterUser;
 
 /**
- * Register user form
+ * Email form. Used to request a password reset.
  */
-class RegistrationForm extends AbstractType
+class EmailForm extends AbstractType
 {
     /**
      * Builds form.
@@ -27,8 +24,6 @@ class RegistrationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank()
@@ -47,7 +42,6 @@ class RegistrationForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'      => RegisterUser::class,
             'csrf_protection' => false
         ]);
     }

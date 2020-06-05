@@ -4,13 +4,12 @@ Feature: Common Users feature
 	Scenario: Register user
 		When I add "Content-Type" header equal to "application/json"
 		And I add "Accept" header equal to "application/json"
-		And I send a "POST" request to "/register" with body:
+		And I send a "POST" request to "/home/register" with body:
 		"""
 		{
 			"firstName" : "Jon",
 			"lastName"  : "Doe",
-			"email"     : "test@test.com",
-			"password"  : "drowssap"
+			"email"     : "test@test.com"
 		}
 		"""
 		Then the response status code should be 201

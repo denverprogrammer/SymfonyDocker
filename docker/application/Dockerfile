@@ -1,20 +1,20 @@
 # ./docker/php/Dockerfile
 FROM php:7.2-fpm-alpine
 
+# Memory has to be increased only in dev, testing or staging environments.
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
     sed -i -e "s/^ *memory_limit.*/memory_limit = 4G/g" /usr/local/etc/php/php.ini
 
-# Copy application to correct place in container
+# Set application working directory.
 WORKDIR /usr/src/app
+
+# Copy application scripts to run after container is built.
+COPY build/ /usr/src/bin/
 
 # Setup composer for this container.
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_CACHE_DIR=/dev/null
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-# Setup ApplicationInstall.sh file to run after container build is completed.
-COPY build/DatabaseWait.sh /usr/local/bin/DatabaseWait.sh
-COPY build/InitialSetup.sh /usr/local/bin/InitialSetup.sh
 
 RUN apk update && \
     apk add --no-cache \
@@ -27,11 +27,20 @@ RUN apk update && \
     docker-php-ext-enable apcu && \
     apk del .build-deps && \
     PATH=$PATH:/usr/src/app/vendor/bin:bin && \
-    chmod +x /usr/local/bin/DatabaseWait.sh && \
-    chmod +x /usr/local/bin/InitialSetup.sh;
+    mkdir -p /usr/src/app/var/cache && \
+    mkdir -p /usr/src/app/var/log && \
+    chmod -R 777 /usr/src/app/var/log/;
 
-# Install XDebug
-RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug && \
-    apk del .build-deps
+# Install xDebug
+RUN apk add --no-cache \
+        rabbitmq-c-dev \
+        supervisor && \
+    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
+    pecl install \
+        xdebug \
+        amqp && \
+    docker-php-ext-enable \
+        xdebug \
+        amqp && \
+    apk del .build-deps && \
+    chmod +x -R /usr/src/bin;

@@ -5,6 +5,7 @@ doctrine:
         port: '%env(MYSQL_PORT)%'
         user: '%env(MYSQL_USER)%'
         password: '%env(MYSQL_PASSWORD)%'
+        schema_filter: '~^(?!messenger_messages)~'
 
         # configure these for your database server
         driver: 'pdo_mysql'

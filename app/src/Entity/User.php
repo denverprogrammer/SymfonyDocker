@@ -73,6 +73,38 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * Confirmed value of record
+     *
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=false, options={"default": "0"})
+     */
+    private $confirmed = false;
+
+    /**
+     * Get confirmed value of record.
+     *
+     * @return string
+     */
+    public function getConfirmed(): boolean
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * Set confirmed value of record.
+     *
+     * @param boolean $value Value of confirmation.
+     *
+     * @return self
+     */
+    public function setConfirmed(bool $value): self
+    {
+        $this->confirmed = $value;
+
+        return $this;
+    }
 
     /**
      * First name of user.

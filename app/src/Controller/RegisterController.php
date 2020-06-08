@@ -37,11 +37,10 @@ class RegisterController extends AbstractController
      */
     public function createAccount(Request $request): JsonResponse
     {
-        dump('request');
         $form = $this->createForm(RegistrationForm::class);
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
-        dump('submit');
+
         if (!$form->isValid()) {
             return new JsonResponse(
                 [
@@ -53,9 +52,8 @@ class RegisterController extends AbstractController
             );
         }
 
-        dump('dispatch');
         $this->dispatchMessage($form->getData());
-        dump('return');
+
         return new JsonResponse(
             [
                 'type'   => 'user created',
@@ -71,7 +69,7 @@ class RegisterController extends AbstractController
      *
      * @return JsonResponse
      *
-     * @Route("/confirm_account", name="confirm_account", methods={"post"})
+     * @Route("/confirm_account/{token}", name="confirm_account", methods={"post"}, requirements={"token"="[a-zA-Z0-9]+"})
      */
     public function confirmAccount(
         Request $request,
@@ -93,6 +91,7 @@ class RegisterController extends AbstractController
             $password = $user->getPassword();
             $password = $encoder->encodePassword($user, $password);
             $user->setPassword($password);
+            $user->setConfirmed(true);
             $this->getEntityManager()->flush();
 
             return new RedirectResponse('/');

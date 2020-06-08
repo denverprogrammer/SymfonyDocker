@@ -5,6 +5,6 @@ set -e
 /usr/src/app/bin/console messenger:setup-transports --no-interaction
 
 # Start message queue manager (Supervisor).
-supervisord --configuration /etc/supervisor/conf.d/*.conf
+supervisord --configuration /etc/supervisor/*.conf
 
 exit $?

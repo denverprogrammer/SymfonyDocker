@@ -23,7 +23,7 @@ FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors 
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
 WORKER_CMD     = 'timeout 300s /usr/src/bin/WorkerSetup.sh'
-INITIALIZE_CMD = 'timeout 300s /usr/src/bin/InitialSetup.sh'
+INIT_CMD       = 'timeout 300s /usr/src/bin/InitialSetup.sh'
 DB_WAIT_CMD    = 'timeout 300s /usr/src/bin/DatabaseWait.sh'
 WORKER_CMD     = 'timeout 300s /usr/src/bin/WorkerSetup.sh'
 PSR_CHECK_CMD  = 'vendor/bin/phpcs --standard=tests/phpcs.xml .'
@@ -38,9 +38,6 @@ NUKE_IT_NUKE_IT:
 	docker network prune --force
 	docker container prune --force
 	docker rmi -f $(`docker images -aq`)
-
-set_user:
-	echo ${CURRENT_UID}
 
 # Brings down all containers.
 destroy:
@@ -66,7 +63,7 @@ initial_test_start:
 initial_start:
 	make build ENV_FILES="${ENV_FILES}"
 	make start ENV_FILES="${ENV_FILES}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${INITIALIZE_CMD} --user ${CURRENT_UID}"
+	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${INIT_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${CURRENT_UID}"
 	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${CURRENT_UID}"

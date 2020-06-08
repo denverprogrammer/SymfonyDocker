@@ -27,6 +27,7 @@ class SendAccountEmailTask extends AbstractController implements MessageHandlerI
         $user->setLastName($data->getLastName());
         $user->setEmail($data->getEmail());
         $user->setRoles(['ROLE_USER']);
+        $user->setConfirmed(false);
         $user->setPassword(md5(random_bytes(255)));
         $user->setToken(md5(random_bytes(255)));
         $this->getEntityManager()->persist($user);
@@ -34,7 +35,7 @@ class SendAccountEmailTask extends AbstractController implements MessageHandlerI
 
         return new JsonResponse(
             [
-                'type'   => 'forgot password',
+                'type'   => 'confirm account',
                 'title'  => 'A confirmation email has been sent.',
                 'errors' => null
             ],

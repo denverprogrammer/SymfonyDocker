@@ -1,16 +1,18 @@
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         failure_transport: failed_queue
 
         transports:
-            failed_queue: 'doctrine://default?queue_name=failed'
+            failed_queue:
+                dsn: 'doctrine://default?queue_name=failed'
+                serializer: messenger.transport.symfony_serializer
             async_queue:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: messenger.transport.symfony_serializer
                 retry_strategy:
                     max_retries: 5
-                    delay: 5000
-                    multiplier: 6
+                    delay: 1000
+                    multiplier: 3
 
         routing:
             'App\Entity\DTO\RegisterUser': async_queue

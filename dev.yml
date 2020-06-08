@@ -13,9 +13,11 @@ services:
             - APP_ENV=dev
             - MYSQL_DATABASE=${MYSQL_DATABASE}
         volumes:
-            - ./docker/application/supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
+            - ./docker/application/supervisor.conf:/etc/supervisor/supervisor.conf
+        user: ${CURRENT_UID}
 
     messenger:
+        container_name: messenger
         image: rabbitmq:3-management-alpine
         hostname: messenger
         restart: always
@@ -27,6 +29,7 @@ services:
         user: ${CURRENT_UID}
 
     adminer:
+        container_name: adminer
         depends_on:
             - database
         hostname: adminer

@@ -1,9 +1,5 @@
-# ./docker/php/Dockerfile
+# ./docker/application/Dockerfile
 FROM php:7.2-fpm-alpine
-
-# Memory has to be increased only in dev, testing or staging environments.
-RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
-    sed -i -e "s/^ *memory_limit.*/memory_limit = 4G/g" /usr/local/etc/php/php.ini
 
 # Set application working directory.
 WORKDIR /usr/src/app
@@ -31,8 +27,10 @@ RUN apk update && \
     mkdir -p /usr/src/app/var/log && \
     chmod -R 777 /usr/src/app/var/log/;
 
-# Install xDebug
-RUN apk add --no-cache \
+# Install dev/test environment
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
+    sed -i -e "s/^ *memory_limit.*/memory_limit = 4G/g" /usr/local/etc/php/php.ini && \
+    apk add --no-cache \
         rabbitmq-c-dev \
         supervisor && \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \

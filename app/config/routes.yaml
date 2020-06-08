@@ -1,9 +1,2 @@
-# register:
-#    path: /register
-#    controller: App\Controller\RegisterController::createAccount
-# authentication_token:
-#     path: /authentication_token
-#     methods: ['POST']
-
 api_login:
     path: /login_check

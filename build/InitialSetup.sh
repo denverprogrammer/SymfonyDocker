@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-JWT_SECRET_KEY=/usr/src/app/config/jwt/private.pem
-JWT_PUBLIC_KEY=/usr/src/app/config/jwt/public.pem
+# JWT_SECRET_KEY=/usr/src/app/config/jwt/private.pem
+# JWT_PUBLIC_KEY=/usr/src/app/config/jwt/public.pem
 echo "${JWT_PASSPHRASE} passphrase."
 echo "${JWT_SECRET_KEY} JWT_SECRET_KEY."
 echo "${JWT_PUBLIC_KEY} JWT_PUBLIC_KEY."

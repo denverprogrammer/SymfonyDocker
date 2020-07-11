@@ -15,4 +15,13 @@ interface UpdatedInterface
      * @return DateTime
      */
     public function getUpdated(): DateTime;
+
+    /**
+     * Sets Date and time record was updated
+     *
+     * @param DateTime $value
+     *
+     * @return UpdatedInterface
+     */
+    public function setUpdated(DateTime $value): UpdatedInterface;
 }

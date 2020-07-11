@@ -18,7 +18,7 @@ interface TokenInterface
      *
      * @param string|null $token Set confirmation token.
      *
-     * @return self
+     * @return TokenInterface
      */
-    public function setToken(string $token): self;
+    public function setToken(string $token): TokenInterface;
 }

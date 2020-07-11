@@ -9,10 +9,11 @@ framework:
             async_queue:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 serializer: messenger.transport.symfony_serializer
-                retry_strategy:
-                    max_retries: 5
-                    delay: 1000
-                    multiplier: 3
+                # retry_strategy:
+                #     max_retries: 5
+                #     delay: 1000
+                #     multiplier: 3
 
         routing:
             'App\Entity\DTO\RegisterUser': async_queue
+            'App\Entity\DTO\ConfirmAccount': async_queue

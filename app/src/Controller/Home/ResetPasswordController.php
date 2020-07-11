@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Home;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,11 +11,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Security\Core\Security;
 use App\Form\EmailForm;
+use App\Controller\Traits;
+use App\Controller\ReactController;
 
 /**
  * Common routes for site.
  */
-class ResetController extends AbstractController
+class ResetPasswordController extends ReactController
 {
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
@@ -30,7 +32,8 @@ class ResetController extends AbstractController
      *
      * @Route("/reset_password", name="reset_password", methods={"post"})
      */
-    public function resetPassword(Request $request): JsonResponse {
+    public function resetPassword(Request $request): JsonResponse
+    {
         $form = $this->createForm(EmailForm::class);
         $data = json_decode($request->getContent(), true);
         $form->submit($data);
@@ -55,27 +58,6 @@ class ResetController extends AbstractController
                 'errors' => null
             ],
             JsonResponse::HTTP_CREATED
-        );
-    }
-
-    /**
-     * Reset user password.
-     *
-     * @return JsonResponse
-     *
-     * @Route("/set_password", name="set_password", methods={"post"})
-     */
-    public function resetConfirmation(Security $security, string $token): JsonResponse
-    {
-        $user = $security->getUser();
-
-        return new JsonResponse(
-            [
-                'firstName' => $user->getFirstName(),
-                'lastName'  => $user->getLastName(),
-                'email'     => $user->getEmail()
-            ],
-            JsonResponse::HTTP_OK
         );
     }
 }

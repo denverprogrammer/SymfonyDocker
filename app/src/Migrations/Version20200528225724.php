@@ -22,7 +22,14 @@ final class Version20200528225724 extends AbstractMigration
         return 'Added token to user';
     }
 
-    public function up(Schema $schema) : void
+    /**
+     * Apply next changes to database.
+     *
+     * @param Schema $schema Structure about the database.
+     *
+     * @return void
+     */
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf(
@@ -32,7 +39,14 @@ final class Version20200528225724 extends AbstractMigration
         $this->addSql('ALTER TABLE user ADD token VARCHAR(255) DEFAULT NULL');
     }
 
-    public function down(Schema $schema) : void
+    /**
+     * Apply past changes to database.
+     *
+     * @param Schema $schema Structure about the database.
+     *
+     * @return void
+     */
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf(

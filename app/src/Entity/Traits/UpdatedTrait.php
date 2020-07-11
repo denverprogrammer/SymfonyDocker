@@ -5,6 +5,7 @@ namespace App\Entity\Traits;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Interfaces;
 
 /**
  * Represents the last time the record was changed.
@@ -22,12 +23,20 @@ trait UpdatedTrait
     protected $updated;
 
     /**
-     * Date and time record was changed.
-     *
-     * @return DateTime
+     * {inheritdoc}
      */
     public function getUpdated(): DateTime
     {
         return $this->updated;
+    }
+
+    /**
+     * {inheritdoc}
+     */
+    public function setUpdated(DateTime $value): Interfaces\UpdatedInterface
+    {
+        $this->updated = $value;
+
+        return $this;
     }
 }

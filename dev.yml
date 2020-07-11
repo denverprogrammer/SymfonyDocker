@@ -4,23 +4,39 @@ version: '3.5'
 
 services:
     database:
-        environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
+        env_file:
+            - app/.env
+        ports:
+            - "${MYSQL_PORT}:3306"
+        expose:
+            - ${MYSQL_PORT}
 
     application:
-        environment:
-            - XDEBUG_CONFIG=idekey=${XDEBUG_CODE} remote_host=${XDEBUG_HOST} remote_port=${XDEBUG_PORT} remote_enable=1
-            - APP_ENV=dev
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
         volumes:
             - ./docker/application/supervisor.conf:/etc/supervisor/supervisor.conf
         user: ${CURRENT_UID}
+        env_file:
+            - app/.env
+
+    mailer:
+        container_name: mailer
+        restart: always
+        image: schickling/mailcatcher
+        depends_on:
+            - application
+        ports:
+            - "1080:1080"
+            - "1025:1025"
+        networks:
+            - symfony_docker
 
     messenger:
         container_name: messenger
         image: rabbitmq:3-management-alpine
         hostname: messenger
         restart: always
+        depends_on:
+            - application
         networks:
             - symfony_docker
         ports:
@@ -34,8 +50,20 @@ services:
             - database
         hostname: adminer
         image: adminer
-        ports:
-            - "${ADMINER_PORT}:8080"
+        env_file:
+            - app/.env
         restart: always
         networks:
             - symfony_docker
+        ports:
+            - "${ADMINER_PORT}:8080"
+
+    webserver:
+        ports:
+            - "${NGINX_PORT}:80"
+
+networks:
+    symfony_docker:
+        name: ${NETWORK_NAME}
+        driver: bridge
+            

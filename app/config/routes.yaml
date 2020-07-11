@@ -1,2 +1,2 @@
-api_login:
-    path: /login_check
+api_login_check:
+    path: /api/login_check

@@ -25,9 +25,6 @@
     "behat/mink-browserkit-driver": {
         "version": "v1.3.4"
     },
-    "behat/mink-extension": {
-        "version": "2.3.1"
-    },
     "behat/symfony2-extension": {
         "version": "2.1",
         "recipe": {
@@ -48,9 +45,6 @@
     },
     "behatch/contexts": {
         "version": "3.3.0"
-    },
-    "container-interop/container-interop": {
-        "version": "1.2.0"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -131,6 +125,9 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.0"
+    },
     "egulias/email-validator": {
         "version": "2.1.17"
     },
@@ -139,6 +136,21 @@
     },
     "friends-of-behat/mink-extension": {
         "version": "2.3.1"
+    },
+    "friends-of-behat/symfony-extension": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "3d21344765fd3440a85bdd27d4cada186ec628bd"
+        },
+        "files": [
+            "behat.yml.dist",
+            "config/services_test.yaml",
+            "features/demo.feature",
+            "tests/Behat/DemoContext.php"
+        ]
     },
     "fzaninotto/faker": {
         "version": "v1.9.1"
@@ -168,9 +180,6 @@
             "config/packages/test/hautelook_alice.yaml",
             "fixtures/.gitignore"
         ]
-    },
-    "jdorn/sql-formatter": {
-        "version": "v1.2.17"
     },
     "justinrainbow/json-schema": {
         "version": "5.2.9"
@@ -257,9 +266,6 @@
     "phpunit/php-token-stream": {
         "version": "3.1.1"
     },
-    "predis/predis": {
-        "version": "v1.1.1"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -329,14 +335,11 @@
             "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
         }
     },
-    "swiftmailer/swiftmailer": {
-        "version": "v6.2.3"
-    },
     "symfony/asset": {
         "version": "v4.4.7"
     },
     "symfony/browser-kit": {
-        "version": "v4.4.7"
+        "version": "v4.4.10"
     },
     "symfony/cache": {
         "version": "v4.4.7"
@@ -464,6 +467,18 @@
     "symfony/intl": {
         "version": "v4.4.7"
     },
+    "symfony/mailer": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "15658c2a0176cda2e7dba66276a2030b52bd81b2"
+        },
+        "files": [
+            "config/packages/mailer.yaml"
+        ]
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -541,6 +556,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.15.0"
     },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.0"
+    },
     "symfony/process": {
         "version": "v4.4.7"
     },
@@ -552,6 +570,9 @@
     },
     "symfony/property-info": {
         "version": "v4.4.7"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.4.10"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -602,23 +623,6 @@
     },
     "symfony/stopwatch": {
         "version": "v4.4.7"
-    },
-    "symfony/swiftmailer-bundle": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "ae4d22af30bbd484506bc1817c5a3ef72c855b93"
-        },
-        "files": [
-            "config/packages/dev/swiftmailer.yaml",
-            "config/packages/swiftmailer.yaml",
-            "config/packages/test/swiftmailer.yaml"
-        ]
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.6"
     },
     "symfony/translation": {
         "version": "3.3",

@@ -1,0 +1,16 @@
+# config/services_test.yaml
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Tests\:
+        resource: '../tests/*'
+
+    App\Tests\Functional\Contexts\AppContext:
+        public: true
+        arguments:
+            $kernel: '@kernel'
+            $jwtManager: '@lexik_jwt_authentication.jwt_manager'
+            $encoder: '@security.user_password_encoder.generic'

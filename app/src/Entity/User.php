@@ -16,43 +16,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"})
  */
-class User implements UserInterface
+class User implements Interfaces\AppUserInterface
 {
     use Traits\IdentifierTrait;
     use Traits\CreatedTrait;
     use Traits\UpdatedTrait;
     use Traits\TokenTrait;
-
-    /**
-     * First name of user.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", length=180)
-     * @Assert\NotBlank()
-     */
-    private $firstName = 'first name';
-
-    /**
-     * Last name of user.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", length=180)
-     * @Assert\NotBlank()
-     */
-    private $lastName = 'last name';
-
-    /**
-     * Email name of user.
-     *
-     * @var string
-     *
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
+    use Traits\FirstNameTrait;
+    use Traits\LastNameTrait;
+    use Traits\EmailTrait;
 
     /**
      * User roles.
@@ -76,7 +48,7 @@ class User implements UserInterface
     /**
      * Confirmed value of record
      *
-     * @var bool
+     * @var boolean
      *
      * @ORM\Column(type="boolean", nullable=false, options={"default": "0"})
      */
@@ -85,9 +57,9 @@ class User implements UserInterface
     /**
      * Get confirmed value of record.
      *
-     * @return string
+     * @return boolean
      */
-    public function getConfirmed(): boolean
+    public function getConfirmed(): bool
     {
         return $this->confirmed;
     }
@@ -102,78 +74,6 @@ class User implements UserInterface
     public function setConfirmed(bool $value): self
     {
         $this->confirmed = $value;
-
-        return $this;
-    }
-
-    /**
-     * First name of user.
-     *
-     * @return string
-     */
-    public function getFirstName(): string
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set first name of user.
-     *
-     * @param string $name User's first name.
-     *
-     * @return self
-     */
-    public function setFirstName(string $name): self
-    {
-        $this->firstName = $name;
-
-        return $this;
-    }
-
-    /**
-     * Last name of user.
-     *
-     * @return string
-     */
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * Set last name of user.
-     *
-     * @param string $name User's last name.
-     *
-     * @return self
-     */
-    public function setLastName(string $name): self
-    {
-        $this->lastName = $name;
-
-        return $this;
-    }
-
-    /**
-     * Email of user.
-     *
-     * @return string|null
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set email of user.
-     *
-     * @param string $email User's email.
-     *
-     * @return self
-     */
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -265,16 +165,8 @@ class User implements UserInterface
      *
      * @return boolean
      */
-    public function isEqualTo(UserInterface $user)
+    public function isEqualTo(UserInterface $user): bool
     {
-        if (!$user instanceof User) {
-            return false;
-        }
-
-        if ($this->getUsername() !== $user->getUsername()) {
-            return false;
-        }
-
-        return true;
+        return $this->getUsername() === $user->getUsername();
     }
 }

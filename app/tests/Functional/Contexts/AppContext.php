@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Functional\Contexts;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Behat\Behat\Hook\Scope\BeforeStepScope;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behatch\Context\RestContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -20,11 +18,10 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Kernel;
 use App\Entity\User;
+use App\Repository\UserRepository;
 
-class FeatureContext implements Context, SnippetAcceptingContext
+class AppContext implements Context, SnippetAcceptingContext
 {
-    use KernelDictionary;
-
     /**
      * Lexik JWT Manager
      *
@@ -39,17 +36,45 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     protected $pwdEncoder = null;
 
+    protected $environment = null;
+
     /**
      * FeatureContext constructor
+     *
+     * @param KernelInterface              $kernel
+     * @param JWTTokenManagerInterface     $jwtManager
+     * @param UserPasswordEncoderInterface $encoder
      */
     public function __construct(
         KernelInterface $kernel,
-        JWTManager $jwtManager,
+        JWTTokenManagerInterface $jwtManager,
         UserPasswordEncoderInterface $encoder
     ) {
         $this->setKernel($kernel);
         $this->jwtManager = $jwtManager;
         $this->pwdEncoder = $encoder;
+    }
+
+    /**
+     * Gets environment from the scenario scope
+     *
+     * @param BeforeScenarioScope $scope
+     *
+     * @BeforeScenario
+     */
+    public function setupScenario(BeforeScenarioScope $scope): void
+    {
+        $this->environment = $scope->getEnvironment();
+    }
+
+    /**
+     * Gets RestContext from environment
+     *
+     * @return RestContext
+     */
+    public function getRestContext(): RestContext
+    {
+        return $this->environment->getContext(RestContext::class);
     }
 
     /**
@@ -83,11 +108,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * Get User repository.
+     *
+     * @return UserRepository
+     */
+    private function getUserRepository(): UserRepository
+    {
+        return $this->entityManager()->getRepository(User::class);
+    }
+
+    /**
      * Clears database of data.
      *
-     * @BeforeScenario
+     * @Given a clean database
      */
-    public function clearData(BeforeScenarioScope $scope): void
+    public function clearData(): void
     {
         $application = new Application($this->getKernel());
         $dropCommand = $application->find('doctrine:schema:drop');
@@ -104,12 +139,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
             '--quiet'          => null,
             '--no-interaction' => null
         ]);
-
-        // doctrine:schema:drop
-        // $manager = $this->entityManager();
-        // $purger = new ORMPurger($manager);
-        // $purger->purge();
-        // $manager->clear();
     }
 
     /**
@@ -161,50 +190,24 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * Logs in the given user.
      *
-     * @param BeforeScenarioScope $scope
-     * @param User $user
+     * @param string $email
+     *
+     * @Given I log in as :email
      */
-    private function login(BeforeScenarioScope $scope, User $user): void
+    public function login(string $email): void
     {
+        $user = $this->getUserRepository()->findUserByEmail($email);
         $token = $this->jwtManager->create($user);
-        $this->restContext = $scope->getEnvironment()->getContext(RestContext::class);
-        $this->restContext->iAddHeaderEqualTo('Authorization', "Bearer $token");
-    }
-
-    /**
-     * Create admin user and log them in.
-     *
-     * @param BeforeScenarioScope $scope
-     *
-     * @BeforeScenario @AdminLogin
-     */
-    public function adminLogin(BeforeScenarioScope $scope)
-    {
-        $user = $this->createAdminUser('admin@test.com', 'drowssap');
-        $this->login($scope, $user);
-    }
-
-    /**
-     * Create common user and log them in.
-     *
-     * @param BeforeScenarioScope $scope
-     *
-     * @BeforeScenario @UserLogin
-     */
-    public function userLogin(BeforeScenarioScope $scope)
-    {
-        $user = $this->createCommonUser('test@test.com', 'drowssap');
-        $this->login($scope, $user);
+        $this->getRestContext()->iAddHeaderEqualTo('Authorization', "Bearer $token");
     }
 
     /**
      * Log out user.
      *
      * @AfterScenario
-     * @logout
      */
-    public function logout()
+    public function logout(): void
     {
-        // $this->restContext->iAddHeaderEqualTo('Authorization', '');
+        $this->getRestContext()->iAddHeaderEqualTo('Authorization', '');
     }
 }

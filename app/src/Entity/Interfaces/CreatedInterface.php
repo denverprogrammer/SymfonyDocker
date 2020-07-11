@@ -15,4 +15,13 @@ interface CreatedInterface
      * @return DateTime
      */
     public function getCreated(): DateTime;
+
+    /**
+     * Sets Date and time record was created
+     *
+     * @param DateTime $value
+     *
+     * @return CreatedInterface
+     */
+    public function setCreated(DateTime $value): CreatedInterface;
 }

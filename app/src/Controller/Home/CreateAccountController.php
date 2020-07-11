@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Home;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,13 +14,13 @@ use Symfony\Component\Security\Core\Security;
 use App\Entity\DTO\RegisterUser;
 use App\Form\PasswordForm;
 use App\Form\RegistrationForm;
+use App\Controller\Traits;
+use App\Controller\ReactController;
 
 /**
  * Common routes for site.
- * 
- * @Route("/home")
  */
-class RegisterController extends AbstractController
+class CreateAccountController extends ReactController
 {
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
@@ -33,7 +33,7 @@ class RegisterController extends AbstractController
      *
      * @return JsonResponse
      *
-     * @Route("/register", name="register", methods={"post"})
+     * @Route("/create_account", name="create_account", methods={"post"})
      */
     public function createAccount(Request $request): JsonResponse
     {
@@ -61,48 +61,6 @@ class RegisterController extends AbstractController
                 'errors' => null
             ],
             JsonResponse::HTTP_CREATED
-        );
-    }
-
-    /**
-     * Reset user password.
-     *
-     * @return JsonResponse
-     *
-     * @Route("/confirm_account/{token}", name="confirm_account", methods={"post"}, requirements={"token"="[a-zA-Z0-9]+"})
-     */
-    public function confirmAccount(
-        Request $request,
-        UserPasswordEncoderInterface $encoder,
-        string $token
-    ): JsonResponse {
-        $user = $this->getUserRepository()->findUserByToken($token);
-
-        if (!$user) {
-            return new JsonResponse(null, JsonResponse::HTTP_NOT_FOUND);
-        }
-
-        $form = $this->createForm(PasswordForm::class, $user);
-        $data = json_decode($request->getContent(), true);
-        $form->submit($data);
-
-        if ($request->isMethod('POST') && $form->isValid()) {
-            $user = $form->getData();
-            $password = $user->getPassword();
-            $password = $encoder->encodePassword($user, $password);
-            $user->setPassword($password);
-            $user->setConfirmed(true);
-            $this->getEntityManager()->flush();
-
-            return new RedirectResponse('/');
-        }
-
-        return new JsonResponse(
-            [
-                'firstName' => $user->getFirstName(),
-                'lastName'  => $user->getLastName()
-            ],
-            JsonResponse::HTTP_OK
         );
     }
 }

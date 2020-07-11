@@ -3,6 +3,7 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Interfaces;
 
 /**
  * Tokens are randomized strings that are used to confirm a action.
@@ -29,13 +30,9 @@ trait TokenTrait
     }
 
     /**
-     * Set confirmation token.
-     *
-     * @param string $token Set confirmation token.
-     *
-     * @return self
+     * {inheritdoc}
      */
-    public function setToken(string $token): self
+    public function setToken(string $token): Interfaces\TokenInterface
     {
         $this->token = $token;
 

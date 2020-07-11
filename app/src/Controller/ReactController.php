@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Common routes for react.
+ *
+ * @Route("/{reactRouting}", name="home", defaults={"reactRouting": null})
  */
 class ReactController extends AbstractController
 {
@@ -15,10 +17,8 @@ class ReactController extends AbstractController
      * Initial react page.
      *
      * @return Response
-     *
-     * @Route("/{reactRouting}", name="home", defaults={"reactRouting": null})
      */
-    public function index()
+    public function __invoke(): Response
     {
         return $this->render('default/index.html.twig');
     }

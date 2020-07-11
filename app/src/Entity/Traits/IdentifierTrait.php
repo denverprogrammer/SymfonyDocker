@@ -3,6 +3,7 @@
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Interfaces;
 
 /**
  * Represents the unique id of the record.
@@ -21,12 +22,20 @@ trait IdentifierTrait
     protected $id;
 
     /**
-     * Get identifier of record.
-     *
-     * @return integer|null
+     * {inherticdoc}
      */
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * {inherticdoc}
+     */
+    public function setId(int $id): Interfaces\IdentifierInterface
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

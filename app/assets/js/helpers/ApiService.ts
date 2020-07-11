@@ -1,53 +1,49 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import RegisterRequest from '../models/Request/RegisterRequest';
 import LoginRequest from '../models/Request/LoginRequest';
+import PasswordRequest from '../models/Request/PasswordRequest';
 import LoginResponse from '../models/Response/LoginResponse';
 import ApiResponse from '../models/Response/ApiResponse';
 import User from '../models/User';
 
 export default class ApiService {
-    private jsonOptions = {
-        headers: {
-            Accept: 'application/json; charset=utf-8',
-            'Content-Type': 'application/json; charset=utf-8'
-        }
-    };
-
-    getHeaders = (): AxiosRequestConfig => {
-        const headers = {
-            headers: {
-                Accept: 'application/json; charset=utf-8',
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        };
-
+    constructor() {
         const token = localStorage.getItem('authentication');
 
         if (token) {
-            headers.headers['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
 
-        return headers;
-    };
+        axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+        axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+    }
 
     public async login(payload: LoginRequest): Promise<AxiosResponse<LoginResponse>> {
         return await axios
-            .post(`/login_check`, JSON.stringify(payload), this.getHeaders())
+            .post(`/api/login_check`, JSON.stringify(payload))
             .then((response: AxiosResponse<LoginResponse>) => {
                 return response;
             });
     }
 
     public async getProfile(): Promise<AxiosResponse<User>> {
-        return await axios.get(`/auth/profile`, this.getHeaders()).then((response: AxiosResponse<User>) => {
+        return await axios.get('/api/users/profile').then((response: AxiosResponse<User>) => {
             return response;
         });
     }
 
     public async register(payload: RegisterRequest): Promise<AxiosResponse<ApiResponse>> {
         return await axios
-            .post(`/home/register`, JSON.stringify(payload), this.getHeaders())
+            .post(`/create_account`, JSON.stringify(payload))
             .then((response: AxiosResponse<ApiResponse>) => {
+                return response;
+            });
+    }
+
+    public async confirmUser(token: string, payload: PasswordRequest): Promise<AxiosResponse> {
+        return await axios
+            .post(`/confirm_account/${token}`, JSON.stringify(payload))
+            .then((response: AxiosResponse) => {
                 return response;
             });
     }

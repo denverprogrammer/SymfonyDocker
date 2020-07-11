@@ -31,5 +31,9 @@ services:
         public: true
         alias: lexik_jwt_authentication.jwt_manager
 
-    App\Controller\Tasks\SendAccountEmailTask:
+    App\Controller\Tasks\CreateUserTask:
         tags: [messenger.message_handler]
+
+    App\Controller\Tasks\SendConfirmationEmailTask:
+        tags: [messenger.message_handler]
+    

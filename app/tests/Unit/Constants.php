@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
-class TestConstants
+class Constants
 {
     /**
      * First name of user.
@@ -26,6 +26,13 @@ class TestConstants
     public const TEST_EMAIL = 'test@test.com';
 
     /**
+     * Alternal email of test user.
+     *
+     * @var string
+     */
+    public const ALTERNATE_EMAIL = 'test2@test.com';
+
+    /**
      * Password of test user.
      *
      * @var string
@@ -38,4 +45,11 @@ class TestConstants
      * @var string
      */
     public const TEST_ROLES = ['ROLE_USER'];
+
+    /**
+     * Token.
+     *
+     * @var string
+     */
+    public const TEST_TOKEN = 'e6f82cce29eb77d09f9e35a963c46e22';
 }

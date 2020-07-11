@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '../components/Modal';
-import Email from '../components/fields/Email';
-import Password from '../components/fields/Password';
+import EmailInput from '../components/fields/EmailType';
+import PasswordInput from '../components/fields/PasswordInput';
 import SecuritySubject from '../helpers/SecuritySubject';
 
 interface AuthenticationProps {
@@ -56,17 +56,17 @@ export default function Login({ security }: AuthenticationProps): React.ReactEle
     }, []);
 
     return (
-        <div className='row d-flex justify-content-center'>
-            <div className='col-sm-8 col-md-6'>
-                <Modal title='User Login'>
+        <div className="row d-flex justify-content-center">
+            <div className="col-sm-8 col-md-6">
+                <Modal title="User Login">
                     <form onSubmit={handleSubmit}>
-                        <Email value={email} onChange={handleSetEmail} />
-                        <Password value={password} onChange={handleSetPassword} />
-                        <div className='d-flex justify-content-between'>
-                            <button type='submit' className='btn btn-primary'>
+                        <EmailInput value={email} onChange={handleSetEmail} />
+                        <PasswordInput value={password} onChange={handleSetPassword} />
+                        <div className="d-flex justify-content-between">
+                            <button type="submit" className="btn btn-primary">
                                 Submit
                             </button>
-                            <button type='button' className='btn btn-secondary'>
+                            <button type="button" className="btn btn-secondary">
                                 Cancel
                             </button>
                         </div>

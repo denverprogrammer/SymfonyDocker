@@ -40,17 +40,17 @@ export default function Authentication({ security }: AuthenticationProps): React
             {user ? (
                 <span>{`Hello ${user.firstName} ${user.lastName}`}</span>
             ) : (
-                <Link className='btn btn-link' to='/register'>
+                <Link className="btn btn-link" to="/create_account">
                     Register
                 </Link>
             )}
 
             {user ? (
-                <Link className='btn btn-link' to='/logout' onClick={logoutClick}>
+                <Link className="btn btn-link" to="/logout" onClick={logoutClick}>
                     Logout
                 </Link>
             ) : (
-                <Link className='btn btn-link' to='/login'>
+                <Link className="btn btn-link" to="/login">
                     Login
                 </Link>
             )}

@@ -14,14 +14,12 @@
 ###< symfony/framework-bundle ###
 
 /bin
-/tests/functional/results
-/tests/unit/results
-/tests/spec/results
+/tests/Functional/results
+/tests/Unit/results
 
 ###> testing results ###
 /tests/phpcs-cache
-/tests/unit/.phpunit.result.cache
-/tests/default.xml
+/tests/Unit/.phpunit.result.cache
 ###> testing results ###
 
 ###> lexik/jwt-authentication-bundle ###
@@ -48,3 +46,7 @@ behat.yml
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###

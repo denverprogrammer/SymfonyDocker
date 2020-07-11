@@ -8,13 +8,13 @@ export default function TextInput({
     onChange
 }: InputTypes): React.ReactElement {
     return (
-        <div className='form-group'>
+        <div className="form-group">
             <label htmlFor={`id_${name}`}>{title}</label>
             <input
                 id={`id_${name}`}
                 name={name}
-                type='text'
-                className='form-control'
+                type="text"
+                className="form-control"
                 value={value}
                 onChange={onChange}
             />

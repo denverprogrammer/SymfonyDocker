@@ -1,20 +1,20 @@
 import React from 'react';
 import InputTypes from './InputTypes';
 
-export default function Password({
-    title = 'Password',
-    name = 'password',
+export default function EmailInput({
+    title = 'Email',
+    name = 'email',
     value = '',
     onChange
 }: InputTypes): React.ReactElement {
     return (
-        <div className='form-group'>
+        <div className="form-group">
             <label htmlFor={`id_${name}`}>{title}</label>
             <input
                 id={`id_${name}`}
                 name={name}
-                type='password'
-                className='form-control'
+                type="email"
+                className="form-control"
                 value={value}
                 onChange={onChange}
             />

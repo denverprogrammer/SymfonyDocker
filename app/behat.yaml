@@ -4,34 +4,35 @@ default:
     formatters:
         pretty: true
         junit:
-            output_path: ./tests/functional/results/junit
+            output_path: ./tests/Functional/results/junit
 
     suites:
         default:
             paths:
-                features: ./functional
+                features: ./tests/Functional/Features/
             contexts:
-                - App\Tests\FeatureContext:
-                    kernel: '@kernel'
-                    jwtManager: '@lexik_jwt_authentication.jwt_manager'
-                    encoder: '@security.user_password_encoder.generic'
+                - App\Tests\Functional\Contexts\AppContext
                 - Behat\MinkExtension\Context\MinkContext
-                - Behatch\Context\RestContext
-                - Behatch\Context\JsonContext
+                - behatch:context:browser
+                - behatch:context:debug
+                - behatch:context:system
+                - behatch:context:json
+                - behatch:context:table
+                - behatch:context:rest
+                - behatch:context:xml
 
     extensions:
-        Behat\Symfony2Extension:
+        FriendsOfBehat\SymfonyExtension:
             kernel:
-                # bootstrap: bootstrap.php
-                class: App\Kernel
+                environment: test
 
         Behat\MinkExtension:
             show_auto: true
             show_cmd: firefox %s
             base_url: "http://localhost"
             sessions:
-                default:
-                    symfony2: ~
+                symfony:
+                    symfony: ~
 
         Behatch\Extension: ~
 
@@ -51,4 +52,4 @@ default:
             report:
                 format: html
                 options:
-                    target: tests/functional/results/html
+                    target: tests/Functional/results/html

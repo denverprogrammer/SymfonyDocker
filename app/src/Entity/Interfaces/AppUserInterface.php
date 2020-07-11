@@ -7,10 +7,14 @@ use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 /**
  * Interface for class/table.
  */
-interface UserInterface extends
+interface AppUserInterface extends
     IdentifierInterface,
+    FirstNameInterface,
+    LastNameInterface,
+    EmailInterface,
     CreatedInterface,
     UpdatedInterface,
+    TokenInterface,
     SymfonyUserInterface
 {
 }

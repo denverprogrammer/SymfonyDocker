@@ -5,6 +5,7 @@ namespace App\Entity\Traits;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Interfaces;
 
 /**
  * Represents the when record was created.
@@ -22,12 +23,20 @@ trait CreatedTrait
     protected $created;
 
     /**
-     * Date & time record was created.
-     *
-     * @return DateTime
+     * {inheritdoc}
      */
     public function getCreated(): DateTime
     {
         return $this->created;
+    }
+
+    /**
+     * {inheritdoc}
+     */
+    public function setCreated(DateTime $value): Interfaces\CreatedInterface
+    {
+        $this->created = $value;
+
+        return $this;
     }
 }

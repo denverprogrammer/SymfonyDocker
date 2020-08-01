@@ -15,21 +15,19 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apk update && \
     apk add --no-cache \
         wget \
-        libxml2 \
-        libxml2-dev \
         acl && \
-    docker-php-ext-install pdo_mysql xml && \
+    docker-php-ext-install pdo_mysql && \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
         libzip-dev && \
     pecl install apcu && \
-    docker-php-ext-enable apcu xml && \
+    docker-php-ext-enable apcu && \
     apk del .build-deps && \
     PATH=$PATH:/usr/src/app/vendor/bin:bin && \
     mkdir -p /usr/src/app/var/cache && \
     mkdir -p /usr/src/app/var/log && \
     chmod -R 777 /usr/src/app/var/log/;
 
-# Install dev/test environment
+# # Install dev/test environment
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
     apk add --no-cache \
         rabbitmq-c-dev \

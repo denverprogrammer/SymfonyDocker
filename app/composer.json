@@ -2,7 +2,6 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "7.2.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.5",
@@ -49,8 +48,7 @@
         "symfony/maker-bundle": "^1.12",
         "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "^1.0",
-        "symfony/web-server-bundle": "4.4.*"
+        "symfony/test-pack": "^1.0"
     },
     "config": {
         "preferred-install": {

@@ -15,6 +15,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apk update && \
     apk add --no-cache \
         wget \
+        libxml2 \
         libxml2-dev \
         acl && \
     docker-php-ext-install pdo_mysql xml && \
@@ -30,7 +31,6 @@ RUN apk update && \
 
 # Install dev/test environment
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
-    sed -i -e "s/^ *memory_limit.*/memory_limit = 4G/g" /usr/local/etc/php/php.ini && \
     apk add --no-cache \
         rabbitmq-c-dev \
         supervisor && \

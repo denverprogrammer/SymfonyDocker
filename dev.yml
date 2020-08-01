@@ -3,21 +3,15 @@
 version: '3.5'
 
 services:
-    database:
-        environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-    application:
-        environment:
-            - XDEBUG_CONFIG=idekey=${XDEBUG_CODE} remote_host=${XDEBUG_HOST} remote_port=${XDEBUG_PORT} remote_enable=1
-            - APP_ENV=dev
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
     adminer:
         depends_on:
             - database
         hostname: adminer
         image: adminer
         ports:
-            - "${ADMINER_PORT}:8080"
+            - "8081:8080"
         restart: always
+        env_file: ./app/.env
         networks:
-            - symfony_docker
+            - internal
+            - external

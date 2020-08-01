@@ -1,28 +1,28 @@
 #!make
-include .env
-export $(shell sed 's/=.*//' .env)
+# include .env
+# export $(shell sed 's/=.*//' .env)
 
-.PHONY: NUKE_IT_NUKE_IT destroy logs initial_dev_start initial_test_start initial_start start_test start_dev start build_test build_dev build run_unit_tests run_functional_tests wrapper push
+.PHONY: NUKE_IT_NUKE_IT destroy logs initial_start start build run_unit_tests run_functional_tests wrapper push psr-check
 
 # Common git commands
 CURRENT_BRANCH = `git rev-parse --abbrev-ref HEAD`
 CURRENT_COMMIT = `git log -n 1 ${CURRENT_BRANCH} --pretty=format:"%H"`
 
 # Common docker-compose files that describe container orchestration/environment.
-BUILD_ENV      = -f base.yml
-DEV_ENV        = ${BUILD_ENV} -f dev.yml
-TEST_ENV       = ${DEV_ENV} -f test.yml
-USER_ID        = `id -u`
-GROUP_ID       = `id -g`
-CURRENT_UID    = ${USER_ID}:${GROUP_ID}
+BUILD_ENV = -f base.yml
+DEV_ENV   = ${BUILD_ENV} -f dev.yml
+TEST_ENV  = ${DEV_ENV} -f test.yml
+USER_ID   = `id -u`
+GROUP_ID  = `id -g`
+USER      = ${USER_ID}:${GROUP_ID}
 
 # Common commands run inside the docker container.
-UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
-FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
+# UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
+# FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
 MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
 COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
-INITIALIZE_CMD = 'timeout 300s /usr/local/bin/InitialSetup.sh'
-DB_WAIT_CMD    = 'timeout 300s /usr/local/bin/DatabaseWait.sh'
+# INITIALIZE_CMD = 'timeout 300s /usr/local/bin/InitialSetup.sh'
+DB_WAIT_CMD    = 'timeout 300s /usr/src/bin/DatabaseWait.sh'
 PSR_CHECK_CMD  = 'vendor/bin/phpcs --standard=tests/phpcs.xml .'
 
 # Need a way to cover up your mistakes?
@@ -36,76 +36,48 @@ NUKE_IT_NUKE_IT:
 	docker container prune --force
 	docker rmi -f $(`docker images -aq`)
 
-set_user:
-	echo ${CURRENT_UID}
-
 # Brings down all containers.
 destroy:
-	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="down --remove-orphans --volumes"
+	make wrapper ENV="${ENV}" COMMAND="down --remove-orphans --volumes"
 
 # Displays container logs.  Areas match names defined in base.yml file
 logs:
-	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="logs ${AREA}"
-
-# Sets up and starts all of the dev containers for the first time.
-# Go to http://localhost in your browser to view webpage.
-initial_dev_start:
-	make initial_start ENV_FILES="${DEV_ENV}"
-
-# Sets up and starts all of the test containers for the first time.
-# Go to http://localhost in your browser to view webpage.
-initial_test_start:
-	make initial_start ENV_FILES="${TEST_ENV}"
+	make wrapper ENV="${ENV}" COMMAND="logs ${AREA}"
 
 # Gereric start command when running for the first time.
 # This target sets up the initial folders, builds containers, 
 # starts containers, installs composer dependencies and migrates data.
 initial_start:
-	make build ENV_FILES="${ENV_FILES}"
-	make start ENV_FILES="${ENV_FILES}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${INITIALIZE_CMD} --user ${CURRENT_UID}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${CURRENT_UID}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${CURRENT_UID}"
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${CURRENT_UID}"
-
-# Starts all of the test containers.
-# Go to http://localhost in your browser to view webpage.
-start_test:
-	make start ENV_FILES="${TEST_ENV}"
-
-# Starts all of the dev containers.
-# Go to http://localhost in your browser to view webpage.
-start_dev:
-	make start ENV_FILES="${DEV_ENV}"
+	make build ENV="${ENV}"
+	make start ENV="${ENV}"
+	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${USER}"
+	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${USER}"
+	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${USER}"
 
 # Generic docker-compose start command for any environment.
 start:
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="up -d"
-
-# Builds all of the test containers.
-build_test:
-	make build ENV_FILES="${TEST_ENV}"
-
-# Builds all of the dev containers.
-build_dev:
-	make build ENV_FILES="${DEV_ENV}"
+	make wrapper ENV="${ENV}" COMMAND="up -d"
 
 # Generic docker-compose build command for any environment.
 build:
-	make wrapper ENV_FILES="${ENV_FILES}" COMMAND="build"
+	make wrapper ENV="${ENV}" COMMAND="build"
 
 # Runs unit tests against a the application.
 run_unit_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${UNIT_TEST_CMD} --user ${CURRENT_UID}"
+	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${UNIT_TEST_CMD} --user ${USER}"
 
 # Runs functional tests against a the application.
 # Successfull tests show up as green, errors are red and warnings are blue.
 run_functional_tests:
-	make wrapper ENV_FILES="${TEST_ENV}" COMMAND="exec application sh -c ${FUNCT_TEST_CMD} --user ${CURRENT_UID}"
+	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${FUNCT_TEST_CMD} --user ${USER}"
 
 # Generic wrapper command
 wrapper:
-	docker-compose ${ENV_FILES} ${COMMAND}
+ifeq ($(ENV),test)
+	docker-compose ${TEST_ENV} ${COMMAND}
+else
+	docker-compose ${DEV_ENV} ${COMMAND}
+endif
 
 # Common way to push to github.
 push:
@@ -113,13 +85,4 @@ push:
 
 # Check for psr issues.
 psr-check:
-	make wrapper ENV_FILES="${DEV_ENV}" COMMAND="exec application sh -c ${PSR_CHECK_CMD} --user ${CURRENT_UID}"
-
-update-cert:
-	sudo rm -irf /usr/local/share/ca-certificates/updated
-	cd /usr/local/share/ca-certificates/
-	sudo mkdir /usr/local/share/ca-certificates/updated
-	sudo cp /usr/local/share/ca-certificates/ca-certificates.crt /usr/local/share/ca-certificates/updated/ca-certificates.crt
-	sudo chmod 755 /usr/local/share/ca-certificates/updated
-	sudo chmod 644 /usr/local/share/ca-certificates/updated/ca-certificates.crt
-	sudo update-ca-certificates
+	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${PSR_CHECK_CMD} --user ${USER}"

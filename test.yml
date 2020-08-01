@@ -4,9 +4,8 @@ version: '3.5'
 
 services:
     database:
-        environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
+        env_file: ./app/.env.test
     application:
-        environment:
-            - APP_ENV=test
-            - MYSQL_DATABASE=${MYSQL_DATABASE}Test
+        env_file: ./app/.env.test
+    webserver:
+        env_file: ./app/.env.test

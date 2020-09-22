@@ -17,13 +17,11 @@ GROUP_ID  = `id -g`
 USER      = ${USER_ID}:${GROUP_ID}
 
 # Common commands run inside the docker container.
-# UNIT_TEST_CMD  = 'rm -irf tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
-# FUNCT_TEST_CMD = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
-MIGRATE_CMD    = 'bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing'
-COMPOSER_CMD   = 'composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi'
-# INITIALIZE_CMD = 'timeout 300s /usr/local/bin/InitialSetup.sh'
-DB_WAIT_CMD    = 'timeout 300s /usr/src/bin/DatabaseWait.sh'
-PSR_CHECK_CMD  = 'vendor/bin/phpcs --standard=tests/phpcs.xml .'
+# UNIT_TEST_CMD        = 'rm -irf
+# tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
+# FUNCT_TEST_CMD       = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
+SETUP_TRANSPORT_CMD  = '/usr/src/backend/bin/console messenger:setup-transports --no-interaction'
+START_SUPERVISOR_CMD = 'supervisord --configuration /etc/supervisor/*.conf'
 
 # Need a way to cover up your mistakes?
 # Does it need to be fast so that nobody will notice?
@@ -50,9 +48,11 @@ logs:
 initial_start:
 	make build ENV="${ENV}"
 	make start ENV="${ENV}"
-	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${COMPOSER_CMD} --user ${USER}"
-	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${DB_WAIT_CMD} --user ${USER}"
-	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${MIGRATE_CMD} --user ${USER}"
+	composer install --no-interaction --prefer-dist --no-suggest --no-progress --ansi --working-dir=backend
+	timeout 30s build/DatabaseWait.sh
+	backend/bin/console doctrine:migrations:migrate --no-interaction --query-time --all-or-nothing
+	make wrapper ENV="${ENV}" COMMAND="exec backend sh -c ${SETUP_TRANSPORT_CMD} --user ${USER}"
+	make wrapper ENV="${ENV}" COMMAND="exec backend sh -c ${START_SUPERVISOR_CMD} --user ${USER}"
 
 # Generic docker-compose start command for any environment.
 start:
@@ -62,14 +62,15 @@ start:
 build:
 	make wrapper ENV="${ENV}" COMMAND="build"
 
-# Runs unit tests against a the application.
+# Runs unit tests against a the backend.
 run_unit_tests:
-	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${UNIT_TEST_CMD} --user ${USER}"
+	make wrapper ENV="${ENV}" COMMAND="exec backend sh -c ${UNIT_TEST_CMD} --user ${USER}"
 
-# Runs functional tests against a the application.
+# Runs functional tests against a the backend.
 # Successfull tests show up as green, errors are red and warnings are blue.
 run_functional_tests:
-	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${FUNCT_TEST_CMD} --user ${USER}"
+	cd backend && bin/console doctrine:database:create --env=test --if-not-exists
+	cd backend && vendor/bin/behat --config=tests/functional/behat.yml
 
 # Generic wrapper command
 wrapper:
@@ -85,4 +86,4 @@ push:
 
 # Check for psr issues.
 psr-check:
-	make wrapper ENV="${ENV}" COMMAND="exec application sh -c ${PSR_CHECK_CMD} --user ${USER}"
+	backend/vendor/bin/phpcs --standard=./backend/phpcs.xml ./backend

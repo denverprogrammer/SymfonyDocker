@@ -1,0 +1,145 @@
+App\Entity\Exchange:
+    attributes:
+        id:
+            groups: ['exchange:read']
+        created:
+            groups: ['exchange:read']
+        updated:
+            groups: ['exchange:read']
+        code:
+            groups: ['exchange:read', 'exchange:write', 'stock:read']
+        title:
+            groups: ['exchange:read', 'exchange:write', 'stock:read']
+        
+App\Entity\Message:
+    attributes:
+        id:
+            groups: ['message:read']
+        created:
+            groups: ['message:read']
+        updated:
+            groups: ['message:read']
+        recipientType:
+            groups: ['message:read', 'message:write']
+        recipient:
+            groups: ['message:read', 'message:write']
+        messageType:
+            groups: ['message:read', 'message:write']
+        messageBody:
+            groups: ['message:read', 'message:write']
+        token:
+            groups: ['message:read']
+
+App\Entity\Market:
+    attributes:
+        id:
+            groups: ['market:read']
+        created:
+            groups: ['market:read']
+        updated:
+            groups: ['market:read']
+        code:
+            groups: ['market:read', 'market:write', 'stock:read']
+        title:
+            groups: ['market:read', 'market:write', 'stock:read']
+
+App\Entity\Security:
+    attributes:
+        id:
+            groups: ['security:read']
+        created:
+            groups: ['security:read']
+        updated:
+            groups: ['security:read']
+        code:
+            groups: ['security:read', 'security:write', 'stock:read']
+        title:
+            groups: ['security:read', 'security:write', 'stock:read']
+
+App\Entity\Stock:
+    attributes:
+        id:
+            groups: ['stock:read']
+        created:
+            groups: ['stock:read']
+        updated:
+            groups: ['stock:read']
+        code:
+            groups: ['stock:read', 'stock:write']
+        title:
+            groups: ['stock:read', 'stock:write']
+        exchange:
+            groups: ['stock:read', 'stock:write']
+        market:
+            groups: ['stock:read', 'stock:write']
+        security:
+            groups: ['stock:read', 'stock:write']
+
+App\Entity\Subscription:
+    attributes:
+        id:
+            groups: ['subscription:read']
+        created:
+            groups: ['subscription:read']
+        updated:
+            groups: ['subscription:read']
+        trackrecord:
+            groups: ['subscription:read', 'subscription:write']
+        userType:
+            groups: ['subscription:read', 'subscription:write']
+        user:
+            groups: ['subscription:read', 'subscription:write']
+        subscriptionType:
+            groups: ['subscription:read', 'subscription:write']
+        startsOn:
+            groups: ['subscription:read', 'subscription:write']
+        endsOn:
+            groups: ['subscription:read', 'subscription:write']
+        trackrecordActions:
+            groups: ['subscription:read', 'subscription:write']
+        subscriptionActions:
+            groups: ['subscription:read', 'subscription:write']
+        pendingOrderActions:
+            groups: ['subscription:read', 'subscription:write']
+        filledOrderActions:
+            groups: ['subscription:read', 'subscription:write']
+        openPositionActions:
+            groups: ['subscription:read', 'subscription:write']
+        closedPositionActions:
+            groups: ['subscription:read', 'subscription:write']
+
+App\Entity\Trackrecord:
+    attributes:
+        id:
+            groups: ['trackrecord:read']
+        created:
+            groups: ['trackrecord:read']
+        updated:
+            groups: ['trackrecord:read']
+        title:
+            groups: ['trackrecord:read', 'trackrecord:write', 'subscription:read']
+        description:
+            groups: ['trackrecord:read', 'trackrecord:write']
+
+App\Entity\User:
+    attributes:
+        id:
+            groups: ['user:read']
+        created:
+            groups: ['user:read']
+        updated:
+            groups: ['user:read']
+        username:
+            groups: ['user:read', 'user:write', 'subscription:read']
+        email:
+            groups: ['user:read', 'user:write', 'subscription:read']
+        plainPassword:
+            groups: ['user:write']
+        viewState:
+            groups: ['user:read', 'user:write']
+        subscriptions:
+            groups: ['user:read', 'user:write']
+        agreement:
+            groups: ['user:read', 'user:write']
+        notifications:
+            groups: ['user:read', 'user:write']

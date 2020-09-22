@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Entity\Traits;
+
+use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Interfaces\EndsOnInterface;
+
+/**
+ * EndsOn of entity
+ */
+trait EndsOnTrait
+{
+    /**
+     * Date & time when subscription expires
+     *
+     * @var DateTime|null
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected ?DateTime $endsOn = null;
+
+    /**
+     * {inheritdoc}
+     */
+    public function getEndsOn(): ?DateTime
+    {
+        return $this->endsOn;
+    }
+
+    /**
+     * {inheritdoc}
+     */
+    public function setEndsOn(?DateTime $endsOn = null): self
+    {
+        $this->endsOn = $endsOn;
+
+        return $this;
+    }
+}

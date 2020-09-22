@@ -1,0 +1,12 @@
+<h1>Welcome {{ model.recipient }} to Trader Trackrecord!</h1>
+
+<p>
+    You signed up as username {{ entity.username }} using the following {{ model.recipientType }}:
+</p>
+<p><code>{{ model.recipient }}</code></p>
+
+<p>
+    <a href="http://localhost/#/confirm_account/{{ model.token }}">
+        Click here to activate your account
+    </a>
+</p>

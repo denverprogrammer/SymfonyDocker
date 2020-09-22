@@ -1,0 +1,15 @@
+framework:
+    messenger:
+        failure_transport: failed_queue
+
+        transports:
+            failed_queue:
+                dsn: 'doctrine://default?queue_name=failed'
+                serializer: messenger.transport.symfony_serializer
+            async_queue:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: messenger.transport.symfony_serializer
+                # retry_strategy:
+                #     max_retries: 5
+                #     delay: 1000
+                #     multiplier: 3

@@ -3,15 +3,53 @@
 version: '3.5'
 
 services:
+
+    backend:
+        volumes:
+            - ./backend:/usr/src/backend
+            - ./docker/backend/supervisor.conf:/etc/supervisor/supervisor.conf:ro
+
+    mailer:
+        container_name: mailer
+        hostname: mailer
+        restart: always
+        image: schickling/mailcatcher
+        depends_on:
+            - backend
+        ports:
+            - 1080:1080
+            - 1025:1025
+        networks:
+            - internal
+
+    messenger:
+        container_name: messenger
+        hostname: messenger
+        image: rabbitmq:3-management-alpine
+        restart: always
+        depends_on:
+            - backend
+        networks:
+            - internal
+        ports:
+            - 5672:5672
+            - 15672:15672
+        user: ${CURRENT_UID}
+
     adminer:
+        container_name: adminer
+        hostname: adminer
         depends_on:
             - database
-        hostname: adminer
         image: adminer
         ports:
-            - "8081:8080"
+            - 8081:8080
         restart: always
-        env_file: ./app/.env
+        env_file: ./backend/.env
         networks:
             - internal
             - external
+
+    database:
+        ports:
+            - 3306:3306

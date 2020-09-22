@@ -1,0 +1,39 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+create_account:
+    methods: ['POST']
+    path: '/api/users/create_account'
+    defaults:
+        _controller: App\Controller\CreateAccountController
+        # _api_resource_class: App\Models\CreateAccountModel
+        _api_collection_operation_name: create_account
+
+# confirm_account:
+#     methods: ['POST']
+#     path: '/api/users/confirm_account/{token}'
+#     requirements:
+#         token: '[a-zA-Z0-9]+'
+#     defaults:
+#         _controller: App\Controller\ConfirmAccountController
+#         _api_resource_class: App\Models\ConfirmAccountModel
+#         _api_collection_operation_name: 'confirm_account'
+
+reset_password:
+    methods: ['POST']
+    path: '/api/users/reset_password'
+    defaults:
+        _controller: App\Controller\ResetPasswordController
+        # _api_resource_class: App\Models\ResetPasswordModel
+        _api_collection_operation_name: reset_password
+        
+# confirm_password:
+#     methods: ['POST']
+#     path: '/api/users/confirm_password/{token}'
+#     requirements:
+#         token: '[a-zA-Z0-9]+'
+#     defaults:
+#         _controller: App\Controller\ConfirmPasswordController
+#         _api_resource_class: App\Models\ConfirmPasswordModel
+#         _api_collection_operation_name: 'confirm_password'

@@ -4,8 +4,8 @@ version: '3.5'
 
 services:
     database:
-        env_file: ./app/.env.test
-    application:
-        env_file: ./app/.env.test
+        env_file: ./backend/.env.test
+    backend:
+        env_file: ./backend/.env.test
     webserver:
-        env_file: ./app/.env.test
+        env_file: ./backend/.env.test

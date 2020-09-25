@@ -2,7 +2,7 @@
 # include .env
 # export $(shell sed 's/=.*//' .env)
 
-.PHONY: NUKE_IT_NUKE_IT destroy logs initial_start start build run_unit_tests run_functional_tests wrapper push psr-check
+.PHONY: NUKE_IT_NUKE_IT destroy logs initial_start start build run_functional_tests wrapper push psr-check
 
 # Common git commands
 CURRENT_BRANCH = `git rev-parse --abbrev-ref HEAD`
@@ -17,9 +17,6 @@ GROUP_ID  = `id -g`
 USER      = ${USER_ID}:${GROUP_ID}
 
 # Common commands run inside the docker container.
-# UNIT_TEST_CMD        = 'rm -irf
-# tests/unit/results && vendor/bin/simple-phpunit -c tests/phpunit.xml'
-# FUNCT_TEST_CMD       = 'rm -irf tests/functional/results && vendor/bin/behat --colors --config tests/behat.yaml'
 SETUP_TRANSPORT_CMD  = '/usr/src/backend/bin/console messenger:setup-transports --no-interaction'
 START_SUPERVISOR_CMD = 'supervisord --configuration /etc/supervisor/*.conf'
 
@@ -70,7 +67,7 @@ run_unit_tests:
 # Successfull tests show up as green, errors are red and warnings are blue.
 run_functional_tests:
 	cd backend && bin/console doctrine:database:create --env=test --if-not-exists
-	cd backend && vendor/bin/behat --config=tests/functional/behat.yml
+	cd backend && vendor/bin/behat --config=tests/functional/behat.yml --colors
 
 # Generic wrapper command
 wrapper:

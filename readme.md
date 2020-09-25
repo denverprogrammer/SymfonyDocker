@@ -1,12 +1,17 @@
 
 ## **Description:** ##
-Simple implementation of Symony 4 running in Docker.  This project is intended to be 
+Simple implementation of Symony 5.1 and PHP 7.4 running in Docker.  This project is intended to be 
 built by [Jenkins Build Server](https://github.com/denverprogrammer/JenkinsBuildServer)
 
 ## **Linux Requirements:** ##
 * [docker ce](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 * [docker-compose](https://docs.docker.com/compose/install/)
 * [make](https://linuxconfig.org/how-to-install-gcc-the-c-compiler-on-ubuntu-18-04-bionic-beaver-linux)
+* [php-mysql for local developement](https://www.howtoinstall.me/ubuntu/18-04/php-mysql/)
+* [php-amqp for local developement](https://www.howtoinstall.me/ubuntu/18-04/php-amqp/)
+
+create .env.dist file
+add mailer and databaseto etc hosts
 * Before running please create a new copy of the .env.dist.  This new copy needs to be called .env and should be in the same location as .env.dist.
 * Please change any screts in the .env file like JWT_PASSPHRASE to a more secure value.
 
@@ -14,10 +19,10 @@ built by [Jenkins Build Server](https://github.com/denverprogrammer/JenkinsBuild
 Any of the following commands can be run in your terminal.
 
 ```bash
-# Need a way to cover up your mistakes?
+# Do you need a way to cover up your mistakes?
 # Does it need to be fast so that nobody will notice?
 # Or do you need to just start from scratch ... a lot.
-# Then this target is made for you.
+# If yes then this target is made for you.
 $ make NUKE_IT_NUKE_IT
 
 # Brings down all containers.
@@ -28,39 +33,23 @@ $ make logs
 
 # Sets up and starts all of the dev containers for the first time.
 # Go to http://localhost in your browser to view webpage.
-$ make initial_dev_start
-
-# Sets up and starts all of the test containers for the first time.
-# Go to http://localhost in your browser to view webpage.
-$ make initial_test_start
-
-# Starts all of the test containers.
-# Go to http://localhost in your browser to view webpage.
-$ make start_test$ 
-
-# Starts all of the dev containers.
-# Go to http://localhost in your browser to view webpage.
-$ make start_dev
-
-# Builds all of the test containers.
-$ make build_test
-
-# Builds all of the dev containers.
-$ make build_dev
+$ make initial_start
 
 # Runs functional tests against a the application.
 # Successfull tests show up as green, errors are red and warnings are blue.
-$ make run_local_tests
+$ make run_functional_tests
 ```
 
 ## **Docker Containers:** ##
-Container   | Folder                                     | Description                             |
-------------|--------------------------------------------|-----------------------------------------|
-webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.                        |
-database    | [docker/database](./docker/database)       | MySql 8 database server.                |
-application | [docker/application](./docker/application) | Php 7.2 backend application language.   |
-adminer     | [docker/adminer](./docker/adminer)         | Web based database administrator. \*    |
-composer    | N/A                                        | Installs application dependencies. \*\* |
+Container   | Folder                                     | Description                            |
+------------|--------------------------------------------|----------------------------------------|
+webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.                       |
+database    | N/A                                        | MySql 8 database server.               |
+backend     | [docker/backend](./docker/backend)         | Php 7.4 backend application language.  |
+adminer     | N/A                                        | Web based database administrator.    \*|
+composer    | N/A                                        | Installs application dependencies. \*\*|
+mailer      | N/A                                        | Local mail server for testing only.  \*|
+messenger   | N/A                                        | Local queue for processing messages. \*|
 
 * All containers in this project use alpine (Simplified Linux) to make the image size as small as possible.
 * \* This container is only available locally.

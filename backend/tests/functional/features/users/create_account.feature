@@ -1,7 +1,7 @@
 Feature:
-    In order to prove that the use the site
-    As a user
-    I want to log in to the site
+    In order to create an account
+    As an anomyous user
+    I want to create an account
 
 	Background: Common setup
 		Then I add "Content-Type" header equal to "application/json"

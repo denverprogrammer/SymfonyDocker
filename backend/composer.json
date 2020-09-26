@@ -1,4 +1,6 @@
 {
+    "name": "universal-truth/trader-trackrecord",
+    "description": "Site used for journaling trades",
     "type": "project",
     "license": "proprietary",
     "require": {

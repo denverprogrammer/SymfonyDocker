@@ -34,7 +34,7 @@ jobs:
                     MYSQL_DATABASE: secretDb
                     MYSQL_USER: root
                     MYSQL_PASSWORD: root
-                    MYSQL_HOST: database
+                    # MYSQL_HOST: database
                     MYSQL_PORT: 3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
                 ports:

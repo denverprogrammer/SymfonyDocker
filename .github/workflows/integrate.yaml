@@ -5,7 +5,7 @@ on:
     pull_request: ~
 
 env:
-    APP_ENV: test
+    APP_ENV: dev
     APP_NAME: test
     APP_SECRET: test-token
     MYSQL_HOST: database
@@ -13,7 +13,7 @@ env:
     MYSQL_USER: root
     MYSQL_PORT: 3306
     MYSQL_PASSWORD: root
-    MYSQL_DATABASE: secretDbTest
+    MYSQL_DATABASE: secretDb
     MAILER_DSN: smtp://mailer:1025
     MESSENGER_TRANSPORT_DSN: amqp://guest:guest@messenger:5672/%2f/messages
     CORS_ALLOW_ORIGIN: ^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$
@@ -33,7 +33,7 @@ jobs:
                 image: mysql:5.7
                 env:
                     MYSQL_ROOT_PASSWORD: root
-                    MYSQL_DATABASE: secretDbTest
+                    MYSQL_DATABASE: secretDb
                     MYSQL_USER: root
                     MYSQL_PASSWORD: root
                     MYSQL_HOST: database

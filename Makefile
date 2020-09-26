@@ -29,7 +29,7 @@ NUKE_IT_NUKE_IT:
 	docker volume prune --force
 	docker network prune --force
 	docker container prune --force
-	docker rmi -f $(`docker images -aq`)
+	docker rmi -f `$(docker images -aq)`
 
 # Brings down all containers.
 destroy:

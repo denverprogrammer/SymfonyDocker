@@ -35,7 +35,7 @@ $ make logs
 # Go to http://localhost in your browser to view webpage.
 $ make initial_start
 
-# Runs functional tests against a the application.
+# Runs functional tests against a the backend.
 # Successfull tests show up as green, errors are red and warnings are blue.
 $ make run_functional_tests
 ```
@@ -45,9 +45,9 @@ Container   | Folder                                     | Description          
 ------------|--------------------------------------------|----------------------------------------|
 webserver   | [docker/webserver](./docker/webserver)     | Nginx webserver.                       |
 database    | N/A                                        | MySql 8 database server.               |
-backend     | [docker/backend](./docker/backend)         | Php 7.4 backend application language.  |
+backend     | [docker/backend](./docker/backend)         | Php 7.4 backend backend language.      |
 adminer     | N/A                                        | Web based database administrator.    \*|
-composer    | N/A                                        | Installs application dependencies. \*\*|
+composer    | N/A                                        | Installs backend dependencies. \*\*    |
 mailer      | N/A                                        | Local mail server for testing only.  \*|
 messenger   | N/A                                        | Local queue for processing messages. \*|
 
@@ -75,25 +75,25 @@ A .env file containing environment variables is located in the project root dire
     </tr>
     <tr>
       <td>APP_ENV</td>
-      <td>application</td>
+      <td>backend</td>
       <td>dev</td>
       <td>test</td>
     </tr>
     <tr>
       <td>DEBUG_CODE</td>
-      <td>application</td>
+      <td>backend</td>
       <td>VSCODE</td>
       <td>*</td>
     </tr>
     <tr>
       <td>DEBUG_HOST</td>
-      <td>application</td>
+      <td>backend</td>
       <td>172.17.0.1</td>
       <td>*</td>
     </tr>
     <tr>
       <td>DEBUG_PORT</td>
-      <td>application</td>
+      <td>backend</td>
       <td>9090</td>
       <td>*</td>
     </tr>
@@ -105,39 +105,51 @@ A .env file containing environment variables is located in the project root dire
     </tr>
     <tr>
       <td>MYSQL_PORT</td>
-      <td>database, application</td>
+      <td>database, backend</td>
       <td>3306</td>
       <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_USER</td>
-      <td>database, application</td>
+      <td>database, backend</td>
       <td>secretUser</td>
       <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_HOST</td>
-      <td>database, application</td>
+      <td>database, backend</td>
       <td>database</td>
       <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_ROOT_PASSWORD</td>
-      <td>database, application</td>
+      <td>database, backend</td>
       <td>root</td>
       <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_PASSWORD</td>
-      <td>database, application</td>
+      <td>database, backend</td>
       <td>drowssap</td>
       <td>*</td>
     </tr>
     <tr>
       <td>MYSQL_DATABASE</td>
-      <td>database, application</td>
+      <td>database, backend</td>
       <td>secretDb</td>
       <td>secretDbTest **</td>
+    </tr>
+    <tr>
+      <td>MAILER_DSN</td>
+      <td>mailer, messenger, backend</td>
+      <td>smtp://mailer:1025</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <td>MESSENGER_TRANSPORT_DSN</td>
+      <td>mailer, messenger, backend</td>
+      <td>amqp://guest:guest@messenger:5672/%2f/messages</td>
+      <td>*</td>
     </tr>
   </tbody>
 </table>
@@ -148,7 +160,7 @@ A .env file containing environment variables is located in the project root dire
 ## **Major Composer Packages:** ##
 Name         | Package                                                  | Description                          |
 -------------|----------------------------------------------------------|--------------------------------------|
-Symfony      | [symfony/symfony](https://symfony.com/)                  | Application framework.               |
+Symfony      | [symfony/symfony](https://symfony.com/)                  | Backend framework.                   |
 api platform | [api-platform/core](https://api-platform.com/docs/core/) | Framework to simplify rest requests. |
 behat        | [behat/behat](http://behat.org/en/latest/)               | Gerkin testing framework.            |
 

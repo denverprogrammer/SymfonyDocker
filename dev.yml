@@ -4,7 +4,11 @@ version: '3.5'
 
 services:
 
+    webserver:
+        env_file: ./backend/.env
+
     backend:
+        env_file: ./backend/.env
         volumes:
             - ./backend:/usr/src/backend
             - ./docker/backend/supervisor.conf:/etc/supervisor/supervisor.conf:ro
@@ -14,6 +18,7 @@ services:
         hostname: mailer
         restart: always
         image: schickling/mailcatcher
+        env_file: ./backend/.env
         depends_on:
             - backend
         ports:
@@ -27,6 +32,7 @@ services:
         hostname: messenger
         image: rabbitmq:3-management-alpine
         restart: always
+        env_file: ./backend/.env
         depends_on:
             - backend
         networks:
@@ -51,5 +57,6 @@ services:
             - external
 
     database:
+        env_file: ./backend/.env
         ports:
             - 3306:3306

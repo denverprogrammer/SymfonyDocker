@@ -12,9 +12,9 @@ env:
     MYSQL_PORT: 3306
     MYSQL_PASSWORD: root
     MYSQL_DATABASE: secretDb
-    MAILER_DSN: smtp://mailer:1025
-    MESSENGER_TRANSPORT_DSN: amqp://guest:guest@messenger:5672/%2f/messages
-    CORS_ALLOW_ORIGIN: ^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$
+    MAILER_DSN: 'smtp://mailer:1025'
+    MESSENGER_TRANSPORT_DSN: 'amqp://guest:guest@messenger:5672/%2f/messages'
+    CORS_ALLOW_ORIGIN: '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 
 jobs:
     CI:
@@ -27,14 +27,14 @@ jobs:
                 php-versions: ['7.4']
 
         services:
-            mysql:
-                image: mysql:5.6
+            database:
+                image: mysql:5.7
                 env:
                     MYSQL_ROOT_PASSWORD: root
                     MYSQL_DATABASE: secretDb
                     MYSQL_USER: root
                     MYSQL_PASSWORD: root
-                    # MYSQL_HOST: database
+                    MYSQL_HOST: database
                     MYSQL_PORT: 3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
                 ports:

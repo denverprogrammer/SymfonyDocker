@@ -1,0 +1,91 @@
+name: Integrate
+
+on:
+    push: ~
+    pull_request: ~
+
+env:
+    APP_ENV: test
+    APP_NAME: test
+    APP_SECRET: test-token
+    MYSQL_HOST: database
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: root
+    MYSQL_PORT: 3306
+    MYSQL_PASSWORD: root
+    MYSQL_DATABASE: secretDbTest
+    MAILER_DSN: smtp://mailer:1025
+    MESSENGER_TRANSPORT_DSN: amqp://guest:guest@messenger:5672/%2f/messages
+    CORS_ALLOW_ORIGIN: ^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$
+
+jobs:
+    CI:
+        name: Symfony 5.1 (PHP ${{ matrix.php-versions }})
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: true
+            matrix:
+                php-versions: ['7.4']
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: secretDbTest
+                    MYSQL_USER: root
+                    MYSQL_PASSWORD: root
+                    MYSQL_HOST: database
+                    MYSQL_PORT: 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+                ports:
+                    - 3306:3306
+
+        steps:
+            # —— Setup Php —————————————————————————————————————————————
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP, extensions and composer with shivammathur/setup-php
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  tools: pecl
+                  extensions: mbstring, xml, ctype, iconv, intl, dom, filter, gd, iconv, json, mbstring
+              env:
+                  update: true
+
+            # —— Composer Dependencies —————————————————————————————————————————————————————————
+            - name: Validate composer.json and composer.lock
+              working-directory: ./backend
+              run: composer validate
+
+            - name: Install Composer dependencies
+              working-directory: ./backend
+              run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+            ## Coding standards ————————————————————————————————————————————————
+            - name: Coding standards checks (php_codesniffer + PHPStan)
+              working-directory: ./backend
+              run: make psr-check
+
+            ## Run Functional Tests ————————————————————————————————————————————————
+            - name: Run functional tests
+              working-directory: ./backend
+              run: touch .env && make run_functional_tests
+
+            ## Install NPM packages ————————————————————————————————————————————————
+            - name: Install NPM packages
+              working-directory: ./frontend
+              run: yarn install
+
+            ## Build frontend application ————————————————————————————————————————————————
+            - name: Build frontned
+              working-directory: ./frontend
+              run: npm run dev
+
+            ## Run linter on frontend application ————————————————————————————————————————————————
+            - name: Lint frontend
+              working-directory: ./frontend
+              run: make run_functional_tests

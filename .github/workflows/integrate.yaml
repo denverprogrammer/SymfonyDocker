@@ -1,8 +1,6 @@
 name: Integrate
 
-on:
-    push: ~
-    pull_request: ~
+on: [push, pull_request]
 
 env:
     APP_ENV: dev
@@ -28,19 +26,19 @@ jobs:
             matrix:
                 php-versions: ['7.4']
 
-        # services:
-        #     database:
-        #         image: mysql:5.6
-        #         env:
-        #             MYSQL_ROOT_PASSWORD: root
-        #             MYSQL_DATABASE: secretDb
-        #             MYSQL_USER: root
-        #             MYSQL_PASSWORD: root
-        #             MYSQL_HOST: database
-        #             MYSQL_PORT: 3306
-        #         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
-        #         ports:
-        #             - 3306
+        services:
+            database:
+                image: mysql:5.6
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: secretDb
+                    MYSQL_USER: root
+                    MYSQL_PASSWORD: root
+                    MYSQL_HOST: database
+                    MYSQL_PORT: 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+                ports:
+                    - 3306
 
         steps:
             # —— Setup Php —————————————————————————————————————————————

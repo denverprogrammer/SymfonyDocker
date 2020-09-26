@@ -75,13 +75,11 @@ jobs:
 
             ## Coding standards ————————————————————————————————————————————————
             - name: Coding standards checks (php_codesniffer + PHPStan)
-              working-directory: ./backend
               run: make psr-check
 
             ## Run Functional Tests ————————————————————————————————————————————————
             - name: Run functional tests
-              working-directory: ./backend
-              run: touch .env && make run_functional_tests
+              run: make run_functional_tests
 
             ## Install NPM packages ————————————————————————————————————————————————
             - name: Install NPM packages

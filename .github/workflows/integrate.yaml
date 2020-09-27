@@ -75,6 +75,18 @@ jobs:
               run: make psr-check
 
             ## Run Functional Tests ————————————————————————————————————————————————
+
+            - name: Get contents of backend
+              working-directory: ./backend
+              run: ls -lac
+
+            - name: GET PWD in backend
+              working-directory: ./backend
+              run: pwd
+
+            - name: GET PWD
+              run: pwd
+
             - name: Create database
               working-directory: ./backend
               run: bin/console doctrine:database:create --env=test --if-not-exists

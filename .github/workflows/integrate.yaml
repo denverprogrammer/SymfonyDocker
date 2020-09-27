@@ -76,8 +76,11 @@ jobs:
               run: make psr-check
 
             ## Run Functional Tests ————————————————————————————————————————————————
+            - name: Create database
+              run: backend/bin/console doctrine:database:create --env=test --if-not-exists
+
             - name: Run functional tests
-              run: make run_functional_tests
+              run: backend/vendor/bin/behat --config=backend/tests/functional/behat.yml --colors
 
             ## Install NPM packages ————————————————————————————————————————————————
             - name: Install NPM packages

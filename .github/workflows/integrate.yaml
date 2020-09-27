@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 env:
     APP_ENV: dev
-    APP_NAME: test
     APP_SECRET: test-token
     MYSQL_HOST: database
     MYSQL_ROOT_PASSWORD: drowssap
@@ -77,10 +76,11 @@ jobs:
 
             ## Run Functional Tests ————————————————————————————————————————————————
             - name: Create database
-              run: backend/bin/console doctrine:database:create --env=test --if-not-exists
+              working-directory: ./backend
+              run: bin/console doctrine:database:create --env=test --if-not-exists
 
             - name: Run functional tests
-              run: backend/vendor/bin/behat --config=backend/tests/functional/behat.yml --colors
+              run: vendor/bin/behat --config=tests/functional/behat.yml --colors
 
             ## Install NPM packages ————————————————————————————————————————————————
             - name: Install NPM packages

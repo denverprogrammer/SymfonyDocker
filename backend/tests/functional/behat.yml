@@ -2,12 +2,12 @@ default:
     formatters:
         pretty: true
         junit:
-            output_path: backend/tests/functional/results/junit
+            output_path: ./tests/functional/results/junit
 
     suites:
         default:
             paths:
-                features: backend/tests/functional/features/
+                features: ./tests/functional/features/
             contexts:
                 - App\Tests\Functional\BackendContext
                 - Behat\MinkExtension\Context\MinkContext
@@ -21,7 +21,7 @@ default:
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
-            bootstrap: backend/tests/bootstrap.php
+            bootstrap: tests/bootstrap.php
         Behat\MinkExtension:
             sessions:
                 symfony:

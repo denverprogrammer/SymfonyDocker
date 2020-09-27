@@ -13,7 +13,6 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-/bin
 /tests/functional/results
 /tests/unit/results
 /tests/spec/results

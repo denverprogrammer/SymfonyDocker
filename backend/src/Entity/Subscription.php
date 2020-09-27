@@ -6,13 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Interfaces\SubscriptionBaseInterface;
 use App\Entity\Interfaces\TrackrecordInterface;
 use App\Entity\Trackrecord;
-
-/**
- * SubscriptionBase class
- */
-
 use App\Entity\User;
 use App\Entity\Interfaces\UserInterface;
+
 /**
  * Subscription class
  *

@@ -16,7 +16,7 @@ class ResetPasswordController extends AbstractController
 
     /**
      * Reset password for user.
-     * 
+     *
      * @param Request $request
      *
      * @return JsonResponse

@@ -12,4 +12,3 @@ class CreateAccountModel
     use Traits\EmailTrait;
     use Traits\UsernameTrait;
 }
-

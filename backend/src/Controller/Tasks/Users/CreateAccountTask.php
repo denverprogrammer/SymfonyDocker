@@ -12,15 +12,23 @@ use App\Controller\Traits;
 use App\Entity\Constants\Enums\MessageType;
 use App\Entity\Constants\Enums\RecipientType;
 
+/**
+ * Task for creating an account and send confirmation email to task queue.
+ */
 class CreateAccountTask extends AbstractController implements MessageSubscriberInterface
 {
     use Traits\RepositoryTrait;
 
-    const TEMPLATE = 'email/create_account.html.twig';
+    /**
+     * Path to email template
+     *
+     * @var string
+     */
+    protected const TEMPLATE = 'email/create_account.html.twig';
 
     /**
-     * Create account and send confirmation email.
-     * 
+     * Invoke request
+     *
      * @param CreateAccountModel $data
      *
      * @return JsonResponse
@@ -85,6 +93,13 @@ class CreateAccountTask extends AbstractController implements MessageSubscriberI
         );
     }
 
+    /**
+     * Register task.
+     *
+     * @param CreateAccountModel $data
+     *
+     * @return iterable
+     */
     public static function getHandledMessages(): iterable
     {
         yield CreateAccountModel::class => [

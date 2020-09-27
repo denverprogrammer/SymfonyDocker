@@ -83,4 +83,4 @@ push:
 
 # Check for psr issues.
 psr-check:
-	backend/vendor/bin/phpcs --standard=./backend/tests/sniffer/phpcs.xml ./backend
+	backend/vendor/bin/phpcs --standard=./backend/tests/sniffer/phpcs.xml ./backend/src

@@ -16,7 +16,7 @@ class CreateAccountController extends AbstractController
 
     /**
      * Create account and send confirmation email.
-     * 
+     *
      * @param Request $request
      *
      * @return JsonResponse

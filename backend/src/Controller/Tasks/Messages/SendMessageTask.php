@@ -14,21 +14,35 @@ use App\Entity\Message;
 use App\Models\SendMessageModel;
 use App\Controller\Traits;
 
-
+/**
+ * Task for sending a email message to a user.
+ */
 class SendMessageTask extends AbstractController implements MessageSubscriberInterface
 {
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
 
-    protected $mailer;
+    /**
+     * Connection to remote email server
+     *
+     * @var MailerInterface
+     */
+    protected MailerInterface $mailer;
 
+    /**
+     * Initialize class
+     *
+     * @param MailerInterface $mailer
+     */
     public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
     }
 
     /**
-     * Send account confirmation email.
+     * Invoke request
+     *
+     * @param SendMessageModel $data
      *
      * @return JsonResponse
      */
@@ -67,6 +81,13 @@ class SendMessageTask extends AbstractController implements MessageSubscriberInt
         $this->mailer->send($email);
     }
 
+    /**
+     * Register task.
+     *
+     * @param CreateAccountModel $data
+     *
+     * @return iterable
+     */
     public static function getHandledMessages(): iterable
     {
         yield SendMessageModel::class => [

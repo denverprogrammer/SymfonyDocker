@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Entity\Interfaces;
 
 /**
  * Interface for class/table.
  */
-interface PasswordInterface    
+interface PasswordInterface
 {
     /**
      * Gets password

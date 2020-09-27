@@ -12,15 +12,23 @@ use App\Controller\Traits;
 use App\Entity\Constants\Enums\MessageType;
 use App\Entity\Constants\Enums\RecipientType;
 
+/**
+ * Task for resetting password and send reset password email.
+ */
 class ResetPasswordTask extends AbstractController implements MessageSubscriberInterface
 {
     use Traits\RepositoryTrait;
 
-    const TEMPLATE = 'email/reset_password.html.twig';
+    /**
+     * Path to email template
+     *
+     * @var string
+     */
+    protected const TEMPLATE = 'email/reset_password.html.twig';
 
     /**
-     * Create account and send confirmation email.
-     * 
+     * Invoke request
+     *
      * @param ResetPasswordModel $data
      *
      * @return JsonResponse
@@ -64,6 +72,13 @@ class ResetPasswordTask extends AbstractController implements MessageSubscriberI
         );
     }
 
+    /**
+     * Register task.
+     *
+     * @param CreateAccountModel $data
+     *
+     * @return iterable
+     */
     public static function getHandledMessages(): iterable
     {
         yield ResetPasswordModel::class => [

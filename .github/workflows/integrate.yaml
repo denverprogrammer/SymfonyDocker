@@ -69,7 +69,7 @@ jobs:
 
             - name: Install Composer dependencies
               working-directory: ./backend
-              run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+              run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
             ## Coding standards ————————————————————————————————————————————————
             - name: Coding standards checks (php_codesniffer + PHPStan)

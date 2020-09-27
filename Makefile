@@ -66,8 +66,10 @@ run_unit_tests:
 # Runs functional tests against a the backend.
 # Successfull tests show up as green, errors are red and warnings are blue.
 run_functional_tests:
-	cd backend && bin/console doctrine:database:create --env=test --if-not-exists
-	cd backend && vendor/bin/behat --config=tests/functional/behat.yml --colors
+	backend/bin/console doctrine:database:create --env=test --if-not-exists
+	backend/vendor/bin/behat --config=backend/tests/functional/behat.yml --colors
+	# cd backend && bin/console doctrine:database:create --env=test --if-not-exists
+	# cd backend && vendor/bin/behat --config=tests/functional/behat.yml --colors
 
 # Generic wrapper command
 wrapper:

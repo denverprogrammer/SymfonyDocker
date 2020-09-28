@@ -15,7 +15,6 @@ Feature:
 			"email"    : "test@test.com"
 		}
 		"""
-		And print last JSON response
         Then the response status code should be 204
 
         # And print last JSON response

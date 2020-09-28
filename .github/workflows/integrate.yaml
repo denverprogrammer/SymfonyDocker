@@ -3,14 +3,14 @@ name: Integrate
 on: [push, pull_request]
 
 env:
-    APP_ENV: dev
+    APP_ENV: test
     APP_SECRET: test-token
     MYSQL_HOST: database
     MYSQL_ROOT_PASSWORD: drowssap
     MYSQL_USER: traderUser
     MYSQL_PORT: 3306
     MYSQL_PASSWORD: drowssap
-    MYSQL_DATABASE: secretDb
+    MYSQL_DATABASE: secretDbTest
     MAILER_DSN: 'smtp://mailer:1025'
     MESSENGER_TRANSPORT_DSN: 'amqp://guest:guest@messenger:5672/%2f/messages'
     CORS_ALLOW_ORIGIN: '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'

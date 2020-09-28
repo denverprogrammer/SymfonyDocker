@@ -67,6 +67,9 @@ jobs:
             - name: Add the mysql host name to the /etc/hosts file
               run: echo "127.0.0.1	database" | sudo tee -a /etc/hosts
 
+            - name: Add the mailer host name to the /etc/hosts file
+              run: echo "127.0.0.1	mailer" | sudo tee -a /etc/hosts
+
             # —— Composer Dependencies —————————————————————————————————————————————————————————
             - name: Validate composer.json and composer.lock
               working-directory: ./backend

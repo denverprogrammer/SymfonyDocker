@@ -112,7 +112,7 @@ A .env file containing environment variables is located in the project root dire
     <tr>
       <td>MYSQL_USER</td>
       <td>database, backend</td>
-      <td>secretUser</td>
+      <td>traderUser</td>
       <td>*</td>
     </tr>
     <tr>
@@ -124,7 +124,7 @@ A .env file containing environment variables is located in the project root dire
     <tr>
       <td>MYSQL_ROOT_PASSWORD</td>
       <td>database, backend</td>
-      <td>root</td>
+      <td>drowssap</td>
       <td>*</td>
     </tr>
     <tr>
@@ -136,8 +136,8 @@ A .env file containing environment variables is located in the project root dire
     <tr>
       <td>MYSQL_DATABASE</td>
       <td>database, backend</td>
-      <td>secretDb</td>
-      <td>secretDbTest **</td>
+      <td>traderDb</td>
+      <td>traderDbTest</td>
     </tr>
     <tr>
       <td>MAILER_DSN</td>
@@ -166,9 +166,10 @@ behat        | [behat/behat](http://behat.org/en/latest/)               | Gerkin
 
 
 ## **Major NPM Packages:** ##
-Container   | Folder                 | Description                       |
-------------|------------------------|-----------------------------------|
-react       |N/A                     | Front end javascript framework. \*|
+Container   | Folder                 | Description                               |
+------------|------------------------|-------------------------------------------|
+react       |N/A                     | Front end javascript framework.           |
+react-admin |N/A                     | React Administration built in material-ui |
 
 \* At the moment I have not completed this because it's not a top priority
 

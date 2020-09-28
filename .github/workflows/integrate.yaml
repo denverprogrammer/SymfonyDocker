@@ -70,7 +70,7 @@ jobs:
             - name: Add the mailer host name to the /etc/hosts file
               run: echo "127.0.0.1	mailer" | sudo tee -a /etc/hosts
 
-            # —— Composer Dependencies —————————————————————————————————————————————————————————
+            # —— Composer dependencies —————————————————————————————————————————————————————————
             - name: Validate composer.json and composer.lock
               working-directory: ./backend
               run: composer validate
@@ -92,7 +92,7 @@ jobs:
               working-directory: ./backend
               run: bin/console doctrine:migrations:migrate --env=test --ansi
 
-            ## Run Functional Tests ————————————————————————————————————————————————
+            ## Run functional tests ————————————————————————————————————————————————
             - name: Run functional tests
               run: make run_functional_tests
 
@@ -104,9 +104,9 @@ jobs:
             ## Build frontend application ————————————————————————————————————————————————
             - name: Build frontned
               working-directory: ./frontend
-              run: npm run dev
+              run: yarn run dev
 
             ## Run linter on frontend application ————————————————————————————————————————————————
             - name: Lint frontend
               working-directory: ./frontend
-              run: make run_functional_tests
+              run: yarn run lint

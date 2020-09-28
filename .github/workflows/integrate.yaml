@@ -3,7 +3,7 @@ name: Integrate
 on: [push, pull_request]
 
 env:
-    APP_ENV: test
+    APP_ENV: dev
     APP_SECRET: test-token
     MYSQL_HOST: database
     MYSQL_ROOT_PASSWORD: drowssap
@@ -29,12 +29,12 @@ jobs:
             database:
                 image: mysql:5.7
                 env:
-                    MYSQL_ROOT_PASSWORD: drowssap
-                    MYSQL_DATABASE: secretDbTest
-                    MYSQL_USER: traderUser
-                    MYSQL_PASSWORD: drowssap
-                    MYSQL_HOST: database
-                    MYSQL_PORT: 3306
+                    MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+                    MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+                    MYSQL_USER: ${{ env.MYSQL_USER }}
+                    MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+                    MYSQL_HOST: ${{ env.MYSQL_HOST }}
+                    MYSQL_PORT: ${{ env.MYSQL_PORT }}
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
                 ports:
                     - 3306:3306

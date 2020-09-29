@@ -17,7 +17,7 @@ interface UserTypeInterface
     /**
      * Set UserType of entity.
      *
-     * @param string $type
+     * @param string $type Value of entity.
      *
      * @return self
      */

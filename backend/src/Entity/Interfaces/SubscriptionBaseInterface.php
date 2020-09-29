@@ -24,7 +24,7 @@ interface SubscriptionBaseInterface extends
     /**
      * Sets the trackrecord for subscription
      *
-     * @param TrackrecordInterface $trackrecord
+     * @param TrackrecordInterface $trackrecord Value of entity.
      *
      * @return self
      */

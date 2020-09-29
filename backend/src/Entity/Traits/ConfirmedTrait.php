@@ -5,7 +5,7 @@ namespace App\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Confirmation for a entity
+ * Confirmation for a entity.
  */
 trait ConfirmedTrait
 {

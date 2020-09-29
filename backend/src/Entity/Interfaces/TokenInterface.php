@@ -17,7 +17,7 @@ interface TokenInterface
     /**
      * Sets token for entity
      *
-     * @param string|null $token
+     * @param string|null $token Value of entity.
      *
      * @return self
      */

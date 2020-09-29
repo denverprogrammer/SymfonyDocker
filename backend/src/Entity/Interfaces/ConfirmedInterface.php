@@ -19,7 +19,7 @@ interface ConfirmedInterface
     /**
      * Set confirmed value of record.
      *
-     * @param boolean $value Value of confirmation.
+     * @param boolean $value Value of entity.
      *
      * @return self
      */

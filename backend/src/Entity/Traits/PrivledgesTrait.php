@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Interfaces\PrivledgesInterface;
 
 /**
- * Privledges related to a subscription attached to a trackrecord
+ * Privledges related to a subscription attached to a trackrecord.
  */
 trait PrivledgesTrait
 {
@@ -72,7 +72,9 @@ trait PrivledgesTrait
     protected array $closedPositionActions;
 
     /**
-     * {inheritdoc}
+     * Gets trackrecord actions
+     *
+     * @return array
      */
     public function getTrackrecordActions(): array
     {
@@ -80,7 +82,11 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets trackrecord actions
+     *
+     * @param array $actions Value of entity.
+     *
+     * @return self
      */
     public function setTrackrecordActions(array $actions): self
     {
@@ -90,7 +96,9 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Gets subscription actions
+     *
+     * @return array
      */
     public function getSubscriptionActions(): array
     {
@@ -98,7 +106,11 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets subscription actions
+     *
+     * @param array $actions Value of entity.
+     *
+     * @return self
      */
     public function setSubscriptionActions(array $actions): self
     {
@@ -108,7 +120,9 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Gets pending order actions
+     *
+     * @return array
      */
     public function getPendingOrderActions(): array
     {
@@ -116,7 +130,11 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets pending order actions
+     *
+     * @param array $actions Value of entity.
+     *
+     * @return self
      */
     public function setPendingOrderActions(array $actions): self
     {
@@ -126,7 +144,9 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Gets filled order actions
+     *
+     * @return array
      */
     public function getFilledOrderActions(): array
     {
@@ -134,7 +154,11 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets filled order actions
+     *
+     * @param array $actions Value of entity.
+     *
+     * @return self
      */
     public function setFilledOrderActions(array $actions): self
     {
@@ -144,7 +168,9 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Gets open position actions
+     *
+     * @return array
      */
     public function getOpenPositionActions(): array
     {
@@ -152,7 +178,11 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets open position actions
+     *
+     * @param array $actions Value of entity.
+     *
+     * @return self
      */
     public function setOpenPositionActions(array $actions): self
     {
@@ -162,7 +192,9 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Gets closed position actions
+     *
+     * @return array
      */
     public function getClosedPositionActions(): array
     {
@@ -170,7 +202,11 @@ trait PrivledgesTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets closed positions actions
+     *
+     * @param array $actions Value of entity.
+     *
+     * @return self
      */
     public function setClosedPositionActions(array $actions): self
     {

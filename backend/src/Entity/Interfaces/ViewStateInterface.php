@@ -17,7 +17,7 @@ interface ViewStateInterface
     /**
      * Set viewState
      *
-     * @param string $viewState
+     * @param string $viewState Value of entity.
      *
      * @return self
      */

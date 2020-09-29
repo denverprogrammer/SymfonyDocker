@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Interfaces\CodeInterface;
 
 /**
- * A unique shortcode a entity
+ * A unique shortcode a entity.
  */
 trait CodeTrait
 {
@@ -22,7 +22,9 @@ trait CodeTrait
     protected $code;
 
     /**
-     * {inheritdoc}
+     * Get code of entity.
+     *
+     * @return string
      */
     public function getCode(): string
     {
@@ -30,7 +32,11 @@ trait CodeTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set code of entity.
+     *
+     * @param string $code Value of entity.
+     *
+     * @return self
      */
     public function setCode(string $code): self
     {

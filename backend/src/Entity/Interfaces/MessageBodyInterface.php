@@ -17,7 +17,7 @@ interface MessageBodyInterface
     /**
      * Set message
      *
-     * @param string|null $messageBody
+     * @param string|null $messageBody Content of entity.
      *
      * @return self
      */

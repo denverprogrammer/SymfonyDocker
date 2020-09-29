@@ -19,7 +19,7 @@ interface StartsOnInterface
     /**
      * Sets the date and time the subscription was started
      *
-     * @param DateTime|null $startsOn
+     * @param DateTime|null $startsOn Value of entity.
      *
      * @return self
      */

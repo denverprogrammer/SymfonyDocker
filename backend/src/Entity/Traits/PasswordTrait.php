@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Interfaces\PasswordInterface;
 
 /**
- * Password of entity
+ * Password of entity.
  */
 trait PasswordTrait
 {
@@ -22,7 +22,9 @@ trait PasswordTrait
     protected string $password;
 
     /**
-     * {inheritdoc}
+     * Gets password
+     *
+     * @return string
      */
     public function getPassword()
     {
@@ -30,7 +32,11 @@ trait PasswordTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets password
+     *
+     * @param string $password Value of entity.
+     *
+     * @return self
      */
     public function setPassword(string $password): self
     {

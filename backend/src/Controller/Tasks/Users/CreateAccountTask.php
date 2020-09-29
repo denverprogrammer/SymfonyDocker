@@ -29,7 +29,7 @@ class CreateAccountTask extends AbstractController implements MessageSubscriberI
     /**
      * Invoke request
      *
-     * @param CreateAccountModel $data
+     * @param CreateAccountModel $data DTO that contains data for Message entity.
      *
      * @return JsonResponse
      */
@@ -95,8 +95,6 @@ class CreateAccountTask extends AbstractController implements MessageSubscriberI
 
     /**
      * Register task.
-     *
-     * @param CreateAccountModel $data
      *
      * @return iterable
      */

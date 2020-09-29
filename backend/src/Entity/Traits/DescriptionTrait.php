@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Interfaces\DescriptionInterface;
 
 /**
- * Description of entity
+ * Description of entity.
  */
 trait DescriptionTrait
 {
@@ -20,7 +20,9 @@ trait DescriptionTrait
     protected ?string $description = null;
 
     /**
-     * {inheritdoc}
+     * Get description of entity.
+     *
+     * @return string|null
      */
     public function getDescription(): ?string
     {
@@ -28,7 +30,11 @@ trait DescriptionTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set description of entity.
+     *
+     * @param string|null $description Value of entity.
+     *
+     * @return self
      */
     public function setDescription(?string $description = null): self
     {

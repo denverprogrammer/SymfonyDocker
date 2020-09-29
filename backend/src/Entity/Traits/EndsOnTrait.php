@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Interfaces\EndsOnInterface;
 
 /**
- * EndsOn of entity
+ * EndsOn of entity.
  */
 trait EndsOnTrait
 {
@@ -22,7 +22,9 @@ trait EndsOnTrait
     protected ?DateTime $endsOn = null;
 
     /**
-     * {inheritdoc}
+     * Gets the date and time the subscription was expired
+     *
+     * @return DateTime|null
      */
     public function getEndsOn(): ?DateTime
     {
@@ -30,7 +32,11 @@ trait EndsOnTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets the date and time the subscription was expired
+     *
+     * @param DateTime|null $endsOn When entity expires.
+     *
+     * @return self
      */
     public function setEndsOn(?DateTime $endsOn = null): self
     {

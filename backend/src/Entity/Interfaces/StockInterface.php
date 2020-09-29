@@ -22,7 +22,7 @@ interface StockInterface extends
     /**
      * Set related Exchange
      *
-     * @param ExchangeInterface $exchange
+     * @param ExchangeInterface $exchange Value of entity.
      *
      * @return self
      */
@@ -38,7 +38,7 @@ interface StockInterface extends
     /**
      * Set related Market
      *
-     * @param MarketInterface $market
+     * @param MarketInterface $market Value of entity.
      *
      * @return self
      */
@@ -54,7 +54,7 @@ interface StockInterface extends
     /**
      * Set related Security
      *
-     * @param SecurityInterface $security
+     * @param SecurityInterface $security Value of entity.
      *
      * @return self
      */

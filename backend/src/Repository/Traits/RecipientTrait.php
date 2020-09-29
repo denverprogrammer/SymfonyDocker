@@ -4,12 +4,15 @@ namespace App\Repository\Traits;
 
 use App\Entity\Interfaces\RecipientInterface;
 
+/**
+ * Allow repository to find entity by a recipient.
+ */
 trait RecipientTrait
 {
     /**
      * Find entity by recient.
      *
-     * @param string $recipient
+     * @param string $recipient Value to find.
      *
      * @return RecipientInterface[]
      */

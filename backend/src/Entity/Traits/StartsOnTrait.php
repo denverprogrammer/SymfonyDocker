@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Interfaces\StartsOnInterface;
 
 /**
- * Expiration of entity
+ * Expiration of entity.
  */
 trait StartsOnTrait
 {
@@ -22,7 +22,9 @@ trait StartsOnTrait
     protected ?DateTime $startsOn = null;
 
     /**
-     * {inheritdoc}
+     * Gets the date and time the subscription was started
+     *
+     * @return DateTime|null
      */
     public function getStartsOn(): ?DateTime
     {
@@ -30,7 +32,11 @@ trait StartsOnTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets the date and time the subscription was started
+     *
+     * @param DateTime|null $startsOn Value of entity.
+     *
+     * @return self
      */
     public function setStartsOn(?DateTime $startsOn = null): self
     {

@@ -17,7 +17,7 @@ interface NotificationsInterface
     /**
      * Set notifications value of record.
      *
-     * @param boolean $value Value of notifications.
+     * @param boolean $notifications Value of notifications.
      *
      * @return self
      */

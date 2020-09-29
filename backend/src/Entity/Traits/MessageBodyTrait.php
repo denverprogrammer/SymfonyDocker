@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Interfaces\MessageInterface;
 
 /**
- * Message of entity
+ * Message of entity.
  */
 trait MessageBodyTrait
 {
@@ -20,7 +20,9 @@ trait MessageBodyTrait
     protected ?string $messageBody = null;
 
     /**
-     * {inheritdoc}
+     * Get message
+     *
+     * @return string|null
      */
     public function getMessageBody(): ?string
     {
@@ -28,7 +30,11 @@ trait MessageBodyTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set message
+     *
+     * @param string|null $messageBody Content of entity.
+     *
+     * @return self
      */
     public function setMessageBody(?string $messageBody = null): self
     {

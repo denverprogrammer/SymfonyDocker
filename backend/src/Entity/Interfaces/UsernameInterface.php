@@ -17,7 +17,7 @@ interface UsernameInterface
     /**
      * Set username of user.
      *
-     * @param string $username
+     * @param string $username Value of entity.
      *
      * @return self
      */

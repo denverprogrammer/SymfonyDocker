@@ -40,12 +40,16 @@ class User implements UserInterface, EquatableInterface
     /**
      * User roles
      *
+     * @var string[]
+     *
      * @ORM\Column(type="json")
      */
     private array $roles = [];
 
     /**
      * Plain text password (used by api)
+     *
+     * @var string|null
      *
      * @SerializedName("password")
      */
@@ -75,9 +79,11 @@ class User implements UserInterface, EquatableInterface
     }
 
     /**
-     * Gets roles
+     * Gets roles.
      *
      * @see UserInterface
+     *
+     * @return string[]
      */
     public function getRoles(): array
     {
@@ -86,6 +92,13 @@ class User implements UserInterface, EquatableInterface
         return array_unique($roles);
     }
 
+    /**
+     * Set user roles.
+     *
+     * @param array $roles Value of entity.
+     *
+     * @return self
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -94,9 +107,11 @@ class User implements UserInterface, EquatableInterface
     }
 
     /**
-     * Gets salt
+     * Gets salt.
      *
      * @see UserInterface
+     *
+     * @return void
      */
     public function getSalt()
     {
@@ -104,20 +119,34 @@ class User implements UserInterface, EquatableInterface
     }
 
     /**
-     * Removes plain text password
+     * Removes plain text password.
      *
      * @see UserInterface
+     *
+     * @return void
      */
     public function eraseCredentials()
     {
         $this->plainPassword = null;
     }
 
+    /**
+     * Get plain password.
+     *
+     * @return string|null
+     */
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
+    /**
+     * Set plain password.
+     *
+     * @param string|null $password Value of entity.
+     *
+     * @return self
+     */
     public function setPlainPassword(?string $password = null): self
     {
         $this->plainPassword = $password;
@@ -128,7 +157,7 @@ class User implements UserInterface, EquatableInterface
     /**
      * Check if the given user is equal to the current user.
      *
-     * @param UserInterface $user User.
+     * @param SymfonyUserInterface $user User to compare.
      *
      * @return boolean
      */

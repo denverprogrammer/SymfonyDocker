@@ -4,12 +4,15 @@ namespace App\Repository\Traits;
 
 use App\Entity\Interfaces\CodeInterface;
 
+/**
+ * Allow repository to find entity by code.
+ */
 trait CodeTrait
 {
     /**
      * Find entity by code.
      *
-     * @param string $code
+     * @param string $code Value to find.
      *
      * @return CodeInterface|null
      */

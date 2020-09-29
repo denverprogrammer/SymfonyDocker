@@ -8,7 +8,7 @@ use App\Entity\Interfaces\ViewStateInterface;
 use App\Entity\Constants\Enums\ViewState;
 
 /**
- * Determins how a enity is searched or viewed
+ * Determins how a enity is searched or viewed.
  */
 trait ViewStateTrait
 {
@@ -23,7 +23,9 @@ trait ViewStateTrait
     protected $viewState = ViewState::ANOMYOUS;
 
     /**
-     * {inheritdoc}
+     * Get viewState of a entity
+     *
+     * @return string
      */
     public function getViewState(): string
     {
@@ -31,7 +33,11 @@ trait ViewStateTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set viewState
+     *
+     * @param string $viewState Value of entity.
+     *
+     * @return self
      */
     public function setViewState(string $viewState): self
     {

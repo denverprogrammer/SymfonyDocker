@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Message type of entity
+ * Message type of entity.
  */
 trait MessageTypeTrait
 {
@@ -21,7 +21,9 @@ trait MessageTypeTrait
     protected string $messageType;
 
     /**
-     * {inheritdoc}
+     * Get message type
+     *
+     * @return string
      */
     public function getMessageType(): string
     {
@@ -29,7 +31,11 @@ trait MessageTypeTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set message type
+     *
+     * @param string $messageType Value of entity.
+     *
+     * @return self
      */
     public function setMessageType(string $messageType): self
     {

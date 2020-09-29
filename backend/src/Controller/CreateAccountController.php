@@ -9,15 +9,18 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Models\CreateAccountModel;
 use App\Controller\Traits;
 
+/**
+ * Create account and send confirmation email.
+ */
 class CreateAccountController extends AbstractController
 {
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
 
     /**
-     * Create account and send confirmation email.
+     * Process request
      *
-     * @param Request $request
+     * @param Request $request User request.
      *
      * @return JsonResponse
      */

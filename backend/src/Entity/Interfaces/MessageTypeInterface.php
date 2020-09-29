@@ -17,7 +17,7 @@ interface MessageTypeInterface
     /**
      * Set message type
      *
-     * @param string
+     * @param string $messageType Value of entity.
      *
      * @return self
      */

@@ -8,16 +8,16 @@ namespace App\Entity\Interfaces;
 interface DescriptionInterface
 {
     /**
-     * Get title of entity.
+     * Get description of entity.
      *
      * @return string|null
      */
     public function getDescription(): ?string;
 
     /**
-     * Set title of entity.
+     * Set description of entity.
      *
-     * @param string|null $description
+     * @param string|null $description Value of entity.
      *
      * @return self
      */

@@ -32,6 +32,11 @@
     <rule ref="PEAR.ControlStructures.MultiLineCondition"/>
     <rule ref="PEAR.Formatting.MultiLineAssignment"/>
 
+    <rule ref="Squiz.Commenting.FunctionComment" />
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+    <rule ref="Squiz.Commenting.ClassComment" />
+    <rule ref="Squiz.Commenting.VariableComment" />
+
     <exclude-pattern>../bin</exclude-pattern>
     <exclude-pattern>../public</exclude-pattern>
     <exclude-pattern>../config</exclude-pattern>

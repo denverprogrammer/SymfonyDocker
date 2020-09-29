@@ -9,15 +9,18 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Models\ResetPasswordModel;
 use App\Controller\Traits;
 
+/**
+ * Reset password for user and send email.
+ */
 class ResetPasswordController extends AbstractController
 {
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
 
     /**
-     * Reset password for user.
+     * Process request.
      *
-     * @param Request $request
+     * @param Request $request User request.
      *
      * @return JsonResponse
      */

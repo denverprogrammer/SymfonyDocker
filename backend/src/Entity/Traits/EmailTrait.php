@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Interfaces\EmailInterface;
 
 /**
- * Email of entity
+ * Email of entity.
  */
 trait EmailTrait
 {
@@ -23,7 +23,9 @@ trait EmailTrait
     protected string $email;
 
     /**
-     * {inheritdoc}
+     * Email of user.
+     *
+     * @return string|null
      */
     public function getEmail(): string
     {
@@ -31,7 +33,11 @@ trait EmailTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set email of user.
+     *
+     * @param string $email Value of entity.
+     *
+     * @return self
      */
     public function setEmail(string $email): self
     {

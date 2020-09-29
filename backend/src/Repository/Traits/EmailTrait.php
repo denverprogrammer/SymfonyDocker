@@ -4,12 +4,15 @@ namespace App\Repository\Traits;
 
 use App\Entity\Interfaces\EmailInterface;
 
+/**
+ * Allow repository to find entity by email.
+ */
 trait EmailTrait
 {
     /**
      * Find entity by email.
      *
-     * @param string $email
+     * @param string $email Value to find.
      *
      * @return EmailInterface|null
      */

@@ -17,7 +17,7 @@ interface RecipientInterface
     /**
      * Set recipient.
      *
-     * @param string $recipient
+     * @param string $recipient Value of entity.
      *
      * @return self
      */
@@ -33,7 +33,7 @@ interface RecipientInterface
     /**
      * Set recipient type.
      *
-     * @param string $type
+     * @param string $type Value of entity.
      *
      * @return self
      */

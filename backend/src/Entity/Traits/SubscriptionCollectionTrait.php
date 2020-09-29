@@ -9,7 +9,7 @@ use App\Entity\Interfaces\SubscriptionInterface;
 use App\Entity\Interfaces\SubscriptionCollectionInterface;
 
 /**
- * Collection of subscriptions
+ * Collection of subscriptions.
  */
 trait SubscriptionCollectionTrait
 {
@@ -21,7 +21,9 @@ trait SubscriptionCollectionTrait
     protected Collection $subscriptions;
 
     /**
-     * {inheritdoc}
+     * Get subscription collection
+     *
+     * @return Collection|SubscriptionInterfaces[]
      */
     public function getSubscriptions(): Collection
     {
@@ -29,7 +31,11 @@ trait SubscriptionCollectionTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set subscription collection
+     *
+     * @param ArrayCollection $subscriptions Value of entity.
+     *
+     * @return self
      */
     public function setSubscriptions(ArrayCollection $subscriptions): self
     {

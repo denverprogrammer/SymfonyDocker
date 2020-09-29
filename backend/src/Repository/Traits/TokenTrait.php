@@ -4,12 +4,15 @@ namespace App\Repository\Traits;
 
 use App\Entity\Interfaces\TokenInterface;
 
+/**
+ * Allow repository to find entity by a token.
+ */
 trait TokenTrait
 {
     /**
      * Find entity by token.
      *
-     * @param string $token
+     * @param string $token Value to find.
      *
      * @return TokenInterface|null
      */

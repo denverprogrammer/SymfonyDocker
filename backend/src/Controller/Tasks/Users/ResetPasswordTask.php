@@ -29,7 +29,7 @@ class ResetPasswordTask extends AbstractController implements MessageSubscriberI
     /**
      * Invoke request
      *
-     * @param ResetPasswordModel $data
+     * @param ResetPasswordModel $data DTO that contains data for Message entity.
      *
      * @return JsonResponse
      */
@@ -74,8 +74,6 @@ class ResetPasswordTask extends AbstractController implements MessageSubscriberI
 
     /**
      * Register task.
-     *
-     * @param CreateAccountModel $data
      *
      * @return iterable
      */

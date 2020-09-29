@@ -21,7 +21,7 @@ interface SubscriptionCollectionInterface
     /**
      * Set subscription collection
      *
-     * @param ArrayCollection $subscriptions;
+     * @param ArrayCollection $subscriptions Value of entity.
      *
      * @return self
      */

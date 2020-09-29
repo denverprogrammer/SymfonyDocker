@@ -43,7 +43,9 @@ class Subscription implements SubscriptionBaseInterface
     protected Trackrecord $trackrecord;
 
     /**
-     * {inheritdoc}
+     * Gets the trackrecord for subscription
+     *
+     * @return TrackrecordInterface
      */
     public function getTrackrecord(): TrackrecordInterface
     {
@@ -51,7 +53,11 @@ class Subscription implements SubscriptionBaseInterface
     }
 
     /**
-     * {inheritdoc}
+     * Sets the trackrecord for subscription
+     *
+     * @param TrackrecordInterface $trackrecord Value of entity.
+     *
+     * @return self
      */
     public function setTrackrecord(TrackrecordInterface $trackrecord): self
     {
@@ -61,7 +67,9 @@ class Subscription implements SubscriptionBaseInterface
     }
 
     /**
-     * {inheritdoc}
+     * Get User of entity.
+     *
+     * @return UserInterface
      */
     public function getUser(): UserInterface
     {
@@ -69,7 +77,11 @@ class Subscription implements SubscriptionBaseInterface
     }
 
     /**
-     * {inheritdoc}
+     * Set User of entity.
+     *
+     * @param UserInterface $user Value of entity.
+     *
+     * @return self
      */
     public function setUSer(UserInterface $user): self
     {

@@ -5,7 +5,7 @@ namespace App\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Notification for a entity
+ * Notification for a entity.
  */
 trait NotificationsTrait
 {
@@ -31,7 +31,7 @@ trait NotificationsTrait
     /**
      * Set notifications value of record.
      *
-     * @param boolean $value Value of notifications.
+     * @param boolean $notifications Value of notifications.
      *
      * @return self
      */

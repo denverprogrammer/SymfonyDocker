@@ -17,7 +17,7 @@ interface AgreementInterface
     /**
      * Set agreement value of record.
      *
-     * @param boolean $value Value of agreement.
+     * @param boolean $agreement Value of entity.
      *
      * @return self
      */

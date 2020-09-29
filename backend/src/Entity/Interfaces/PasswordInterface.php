@@ -17,7 +17,7 @@ interface PasswordInterface
     /**
      * Sets password
      *
-     * @param string $password
+     * @param string $password Value of entity.
      *
      * @return self
      */

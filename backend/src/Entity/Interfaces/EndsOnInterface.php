@@ -19,7 +19,7 @@ interface EndsOnInterface
     /**
      * Sets the date and time the subscription was expired
      *
-     * @param DateTime|null $endsOn
+     * @param DateTime|null $endsOn When entity expires.
      *
      * @return self
      */

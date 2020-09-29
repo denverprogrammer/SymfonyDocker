@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Interfaces\TokenInterface;
 
 /**
- * Token of entity
+ * Token of entity.
  */
 trait TokenTrait
 {
@@ -20,7 +20,9 @@ trait TokenTrait
     protected ?string $token = null;
 
     /**
-     * {inheritdoc}
+     * Gets token for entity
+     *
+     * @return string|null
      */
     public function getToken(): ?string
     {
@@ -28,7 +30,11 @@ trait TokenTrait
     }
 
     /**
-     * {inheritdoc}
+     * Sets token for entity
+     *
+     * @param string|null $token Value of entity.
+     *
+     * @return self
      */
     public function setToken(?string $token = null): self
     {

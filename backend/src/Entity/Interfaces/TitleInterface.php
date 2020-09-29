@@ -17,7 +17,7 @@ interface TitleInterface
     /**
      * Set title of entity.
      *
-     * @param string $title
+     * @param string $title Value of entity.
      *
      * @return self
      */

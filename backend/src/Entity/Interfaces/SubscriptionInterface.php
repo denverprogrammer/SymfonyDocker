@@ -17,7 +17,7 @@ interface SubscriptionInterface extends SubscriptionBaseInterface
     /**
      * Sets the subscription user
      *
-     * @param UserInterface $user
+     * @param UserInterface $user Value of entity.
      *
      * @return self
      */

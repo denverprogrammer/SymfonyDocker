@@ -23,9 +23,11 @@ class SecurityController extends AbstractController
     /**
      * Loging route
      *
-     * @Route("/api/login", name="app_login", methods={"POST"})
+     * @param Request $request User request.
      *
      * @return JsonResponse
+     *
+     * @Route("/api/login", name="app_login", methods={"POST"})
      */
     public function login(Request $request): JsonResponse
     {
@@ -48,9 +50,11 @@ class SecurityController extends AbstractController
      *
      * @Route("/api/logout", name="app_logout")
      *
-     * @return JsonResponse
+     * @return void
+     *
+     * @throws Exception Throw statement is never hit.
      */
-    public function logout(): JsonResponse
+    public function logout(): void
     {
         throw new Exception('This should never be reached!');
     }

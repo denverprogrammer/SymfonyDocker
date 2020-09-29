@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Constants\Enums\RecipientType;
 
 /**
- * Entity recipient
+ * Entity recipient.
  */
 trait RecipientTrait
 {
@@ -32,7 +32,9 @@ trait RecipientTrait
     protected string $recipient;
 
     /**
-     * {inheritdoc}
+     * Get recipient.
+     *
+     * @return string
      */
     public function getRecipient(): string
     {
@@ -40,7 +42,11 @@ trait RecipientTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set recipient.
+     *
+     * @param string $recipient Value of entity.
+     *
+     * @return self
      */
     public function setRecipient(string $recipient): self
     {
@@ -50,7 +56,9 @@ trait RecipientTrait
     }
 
     /**
-     * {inheritdoc}
+     * Get recipient type.
+     *
+     * @return string
      */
     public function getRecipientType(): string
     {
@@ -58,7 +66,11 @@ trait RecipientTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set recipient type.
+     *
+     * @param string $type Value of entity.
+     *
+     * @return self
      */
     public function setRecipientType(string $type): self
     {

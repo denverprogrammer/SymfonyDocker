@@ -58,7 +58,9 @@ class Stock implements Interfaces\StockInterface
     protected Security $security;
 
     /**
-     * {inheritdoc}
+     * Get related Exchange
+     *
+     * @return ExchangeInterface
      */
     public function getExchange(): ExchangeInterface
     {
@@ -66,7 +68,11 @@ class Stock implements Interfaces\StockInterface
     }
 
     /**
-     * {inheritdoc}
+     * Set related Exchange
+     *
+     * @param ExchangeInterface $exchange Value of entity.
+     *
+     * @return self
      */
     public function setExchange(ExchangeInterface $exchange): self
     {
@@ -76,7 +82,9 @@ class Stock implements Interfaces\StockInterface
     }
 
     /**
-     * {inheritdoc}
+     * Get related Market
+     *
+     * @return MarketInterface
      */
     public function getMarket(): MarketInterface
     {
@@ -84,7 +92,11 @@ class Stock implements Interfaces\StockInterface
     }
 
     /**
-     * {inheritdoc}
+     * Set related Market
+     *
+     * @param MarketInterface $market Value of entity.
+     *
+     * @return self
      */
     public function setMarket(MarketInterface $market): self
     {
@@ -94,7 +106,9 @@ class Stock implements Interfaces\StockInterface
     }
 
     /**
-     * {inheritdoc}
+     * Get related Security
+     *
+     * @return SecurityInterface
      */
     public function getSecurity(): SecurityInterface
     {
@@ -102,7 +116,11 @@ class Stock implements Interfaces\StockInterface
     }
 
     /**
-     * {inheritdoc}
+     * Set related Security
+     *
+     * @param SecurityInterface $security Value of entity.
+     *
+     * @return self
      */
     public function setSecurity(SecurityInterface $security): self
     {

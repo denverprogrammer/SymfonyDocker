@@ -17,7 +17,7 @@ interface EmailInterface
     /**
      * Set email of user.
      *
-     * @param string $email
+     * @param string $email Value of entity.
      *
      * @return self
      */

@@ -7,7 +7,7 @@ use App\Entity\Interfaces\TitleInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Display name of entity
+ * Display name of entity.
  */
 trait TitleTrait
 {
@@ -22,7 +22,9 @@ trait TitleTrait
     protected string $title;
 
     /**
-     * {inheritdoc}
+     * Get title of entity.
+     *
+     * @return string
      */
     public function getTitle(): string
     {
@@ -30,7 +32,11 @@ trait TitleTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set title of entity.
+     *
+     * @param string $title Value of entity.
+     *
+     * @return self
      */
     public function setTitle(string $title): self
     {

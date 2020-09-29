@@ -19,15 +19,28 @@ class ConfirmPasswordController extends AbstractController
     use Traits\RepositoryTrait;
     use Traits\SerializerTrait;
 
+    /**
+     * Encodes password on user entity.
+     *
+     * @var UserPasswordEncoderInterface
+     */
     protected UserPasswordEncoderInterface $encoder;
 
+    /**
+     * Class constructor.
+     *
+     * @param UserPasswordEncoderInterface $encoder Encodes user password.
+     */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
 
     /**
-     * Reset user password.
+     * Process request.
+     *
+     * @param Request $request User request.
+     * @param string  $token   Random token.
      *
      * @return JsonResponse
      */

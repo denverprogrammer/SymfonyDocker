@@ -4,12 +4,15 @@ namespace App\Repository\Traits;
 
 use App\Entity\Interfaces\UsernameInterface;
 
+/**
+ * Allow repository to find entity by a username.
+ */
 trait UsernameTrait
 {
     /**
      * Find entity by username.
      *
-     * @param string $username
+     * @param string $username Value to find.
      *
      * @return UsernameInterface|null
      */

@@ -32,7 +32,7 @@ class SendMessageTask extends AbstractController implements MessageSubscriberInt
     /**
      * Initialize class
      *
-     * @param MailerInterface $mailer
+     * @param MailerInterface $mailer Mail server connection.
      */
     public function __construct(MailerInterface $mailer)
     {
@@ -42,7 +42,7 @@ class SendMessageTask extends AbstractController implements MessageSubscriberInt
     /**
      * Invoke request
      *
-     * @param SendMessageModel $data
+     * @param SendMessageModel $data DTO that contains data for Message entity.
      *
      * @return JsonResponse
      */
@@ -70,6 +70,13 @@ class SendMessageTask extends AbstractController implements MessageSubscriberInt
         );
     }
 
+    /**
+     * Sends message to mail server
+     *
+     * @param Message $message Message entity.
+     *
+     * @return void
+     */
     private function sendMessage(Message $message): void
     {
         $email = new TemplatedEmail();
@@ -83,8 +90,6 @@ class SendMessageTask extends AbstractController implements MessageSubscriberInt
 
     /**
      * Register task.
-     *
-     * @param CreateAccountModel $data
      *
      * @return iterable
      */

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Constants\Enums\UserType;
 
 /**
- * User type of entity
+ * User type of entity.
  */
 trait UserTypeTrait
 {
@@ -23,7 +23,9 @@ trait UserTypeTrait
     protected string $userType = UserType::OWNER;
 
     /**
-     * {inheritdoc}
+     * Get UserType of entity.
+     *
+     * @return string
      */
     public function getUserType(): string
     {
@@ -31,7 +33,11 @@ trait UserTypeTrait
     }
 
     /**
-     * {inheritdoc}
+     * Set UserType of entity.
+     *
+     * @param string $type Value of entity.
+     *
+     * @return self
      */
     public function setUserType(string $type): self
     {

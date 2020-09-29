@@ -13,7 +13,7 @@ interface CodeInterface
     /**
      * Set code of entity.
      *
-     * @param string $code
+     * @param string $code Value of entity.
      *
      * @return self
      */

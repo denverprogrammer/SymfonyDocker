@@ -22,7 +22,7 @@ interface PrivledgesInterface
     /**
      * Sets trackrecord actions
      *
-     * @param array $actions
+     * @param array $actions Value of entity.
      *
      * @return self
      */
@@ -38,7 +38,7 @@ interface PrivledgesInterface
     /**
      * Sets subscription actions
      *
-     * @param array $actions
+     * @param array $actions Value of entity.
      *
      * @return self
      */
@@ -54,7 +54,7 @@ interface PrivledgesInterface
     /**
      * Sets pending order actions
      *
-     * @param array $actions
+     * @param array $actions Value of entity.
      *
      * @return self
      */
@@ -70,7 +70,7 @@ interface PrivledgesInterface
     /**
      * Sets filled order actions
      *
-     * @param array $actions
+     * @param array $actions Value of entity.
      *
      * @return self
      */
@@ -86,7 +86,7 @@ interface PrivledgesInterface
     /**
      * Sets open position actions
      *
-     * @param array $actions
+     * @param array $actions Value of entity.
      *
      * @return self
      */
@@ -102,7 +102,7 @@ interface PrivledgesInterface
     /**
      * Sets closed positions actions
      *
-     * @param array $actions
+     * @param array $actions Value of entity.
      *
      * @return self
      */

@@ -1,0 +1,112 @@
+name: Integrate
+
+on: [push, pull_request]
+
+env:
+    APP_ENV: test
+    APP_SECRET: test-token
+    MYSQL_HOST: database
+    MYSQL_ROOT_PASSWORD: drowssap
+    MYSQL_USER: traderUser
+    MYSQL_PORT: 3306
+    MYSQL_PASSWORD: drowssap
+    MYSQL_DATABASE: traderDbTest
+    MAILER_DSN: 'smtp://mailer:1025'
+    MESSENGER_TRANSPORT_DSN: 'amqp://guest:guest@messenger:5672/%2f/messages'
+    CORS_ALLOW_ORIGIN: '^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+
+jobs:
+    CI:
+        name: Symfony 5.1 (PHP ${{ matrix.php-versions }})
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: true
+            matrix:
+                php-versions: ['7.4']
+
+        services:
+            database:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+                    MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+                    MYSQL_USER: ${{ env.MYSQL_USER }}
+                    MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+                    MYSQL_HOST: ${{ env.MYSQL_HOST }}
+                    MYSQL_PORT: ${{ env.MYSQL_PORT }}
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+                ports:
+                    - 3306:3306
+
+            mailer:
+                image: schickling/mailcatcher
+                ports:
+                    - 1080:1080
+                    - 1025:1025
+
+        steps:
+            # —— Setup Php —————————————————————————————————————————————
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP, extensions and composer with shivammathur/setup-php
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  tools: pecl
+                  extensions: mbstring, xml, ctype, iconv, intl, dom, filter, gd, iconv, json, mbstring
+              env:
+                  update: true
+
+            ## Setup MySql ————————————————————————————————————————————————
+            - name: Setup backend
+              working-directory: ./backend
+              run: touch .env
+
+            - name: Add the mysql host name to the /etc/hosts file
+              run: echo "127.0.0.1	database" | sudo tee -a /etc/hosts
+
+            - name: Add the mailer host name to the /etc/hosts file
+              run: echo "127.0.0.1	mailer" | sudo tee -a /etc/hosts
+
+            # —— Composer dependencies —————————————————————————————————————————————————————————
+            - name: Validate composer.json and composer.lock
+              working-directory: ./backend
+              run: composer validate
+
+            - name: Install Composer dependencies
+              working-directory: ./backend
+              run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+            ## Coding standards ————————————————————————————————————————————————
+            - name: Coding standards checks (php_codesniffer + PHPStan)
+              run: make psr-check
+
+            ## Check database ————————————————————————————————————————————————
+            - name: Create database
+              working-directory: ./backend
+              run: bin/console doctrine:database:create --env=test --if-not-exists --ansi
+
+            - name: Run migrations
+              working-directory: ./backend
+              run: bin/console doctrine:migrations:migrate --env=test --ansi
+
+            ## Run functional tests ————————————————————————————————————————————————
+            - name: Run functional tests
+              run: make run_functional_tests
+
+            ## Install NPM packages ————————————————————————————————————————————————
+            - name: Install NPM packages
+              working-directory: ./frontend
+              run: yarn install
+
+            ## Build frontend application ————————————————————————————————————————————————
+            - name: Build frontned
+              working-directory: ./frontend
+              run: yarn run dev
+
+            ## Run linter on frontend application ————————————————————————————————————————————————
+            - name: Lint frontend
+              working-directory: ./frontend
+              run: yarn run lint

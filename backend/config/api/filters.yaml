@@ -1,0 +1,154 @@
+services:
+    default.properties_filter:
+        parent: 'api_platform.serializer.property_filter'
+        arguments:
+            $overrideDefaultProperties: true
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    default.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments:
+            $properties: ~
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    code.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { code: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    recipient.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { recipientType: ~, recipient: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    token.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { token: exact } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    title.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { title: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    description.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { description: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    exchange.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { exchange.id: ~, exchange.code: ~, exchange.title: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    market.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { market.id: ~, market.code: ~, market.title: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    security.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { security.id: ~, security.code: ~, security.title: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    privledges.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { trackrecordActions: ~, subscriptionActions: ~, pendingOrderActions: ~, filledOrderActions: ~, openPositionActions: ~ , closedPositionActions: ~} ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    userType.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { userType: ~} ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    joinStatus.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { trackrecordJoinStatus: ~, subscriberJoinStatus: ~} ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    
+    user.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { user.id: ~, user.username: ~, user.email: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    trackrecord.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { trackrecord.id: ~, trackrecord.title: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    created.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { created: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    updated.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { updated: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    startsOn.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { startsOn: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    endsOn.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { endsOn: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

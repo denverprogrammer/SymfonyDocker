@@ -3,21 +3,60 @@
 version: '3.5'
 
 services:
-    database:
-        environment:
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-    application:
-        environment:
-            - XDEBUG_CONFIG=idekey=${XDEBUG_CODE} remote_host=${XDEBUG_HOST} remote_port=${XDEBUG_PORT} remote_enable=1
-            - APP_ENV=dev
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    webserver:
+        env_file: ./backend/.env
+
+    backend:
+        env_file: ./backend/.env
+        volumes:
+            - ./backend:/usr/src/backend
+            - ./docker/backend/supervisor.conf:/etc/supervisor/supervisor.conf:ro
+
+    mailer:
+        container_name: mailer
+        hostname: mailer
+        restart: always
+        image: schickling/mailcatcher
+        env_file: ./backend/.env
+        depends_on:
+            - backend
+        ports:
+            - 1080:1080
+            - 1025:1025
+        networks:
+            - internal
+
+    messenger:
+        container_name: messenger
+        hostname: messenger
+        image: rabbitmq:3-management-alpine
+        restart: always
+        env_file: ./backend/.env
+        depends_on:
+            - backend
+        networks:
+            - internal
+        ports:
+            - 5672:5672
+            - 15672:15672
+        user: ${CURRENT_UID}
+
     adminer:
+        container_name: adminer
+        hostname: adminer
         depends_on:
             - database
-        hostname: adminer
         image: adminer
         ports:
-            - "${ADMINER_PORT}:8080"
+            - 8081:8080
         restart: always
+        env_file: ./backend/.env
         networks:
-            - symfony_docker
+            - internal
+            - external
+
+    database:
+        env_file: ./backend/.env
+        ports:
+            - 3306:3306

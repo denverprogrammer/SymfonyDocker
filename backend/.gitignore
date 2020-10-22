@@ -1,0 +1,33 @@
+/.env
+/.env.local
+/.env.local.php
+/.env.*.local
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+/tests/functional/results
+/tests/unit/results
+/tests/spec/results
+
+###> testing results ###
+/phpcs-cache
+/tests/unit/.phpunit.result.cache
+/tests/default.xml
+###> testing results ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###

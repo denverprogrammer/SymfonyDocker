@@ -1,0 +1,289 @@
+resources:
+    App\Entity\Exchange:
+        shortName: Exchange
+        attributes:
+            normalization_context:
+                groups: ['exchange:read']
+            denormalization_context:
+                groups: ['exchange:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - code.search_filter
+                    - title.search_filter
+                    - created.date_filter
+                    - updated.date_filter
+                    - default.order_filter
+                    - default.properties_filter
+            post: ~
+        properties: ~
+
+    App\Entity\Message:
+        shortName: Message
+        attributes:
+            normalization_context:
+                groups: ['message:read']
+            denormalization_context:
+                groups: ['message:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - recipient.search_filter
+                    - token.search_filter
+                    - created.date_filter
+                    - updated.date_filter
+                    - default.order_filter
+                    - default.properties_filter
+            send_message:
+                status: 202
+                method: post
+                controller: App\Controller\Tasks\Messages\SendMessageTask
+                openapi_context:
+                    summary: Creates a new message.
+                    parameters:
+                        - in: body
+                          schema:
+                              properties:
+                                  recipientType:
+                                      description: Type of receiver
+                                      required: true
+                                      type: string
+                                  recipient:
+                                      description: Receiver of message
+                                      required: true
+                                      type: string
+                                  messageType:
+                                      description: Type of message
+                                      required: true
+                                      type: string
+                                  messageBody:
+                                      description: Content of message
+                                      type: string
+        properties: ~
+
+    App\Entity\Market:
+        shortName: Market
+        attributes:
+            normalization_context:
+                groups: ['market:read']
+            denormalization_context:
+                groups: ['market:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - code.search_filter
+                    - title.search_filter
+                    - created.date_filter
+                    - updated.date_filter
+                    - default.order_filter
+                    - default.properties_filter
+            post: ~
+        properties: ~
+
+    App\Entity\Security:
+        shortName: Security
+        attributes:
+            normalization_context:
+                groups: ['security:read']
+            denormalization_context:
+                groups: ['security:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - code.search_filter
+                    - title.search_filter
+                    - created.date_filter
+                    - updated.date_filter
+                    - default.order_filter
+                    - default.properties_filter
+            post: ~
+        properties: ~
+
+    App\Entity\Stock:
+        shortName: Stock
+        attributes:
+            normalization_context:
+                groups: ['stock:read']
+            denormalization_context:
+                groups: ['stock:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - created.date_filter
+                    - updated.date_filter
+                    - code.search_filter
+                    - title.search_filter
+                    - exchange.search_filter
+                    - market.search_filter
+                    - security.search_filter
+                    - default.order_filter
+                    - default.properties_filter
+            post: ~
+        properties: ~
+
+    App\Entity\Subscription:
+        shortName: Subscription
+        attributes:
+            normalization_context:
+                groups: ['subscription:read']
+            denormalization_context:
+                groups: ['subscription:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - created.date_filter
+                    - updated.date_filter
+                    - trackrecord.search_filter
+                    - user.search_filter
+                    - startsOn.date_filter
+                    - endsOn.date_filter
+                    - userType.search_filter
+                    - privledges.search_filter
+                    - default.order_filter
+                    - default.properties_filter
+            post: ~
+        properties: ~
+
+    App\Entity\Trackrecord:
+        shortName: Trackrecord
+        attributes:
+            normalization_context:
+                groups: ['trackrecord:read']
+            denormalization_context:
+                groups: ['trackrecord:write']
+        itemOperations: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - created.date_filter
+                    - updated.date_filter
+                    - title.search_filter
+                    - description.search_filter
+                    - privledges.search_filter
+                    - default.order_filter
+                    - default.properties_filter
+            post: ~
+        properties: ~
+
+    App\Entity\User:
+        shortName: User
+        attributes:
+            normalization_context:
+                groups: ['user:read']
+            denormalization_context:
+                groups: ['user:write']
+        itemOperations:
+            get: ~
+            put: ~
+            patch: ~
+        collectionOperations:
+            get:
+                method: get
+                filters:
+                    - created.date_filter
+                    - updated.date_filter
+                    - default.order_filter
+                    - default.properties_filter
+            create_account:
+                route_name: create_account
+                method: post
+                openapi_context:
+                    summary: Create a new account.
+                    parameters:
+                        - in: body
+                          schema:
+                              properties:
+                                  email:
+                                      description: Email of user
+                                      required: true
+                                      type: string
+                                  username:
+                                      description: Username of user
+                                      required: true
+                                      type: string
+                output: false
+            reset_password:
+                route_name: reset_password
+                method: post
+                openapi_context:
+                    summary: Resets the password for a user
+                    parameters:
+                        - in: body
+                          schema:
+                              properties:
+                                  email:
+                                      description: Email of user
+                                      required: true
+                                      type: string
+
+            confirm_account:
+                method: post
+                controller: App\Controller\ConfirmAccountController
+                path: /users/confirm_account/{token}
+                requirements:
+                    token: '[a-zA-Z0-9]+'
+                openapi_context:
+                    summary: Confirms a new account.
+                    parameters:
+                        - in: path
+                          name: token
+                          type: string
+                          required: true
+                        - in: body
+                          schema:
+                              properties:
+                                  password:
+                                      description: User password
+                                      required: true
+                                      type: string
+                                  notifications:
+                                      description: User wants site messages
+                                      required: true
+                                      type: string
+                                  agreement:
+                                      description: User has accepted the terms of service
+                                      required: true
+                                      type: boolean
+            confirm_password:
+                method: post
+                controller: App\Controller\ConfirmPasswordController
+                path: /users/confirm_password/{token}
+                requirements:
+                    token: '[a-zA-Z0-9]+'
+                openapi_context:
+                    summary: Confirms a new password.
+                    parameters:
+                        - in: path
+                          name: token
+                          type: string
+                          required: true
+                        - in: body
+                          schema:
+                              properties:
+                                  password:
+                                      description: User password
+                                      required: true
+                                      type: string
+
+    # App\Models\ResetPasswordModel:
+    #     attributes:
+    #         messenger: true
+    #         output: false
+
+    # App\Models\CreateAccountModel:
+    #     attributes:
+    #         messenger: true
+    #         output: false

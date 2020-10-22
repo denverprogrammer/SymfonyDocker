@@ -1,0 +1,29 @@
+default:
+    formatters:
+        pretty: true
+        junit:
+            output_path: ./tests/functional/results/junit
+
+    suites:
+        default:
+            paths:
+                features: ./tests/functional/features/
+            contexts:
+                - App\Tests\Functional\BackendContext
+                - Behat\MinkExtension\Context\MinkContext
+                - behatch:context:browser
+                - behatch:context:debug
+                - behatch:context:system
+                - behatch:context:json
+                - behatch:context:table
+                - behatch:context:rest
+                - behatch:context:xml
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: tests/bootstrap.php
+        Behat\MinkExtension:
+            sessions:
+                symfony:
+                    symfony: ~
+        Behatch\Extension: ~

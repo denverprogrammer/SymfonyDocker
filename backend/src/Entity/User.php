@@ -30,7 +30,6 @@ class User implements UserInterface, EquatableInterface
     use Traits\EmailTrait;
     use Traits\UsernameTrait;
     use Traits\SubscriptionCollectionTrait;
-    use Traits\ViewStateTrait;
     use Traits\ConfirmedTrait;
     use Traits\TokenTrait;
     use Traits\PasswordTrait;

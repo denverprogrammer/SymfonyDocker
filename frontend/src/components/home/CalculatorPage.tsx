@@ -8,6 +8,10 @@ import CalculatorForm from '../forms/CalculatorForm';
 import CalculatedGrid from './CalculatedGrid';
 
 const CalculatorPage = (): ReactElement => {
+    const [selectedRow, setSelectedRow] = useState<number>(0);
+
+    const [selectedColumn, setSelectedColumn] = useState<number>(0);
+
     const [settings, setSettings] = useState<CalculatorFieldProps>({
         initialCapital: 10000,
         priceOffset: 0.0,
@@ -31,11 +35,14 @@ const CalculatorPage = (): ReactElement => {
     };
 
     const handleRowIndexChange = (index: number): void => {
-        console.log('index', index);
         const changed = Object.assign({}, settings);
         changed.startRow = Number(index);
         setSettings(changed);
-        console.log('changed', changed);
+    };
+
+    const handleCellClick = (row: number, column: number): void => {
+        setSelectedRow(row);
+        setSelectedColumn(column);
     };
 
     const classes = makeStyles((theme: Theme) =>
@@ -68,22 +75,31 @@ const CalculatorPage = (): ReactElement => {
                             increRow={settings.increRow}
                             onCalculatorChange={handleCalculatorChange}
                         />
-                        <Typography variant='h6'>initial capital: {settings.initialCapital}</Typography>&nbsp;
-                        <Typography variant='h6'>price offset: {settings.priceOffset}</Typography>&nbsp;
-                        <Typography variant='h6'>risk amount: {settings.riskAmount}</Typography>&nbsp;
-                        <Typography variant='h6'>warning percent: {settings.warningPercent}</Typography>&nbsp;
-                        <Typography variant='h6'>danger percent: {settings.dangerPercent}</Typography>&nbsp;
-                        <Typography variant='h6'>start column: {settings.startCol}</Typography>&nbsp;
-                        <Typography variant='h6'>column increment: {settings.increCol}</Typography>&nbsp;
-                        <Typography variant='h6'>start row: {settings.startRow}</Typography>&nbsp;
-                        <Typography variant='h6'>row increment: {settings.increRow}</Typography>&nbsp;
+                        <Typography variant='h6'>initial capital: $ {settings.initialCapital}</Typography>&nbsp;
+                        <Typography variant='h6'>price offset: $ {settings.priceOffset}</Typography>&nbsp;
+                        <Typography variant='h6'>risk: $ {settings.riskAmount}</Typography>&nbsp;
+                        <Typography variant='h6'>warning: {settings.warningPercent} %</Typography>&nbsp;
+                        <Typography variant='h6'>danger: {settings.dangerPercent} %</Typography>&nbsp;
+                        <Typography variant='h6'>Share increment: {settings.increCol}</Typography>&nbsp;
+                        <Typography variant='h6'>Price increment: $ {settings.increRow}</Typography>&nbsp;
                     </Grid>
                     <Grid item xs={10}>
                         <CalculatedGrid
                             {...settings}
                             onColIndexChange={handleColIndexChange}
                             onRowIndexChange={handleRowIndexChange}
+                            onCellClick={handleCellClick}
                         />
+                        <Typography variant='h6'>
+                            You can loose approximately ${settings.riskAmount} when buying or selling&nbsp;
+                            {selectedColumn} shares at ${selectedRow} when the price moves against you by $
+                            {Number(settings.riskAmount / selectedColumn).toFixed(2)}.
+                        </Typography>
+                        <Typography variant='h6'>
+                            The cost of your trade is ${Number(selectedColumn * selectedRow).toFixed(2)} which is&nbsp;
+                            {Number(((selectedColumn * selectedRow) / settings.initialCapital) * 100).toFixed(2)}%&nbsp;
+                            of your initial capital of ${settings.initialCapital}.
+                        </Typography>
                     </Grid>
                 </Grid>
             </CardContent>

@@ -21,6 +21,6 @@
     "jsx": "react"
   },
   "include": [
-    "js"
+    "src"
   ]
 }

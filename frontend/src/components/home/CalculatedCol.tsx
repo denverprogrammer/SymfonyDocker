@@ -10,7 +10,8 @@ const CalculatedCol = ({
     range,
     warningPercent,
     dangerPercent,
-    initialCapital
+    initialCapital,
+    onCellClick
 }: CalculatedCellProps): ReactElement => {
     const statusMap = {
         header: 'inherit',
@@ -43,7 +44,13 @@ const CalculatedCol = ({
     const content = range === Infinity ? initialPrice.toFixed(2) : range.toFixed(2);
 
     return (
-        <TableCell component='th' scope='row' align='right' className={classes.td}>
+        <TableCell
+            component='th'
+            scope='row'
+            align='right'
+            className={classes.td}
+            onMouseEnter={(): void => onCellClick(initialPrice, initialCost / initialPrice)}
+        >
             {content}
         </TableCell>
     );

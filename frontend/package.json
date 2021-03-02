@@ -25,11 +25,10 @@
     },
     "license": "UNLICENSED",
     "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress",
-        "lint": "node node_modules/eslint/bin/eslint ./{js,css}/**"
+        "start": "webpack-dev-server --open --mode development",
+        "build": "webpack --mode development",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "node node_modules/eslint/bin/eslint ./src/**/*.{ts,tsx,js,jsx,css}"
     },
     "eslintConfig": {
         "extends": "react-app"

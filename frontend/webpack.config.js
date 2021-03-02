@@ -23,7 +23,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js']
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, '../backend/public/build'),
         filename: '[name]-bundle.js'
     },
     plugins: [

@@ -10,6 +10,7 @@ import {
 } from 'react-admin';
 import React, { ReactElement, useState } from 'react';
 import SiteDialog from '../misc/SiteDialog';
+import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 
 interface ConfirmAccountProps {
     token: string;
@@ -19,6 +20,12 @@ interface ValidationProps {
     newPassword: string | null;
     confirmPassword: string | null;
 }
+
+const CustomToolbar = (props: ToolbarProps): ReactElement => (
+    <Toolbar {...props}>
+        <SaveButton submitOnEnter={true} fullWidth label='Confirm Account' />
+    </Toolbar>
+);
 
 const ConfirmAccountForm = ({ token }: ConfirmAccountProps): ReactElement => {
     const [isLoading, setIsLoading] = useState(false);
@@ -111,7 +118,12 @@ const ConfirmAccountForm = ({ token }: ConfirmAccountProps): ReactElement => {
     return (
         <SiteDialog title='Confirm Account' width={300}>
             <>
-                <SimpleForm validate={validateInput} toolbar={null} submitOnEnter={true}>
+                <SimpleForm
+                    validate={validateInput}
+                    onSubmit={handleSubmit}
+                    toolbar={<CustomToolbar />}
+                    submitOnEnter={true}
+                >
                     <PasswordInput
                         source='newPassword'
                         value={passwordInput}
@@ -140,13 +152,6 @@ const ConfirmAccountForm = ({ token }: ConfirmAccountProps): ReactElement => {
                         label={agreementText}
                         defaultValue={agreementInput}
                         onChange={(e): void => setAgreementInput(e === true)}
-                    />
-                    <SaveButton
-                        handleSubmitWithRedirect={handleSubmit}
-                        submitOnEnter={true}
-                        disabled={isLoading}
-                        fullWidth
-                        label='Confirm Account'
                     />
                 </SimpleForm>
                 <Notification />

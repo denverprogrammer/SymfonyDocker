@@ -1,6 +1,13 @@
 import { Notification, useRedirect, useNotify, required, email, SimpleForm, TextInput, SaveButton } from 'react-admin';
 import React, { ReactElement, useState } from 'react';
 import SiteDialog from '../misc/SiteDialog';
+import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
+
+const CustomToolbar = (props: ToolbarProps): ReactElement => (
+    <Toolbar {...props}>
+        <SaveButton submitOnEnter={true} fullWidth label='Reset Password' />
+    </Toolbar>
+);
 
 const ResetPasswordForm = (): ReactElement => {
     const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +68,7 @@ const ResetPasswordForm = (): ReactElement => {
     return (
         <SiteDialog title='Reset Password' width={300}>
             <>
-                <SimpleForm redirect='/' toolbar={null} submitOnEnter={true}>
+                <SimpleForm redirect='/' onSubmit={handleSubmit} toolbar={<CustomToolbar />} submitOnEnter={true}>
                     <TextInput
                         source='email'
                         type='email'
@@ -70,17 +77,8 @@ const ResetPasswordForm = (): ReactElement => {
                         fullWidth
                         onChange={(e): void => setEmailInput(e.target.value)}
                     />
-                    <SaveButton
-                        handleSubmitWithRedirect={handleSubmit}
-                        submitOnEnter={true}
-                        fullWidth
-                        pristine={false}
-                        saving={false}
-                        disabled={isLoading}
-                        label='Reset Password'
-                    />
                     <>
-                        <br />I would like to <a href='/#/create_account'>create an account.</a> <br />
+                        I would like to <a href='/#/create_account'>create an account.</a> <br />
                         Already have an account? Sign in <a href='/#/login'>here.</a>
                     </>
                 </SimpleForm>

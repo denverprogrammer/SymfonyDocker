@@ -4,6 +4,7 @@ import { CalculatorFieldProps } from '../../helper/AppTypes';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import Toolbar from '@material-ui/core/Toolbar';
 
 interface OnCalculatorProps extends CalculatorFieldProps {
     startCol: number;
@@ -32,7 +33,7 @@ const CalculatorForm = ({
     })();
 
     return (
-        <SimpleForm toolbar={null} submitOnEnter={false}>
+        <SimpleForm submitOnEnter={false} toolbar={<Toolbar />}>
             <NumberInput
                 defaultValue={10000}
                 source='initialCapital'

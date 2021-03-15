@@ -8,6 +8,7 @@ const Dotenv = require('dotenv-webpack');
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
+
 Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -16,12 +17,12 @@ Encore
     .setPublicPath('/build')
 
 
-    .addEntry('app', ['core-js/stable', './src/App.tsx'])
+    .addEntry('app', ['core-js/stable', '../frontend/src/App.tsx'])
     .addPlugin(new Dotenv())
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     // Disabled, as causes issues loading in non-symfony apps.
-    //.splitEntryChunks()
+    .splitEntryChunks()
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
@@ -43,7 +44,6 @@ Encore
     .configureBabel(
         (babelConfig) => {
             babelConfig.plugins.push('@babel/plugin-proposal-class-properties');
-            // babelConfig.plugins.push('babel-plugin-dynamic-import-polyfill');
         },
         {
             useBuiltIns: 'usage',

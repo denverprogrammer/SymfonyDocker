@@ -4,6 +4,7 @@ import { CalculatorFieldProps } from '../../helper/AppTypes';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import Toolbar from '@material-ui/core/Toolbar';
 
 interface OnCalculatorProps extends CalculatorFieldProps {
     startCol: number;
@@ -32,8 +33,9 @@ const CalculatorForm = ({
     })();
 
     return (
-        <SimpleForm toolbar={null} submitOnEnter={false}>
+        <SimpleForm submitOnEnter={false} toolbar={<Toolbar />}>
             <NumberInput
+                defaultValue={10000}
                 source='initialCapital'
                 value={initialCapital}
                 validate={required()}
@@ -52,25 +54,39 @@ const CalculatorForm = ({
                     })
                 }
             />
-            <NumberInput
-                source='priceOffset'
-                value={priceOffset}
-                validate={required()}
-                fullWidth
-                onChange={(e): void =>
-                    onCalculatorChange({
-                        initialCapital: initialCapital,
-                        priceOffset: Number(e.target.value),
-                        riskAmount: riskAmount,
-                        warningPercent: warningPercent,
-                        dangerPercent: dangerPercent,
-                        startCol: startCol,
-                        increCol: increCol,
-                        startRow: startRow,
-                        increRow: increRow
-                    })
-                }
-            />
+
+            <div className={classes.root}>
+                <Typography gutterBottom>Price Offset</Typography>
+                <Slider
+                    defaultValue={0.0}
+                    min={0.0}
+                    step={0.01}
+                    max={increRow - 0.01}
+                    valueLabelDisplay='auto'
+                    value={typeof priceOffset === 'number' ? priceOffset : 0.0}
+                    onChange={(e, newValue: number | number[]): void => {
+                        let value = Number(0.0);
+
+                        if (Array.isArray(newValue) && newValue.length > 0) {
+                            value = Number(0.0);
+                        } else {
+                            value = Number(newValue);
+                        }
+
+                        onCalculatorChange({
+                            initialCapital: initialCapital,
+                            priceOffset: value,
+                            riskAmount: riskAmount,
+                            warningPercent: warningPercent,
+                            dangerPercent: dangerPercent,
+                            startCol: startCol,
+                            increCol: increCol,
+                            startRow: startRow,
+                            increRow: increRow
+                        });
+                    }}
+                />
+            </div>
 
             <div className={classes.root}>
                 <Typography gutterBottom>Risk Amount</Typography>
@@ -134,8 +150,8 @@ const CalculatorForm = ({
                 <Typography gutterBottom>Shares Increment</Typography>
                 <Slider
                     defaultValue={100}
-                    min={100}
-                    step={100}
+                    min={25}
+                    step={25}
                     max={1000}
                     valueLabelDisplay='auto'
                     value={typeof increCol === 'number' ? increCol : 1}
@@ -163,25 +179,38 @@ const CalculatorForm = ({
                 />
             </div>
 
-            <NumberInput
-                source='rowIncrement'
-                value={increRow}
-                validate={required()}
-                fullWidth
-                onChange={(e): void =>
-                    onCalculatorChange({
-                        initialCapital: initialCapital,
-                        priceOffset: priceOffset,
-                        riskAmount: riskAmount,
-                        warningPercent: warningPercent,
-                        dangerPercent: dangerPercent,
-                        startCol: startCol,
-                        increCol: increCol,
-                        startRow: startRow,
-                        increRow: Number(e.target.value)
-                    })
-                }
-            />
+            <div className={classes.root}>
+                <Typography gutterBottom>Row Increment</Typography>
+                <Slider
+                    defaultValue={1}
+                    min={1}
+                    step={1}
+                    max={initialCapital}
+                    valueLabelDisplay='auto'
+                    value={typeof increRow === 'number' ? increRow : 1}
+                    onChange={(e, newValue: number | number[]): void => {
+                        let value = Number(1);
+
+                        if (Array.isArray(newValue) && newValue.length > 0) {
+                            value = newValue[0];
+                        } else {
+                            value = Number(newValue);
+                        }
+
+                        onCalculatorChange({
+                            initialCapital: initialCapital,
+                            priceOffset: priceOffset,
+                            riskAmount: riskAmount,
+                            warningPercent: warningPercent,
+                            dangerPercent: dangerPercent,
+                            startCol: startCol,
+                            increCol: increCol,
+                            startRow: startRow,
+                            increRow: value
+                        });
+                    }}
+                />
+            </div>
         </SimpleForm>
     );
 };

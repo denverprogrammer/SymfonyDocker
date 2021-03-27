@@ -1,6 +1,7 @@
 import { Notification, useRedirect, useNotify, required, SimpleForm, PasswordInput, SaveButton } from 'react-admin';
 import React, { ReactElement, useState } from 'react';
 import SiteDialog from '../misc/SiteDialog';
+import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 
 interface ConfirmPasswordProps {
     token: string;
@@ -10,6 +11,12 @@ interface ValidationProps {
     newPassword: string | null;
     confirmPassword: string | null;
 }
+
+const CustomToolbar = (props: ToolbarProps): ReactElement => (
+    <Toolbar {...props}>
+        <SaveButton submitOnEnter={true} fullWidth label='Confirm Password' />
+    </Toolbar>
+);
 
 const ConfirmPasswordForm = ({ token }: ConfirmPasswordProps): ReactElement => {
     const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +94,12 @@ const ConfirmPasswordForm = ({ token }: ConfirmPasswordProps): ReactElement => {
     return (
         <SiteDialog title='Confirm Password' width={300}>
             <>
-                <SimpleForm validate={validateInput} toolbar={null} submitOnEnter={true}>
+                <SimpleForm
+                    validate={validateInput}
+                    onSubmit={handleSubmit}
+                    toolbar={<CustomToolbar />}
+                    submitOnEnter={true}
+                >
                     <PasswordInput
                         source='newPassword'
                         value={passwordInput}
@@ -101,13 +113,6 @@ const ConfirmPasswordForm = ({ token }: ConfirmPasswordProps): ReactElement => {
                         validate={required()}
                         fullWidth
                         onChange={(e): void => setConfirmInput(e.target.value)}
-                    />
-                    <SaveButton
-                        handleSubmitWithRedirect={handleSubmit}
-                        submitOnEnter={true}
-                        fullWidth
-                        disabled={isLoading}
-                        label='Confirm Password'
                     />
                 </SimpleForm>
                 <Notification />

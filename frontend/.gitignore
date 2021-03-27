@@ -3,9 +3,15 @@
 /.env.local.php
 /.env.*.local
 
-###> symfony/webpack-encore-bundle ###
+/node_modules
 /node_modules/
-/public/build/
+/node_modules/*
+
+/build
+/build/
+/build/*
+
+###> symfony/webpack-encore-bundle ###
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###

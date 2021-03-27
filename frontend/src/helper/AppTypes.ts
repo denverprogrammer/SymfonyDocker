@@ -145,6 +145,7 @@ export interface CalculatedCellProps {
     dangerPercent: number;
     initialCapital: number;
     shares: number;
+    onCellClick: (column: number, row: number) => void;
 }
 
 export interface CalculatedRowProps {

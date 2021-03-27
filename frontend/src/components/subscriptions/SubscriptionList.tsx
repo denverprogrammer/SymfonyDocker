@@ -15,7 +15,7 @@ const SubscriptionList = (props): ReactElement => {
                 </ReferenceField>
                 <TextField label='User Type' source='userType' />
                 <DateField label='Starts On' source='startsOn' />
-                <DateField label='Ends On' source='endsOn' allowEmpty />
+                <DateField label='Ends On' source='endsOn' />
                 <ShowButton />
             </Datagrid>
         </List>

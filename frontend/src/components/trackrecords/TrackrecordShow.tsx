@@ -7,17 +7,17 @@ const TrackrecordShow = (props): ReactElement => (
     <Show title={<TrackrecordTitle />} {...props}>
         <TabbedShowLayout>
             <Tab label='Description'>
-                <RichTextField source='description' label={false} />
+                <RichTextField source='description' />
             </Tab>
             <Tab label='Subscribers' path='subscriptions'>
-                <ReferenceManyField reference='subscriptions' target='trackrecord.id' label={false}>
+                <ReferenceManyField reference='subscriptions' target='trackrecord.id'>
                     <Datagrid>
                         <ReferenceField source='user' reference='users'>
                             <TextField source='username' />
                         </ReferenceField>
                         <TextField label='User Type' source='userType' />
                         <DateField label='Starts On' source='startsOn' />
-                        <DateField label='Ends On' source='endsOn' allowEmpty />
+                        <DateField label='Ends On' source='endsOn' />
                         <ShowButton />
                     </Datagrid>
                 </ReferenceManyField>

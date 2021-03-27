@@ -104,7 +104,7 @@ jobs:
             ## Build frontend application ————————————————————————————————————————————————
             - name: Build frontned
               working-directory: ./frontend
-              run: yarn run dev
+              run: yarn build
 
             ## Run linter on frontend application ————————————————————————————————————————————————
             - name: Lint frontend

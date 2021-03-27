@@ -1,48 +1,38 @@
-import {
-    Notification,
-    useRedirect,
-    useNotify,
-    useDataProvider,
-    required,
-    email,
-    SimpleForm,
-    TextInput,
-    SaveButton
-} from 'react-admin';
+import { Notification, useRedirect, useNotify, required, email, SimpleForm, TextInput, SaveButton } from 'react-admin';
 import React, { ReactElement, useState } from 'react';
 import SiteDialog from '../misc/SiteDialog';
+import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 
-const CreateAccountForm = (): ReactElement => {
+const CustomToolbar = (props: ToolbarProps): ReactElement => (
+    <Toolbar {...props}>
+        <SaveButton submitOnEnter={true} fullWidth label='Reset Password' />
+    </Toolbar>
+);
+
+const ResetPasswordForm = (): ReactElement => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [emailInput, setEmailInput] = useState('');
 
-    const [usernameInput, setUsernameInput] = useState('');
-
     const redirect = useRedirect();
-
-    const dataProvider = useDataProvider();
 
     const notify = useNotify();
 
-    const errorMessage = 'Could not create account.  Please try again later.';
+    const errorMessage = 'Could not proccess your request.  Please try again later.';
 
-    const successMessage = 'Please check for a confirmation email.';
+    const successMessage = 'A reset password email has been sent';
 
     const handleSubmit = async (): Promise<void> => {
         if (isLoading === true) {
             return;
         }
 
-        fetch(`/api/users/create_account`, {
+        fetch(`/api/users/reset_password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                email: emailInput,
-                username: usernameInput
-            })
+            body: JSON.stringify({ email: emailInput })
         })
             .then((response) => {
                 if (!response.ok) {
@@ -53,7 +43,7 @@ const CreateAccountForm = (): ReactElement => {
 
                 notify(successMessage, 'info');
                 setIsLoading(false);
-                redirect('/login');
+                redirect('/');
             })
             .catch((error) => {
                 let message = '';
@@ -70,22 +60,15 @@ const CreateAccountForm = (): ReactElement => {
                     message = error.message;
                 }
 
-                notify(message, 'warning');
+                notify(message, 'error');
                 setIsLoading(false);
             });
     };
 
     return (
-        <SiteDialog title='Create Account' width={300}>
+        <SiteDialog title='Reset Password' width={300}>
             <>
-                <SimpleForm onSubmit={handleSubmit} toolbar={null} submitOnEnter={true}>
-                    <TextInput
-                        source='username'
-                        value={usernameInput}
-                        validate={required()}
-                        fullWidth
-                        onChange={(e): void => setUsernameInput(e.target.value)}
-                    />
+                <SimpleForm redirect='/' onSubmit={handleSubmit} toolbar={<CustomToolbar />} submitOnEnter={true}>
                     <TextInput
                         source='email'
                         type='email'
@@ -94,18 +77,9 @@ const CreateAccountForm = (): ReactElement => {
                         fullWidth
                         onChange={(e): void => setEmailInput(e.target.value)}
                     />
-                    <SaveButton
-                        handleSubmitWithRedirect={handleSubmit}
-                        submitOnEnter={true}
-                        fullWidth
-                        pristine={false}
-                        saving={false}
-                        disabled={isLoading}
-                        label='Create Account'
-                    />
                     <>
-                        <br />I need to <a href='/#/reset_password'>reset my password.</a> <br />
-                        Already have an account? Login <a href='/#/login'>here.</a>
+                        I would like to <a href='/#/create_account'>create an account.</a> <br />
+                        Already have an account? Sign in <a href='/#/login'>here.</a>
                     </>
                 </SimpleForm>
                 <Notification />
@@ -114,4 +88,4 @@ const CreateAccountForm = (): ReactElement => {
     );
 };
 
-export default CreateAccountForm;
+export default ResetPasswordForm;

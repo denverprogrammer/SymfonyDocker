@@ -7,7 +7,7 @@ import ExitIcon from '@material-ui/icons/PowerSettingsNew';
 const LogoutButton = (props, ref): ReactElement => {
     const logout = useLogout();
 
-    const handleClick = (): void => logout();
+    const handleClick = (): Promise<void> => logout();
 
     return (
         <MenuItem onClick={handleClick} ref={ref}>
